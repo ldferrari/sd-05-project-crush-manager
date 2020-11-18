@@ -1,7 +1,7 @@
 const express = require('express');
 const rescue = require('express-rescue');
 const bodyParser = require('body-parser');
-const { genToken, validateLogin } = require('./middlewares');
+const { genToken, validateLogin, validateCrush } = require('./middlewares');
 const { readCrushs, writeCrushs } = require('./crush/index');
 
 const PORT = 3000;
@@ -9,7 +9,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.post('/crush', rescue(async (req, res) => {
+app.post('/crush', validateCrush, rescue(async (req, res) => {
   const { name, age, date } = req.body;
   const crushs = await readCrushs();
   const id = parseInt(crushs.length, 10) + 1;
