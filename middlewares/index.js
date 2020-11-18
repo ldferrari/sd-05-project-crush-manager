@@ -1,3 +1,7 @@
-const { genToken } = require('./token');
+const genToken = require('./token');
+const validateLogin = require('./validateLogin');
 
-module.exports = { genToken };
+module.exports = {
+  genToken,
+  validateLogin,
+};

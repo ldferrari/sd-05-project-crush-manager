@@ -1,11 +1,14 @@
 const express = require('express');
 const rescue = require('express-rescue');
-const { genToken } = require('./middlewares');
+const bodyParser = require('body-parser');
+const { genToken, validateLogin } = require('./middlewares');
 
 const PORT = 3000;
 const app = express();
 
-app.post('/login', rescue(async (_, res) => {
+app.use(bodyParser.json());
+
+app.post('/login', validateLogin, rescue(async (_, res) => {
   const token = genToken();
   return res.status(200).json(token);
 }));

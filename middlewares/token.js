@@ -5,4 +5,4 @@ const genToken = () => {
   return { token };
 };
 
-module.exports = { genToken };
+module.exports = genToken;
