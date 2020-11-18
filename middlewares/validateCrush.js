@@ -1,7 +1,7 @@
 const rescue = require('express-rescue');
 
 const validateCrush = rescue(async (req, res, next) => {
-  const { name, age } = req.body;
+  const { name, age, date } = req.body;
 
   if (!name) {
     return res
@@ -25,6 +25,12 @@ const validateCrush = rescue(async (req, res, next) => {
     return res
       .status(400)
       .json({ message: 'O crush deve ser maior de idade' });
+  }
+
+  if (!date) {
+    return res
+      .status(400)
+      .json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
   }
 
   next();
