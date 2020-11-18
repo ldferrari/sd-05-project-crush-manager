@@ -9,10 +9,6 @@ const bodyParser = require('body-parser');
 const createToken = require('./services/createtoken');
 const { validateEmail, validatePassword } = require('./services/validateLogin');
 
-// Port listening
-const PORT = 3000;
-app.listen(PORT, () => console.log('3000 port OK!'));
-
 // Middlewares e uses diversos
 app.use(bodyParser.json());
 // app.use(middlewares.namemw);
@@ -52,3 +48,7 @@ app.post('/login', (req, res) => {
 
 // Middlewares de erro
 // app.use(middlewares.error);
+
+// Port listening
+const PORT = 3000;
+app.listen(PORT, () => console.log('3000 port OK!'));
