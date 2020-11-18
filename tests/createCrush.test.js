@@ -11,7 +11,7 @@ const postCrushMock = {
 
 const url = 'http://localhost:3000';
 
-describe('2 - Crie o endpoint POST /crush', () => {
+describe.skip('2 - Crie o endpoint POST /crush', () => {
   beforeEach(() => {
     const crushSeed = fs.readFileSync(
       path.join(__dirname, 'seed.json'),
