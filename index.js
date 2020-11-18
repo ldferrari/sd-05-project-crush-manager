@@ -25,7 +25,7 @@ app.get('/', (request, response) => {
 });
 
 // 1 - Crie o endpoint POST /login
-app.post('/login', function (req, res) {
+app.post('/login', (req, res) => {
   const { email, password } = req.body;
   const pw = password.toString();
   console.log(validateEmail(email));
@@ -49,5 +49,6 @@ app.post('/login', function (req, res) {
     return res.status(200).json(createToken());
   }
 });
+
 // Middlewares de erro
 // app.use(middlewares.error);

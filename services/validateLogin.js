@@ -6,10 +6,9 @@ function validateEmail(email) {
 
 function validatePassword(password) {
   if (password.length > 5) {
-    return true
-  } else {
-    return false
-  };
+    return true;
+  }
+  return false;
 }
 
 module.exports = { validateEmail, validatePassword };
