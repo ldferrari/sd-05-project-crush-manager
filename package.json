@@ -6,14 +6,16 @@
   "scripts": {
     "test": "jest",
     "debug": "nodemon -w --exec node index.js",
-    "start": "nodemon index.js",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
+    "start": "node index.js",
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "crypto-extra": "^1.0.1",
     "express": "^4.17.1",
     "express-rescue": "^1.1.30"
   },

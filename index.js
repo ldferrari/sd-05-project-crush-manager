@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 
-const crypto = require('./generate-token.js');
+const crypto = require("crypto-extra");
 
 function validateEmail(email) {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -42,14 +42,14 @@ app.post('/login', (req, res) => {
   if (password.length < 6) {
     return res.status(400).json(
       {
-        message: 'O "password" ter pelo menos 6 caracteres',
+        message: 'A "senha" deve ter pelo menos 6 caracteres',
       },
     );
   }
 
   res.status(200).json(
     {
-      token: crypto(),
+      token: crypto.randomKey(16),
     },
   );
 });
@@ -57,3 +57,5 @@ app.post('/login', (req, res) => {
 app.listen(3000, () => {
   console.log('Estou monitorando a porta 3000');
 });
+
+//  ref1: https://www.npmjs.com/package/crypto-extra
