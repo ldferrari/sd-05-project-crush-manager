@@ -31,9 +31,7 @@ const auth = (req, res) => {
   } if (emailIsValid && passwordIsValid) {
     const rtoken = crypto.randomBytes(16).toString('hex');
     return res.status(200).json({ token: rtoken });
-  } else {
-    return res.status(401).json('deu ruim');
-  }
+  } return res.status(401).json('deu ruim');
 };
 
 module.exports = auth;

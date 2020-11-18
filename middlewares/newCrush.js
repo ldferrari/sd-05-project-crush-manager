@@ -38,7 +38,5 @@ module.exports = (req, res) => {
         rate: 5,
       },
     });
-  } else {
-    return res.status(401).json('deu ruim');
-  }
+  } return res.status(401).json('deu ruim');
 };
