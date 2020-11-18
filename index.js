@@ -41,10 +41,15 @@ app.post('/login', (req, res) => {
     return res.status(400).json({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
   }
   // // ifs res token
-  if (email && password) {
-    return res.status(200).json(createToken());
-  }
+  // if (email && password) {
+  //   return res.status(200).json(createToken());
+  // }
+  res.status(200).json(createToken());
 });
+
+// 2 - Crie o endpoint POST /crush
+// app.post('/crush', (req, res) => {
+// }
 
 // Middlewares de erro
 // app.use(middlewares.error);
