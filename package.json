@@ -1,11 +1,12 @@
 {
-  "name": "sd-0x-crush-manager",
+  "name": "sd-05-crush-manager",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "debug": "nodemon -w --exec node index.js",
+    "dev": "nodemon index.js",
     "start": "node index.js",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
   },
@@ -15,7 +16,8 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "express-rescue": "^1.1.30"
+    "express-rescue": "^1.1.30",
+    "rand-token": "^1.0.1"
   },
   "devDependencies": {
     "jest": "^26.6.1",
