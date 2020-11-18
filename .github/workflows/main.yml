@@ -1,0 +1,29 @@
+on:
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  evaluator_job:
+    name: Evaluator Job
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1.4.4
+        with:
+          node-version: '12'
+      - name: Static code analysis step
+        uses: betrybe/eslint-linter-action@v2.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Evaluator step
+        id: evaluator
+        uses: betrybe/jest-evaluator-action@v6
+        with:
+          repository-test-name: 'betrybe/sd-0x-crush-manager-tests'
+          repository-test-branch: 'main'
+          npm-start: true
+      - name: Store evaluation step
+        uses: betrybe/store-evaluation-action@v2
+        with:
+          evaluation-data: ${{ steps.evaluator.outputs.result }}
+          environment: production
+          pr-number: ${{ github.event.number }}
