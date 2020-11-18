@@ -1,4 +1,3 @@
-const express = require('express');
 const crypto = require('crypto');
 
 function verifyEmail(email) {
@@ -25,15 +24,14 @@ const auth = (req, res) => {
     return res.status(400).json({ message: 'O campo "email" é obrigatório' });
   } if (!emailIsValid) {
     return res.status(400).json({ message: 'O "email" deve ter o formato "email@email.com"' });
-  } else if (!password) {
+  } if (!password) {
     return res.status(400).json({ message: 'O campo "password" é obrigatório' });
   } else if (!passwordIsValid) {
     return res.status(400).json({ message: 'O "password" ter pelo menos 6 caracteres' });
   } else if (emailIsValid && passwordIsValid) {
-    const token = crypto.randomBytes(16).toString('hex');
-    return res.status(200).json({ token: token });
-  }
-  else {
+    const rtoken = crypto.randomBytes(16).toString('hex');
+    return res.status(200).json({ token: rtoken });
+  } else {
     return res.status(401).json('deu ruim');
   }
 };
