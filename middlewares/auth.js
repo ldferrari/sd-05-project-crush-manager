@@ -1,10 +1,10 @@
-const checkEmail = (mail) => mail.match(/\S+@\S+\.\S+/);
 const randtoken = require('rand-token');
+
 const token = randtoken.generate(16);
+const checkEmail = (mail) => mail.match(/\S+@\S+\.\S+/);
 
 module.exports = (req, res, next) => {
   const { email, password } = req.body;
-  // const passwordSize = password.length;
   if (!email || email === '') {
     return res.status(400).json({ message: 'O campo "email" é obrigatório' });
   }

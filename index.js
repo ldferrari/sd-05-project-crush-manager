@@ -1,6 +1,8 @@
 const express = require('express');
-const app = express();
+
 const middlewares = require('./middlewares');
+
+const app = express();
 const PORT = 3000;
 
 // não remova esse endpoint, e para o avaliador funcionar
