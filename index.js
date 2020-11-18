@@ -47,24 +47,30 @@ app.post('/login', (req, res) => {
   res.status(200).json(createToken());
 });
 
+function checkDatedAt(data) {
+  const re = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+  return re.test(String(data));
+}
+// pacote moment é outra opçao
+
 // 2 - Crie o endpoint POST /crush
 app.post('/crush', (req, res) => {
   const { name, age, date } = req.body;
-  //ifs do name
+  // ifs do name
   if (!name) {
     return res.status(400).json({ message: 'O campo "name" é obrigatório' });
   }
   if (name.length < 3) {
     return res.status(400).json({ message: 'O "name" deve ter pelo menos 3 caracteres' });
   }
-  //ifs do age
+  // ifs do age
   if (!age) {
     return res.status(400).json({ message: 'O campo "age" é obrigatório' });
   }
   if (age < 18) {
     return res.status(400).json({ message: 'O crush deve ser maior de idade' });
   }
-  //ifs do date
+  // ifs do date
   if (date.rate < 1 || date.rate > 5 || !Number.isInteger(date.rate)) {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
   }
@@ -78,12 +84,6 @@ app.post('/crush', (req, res) => {
   }
   // token
 });
-
-function checkDatedAt(data) {
-  const re = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
-  return re.test(String(data));
-}
-// pacote moment é outra opçao
 
 // Middlewares de erro
 // app.use(middlewares.error);
