@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const {
   errorMiddleware,
   authMiddleware,
+  crushMiddleware,
 } = require('./middleware');
 
 const app = express();
@@ -17,6 +18,10 @@ app.get('/', (request, response) => {
 app.post('/login', authMiddleware, (req, res) => {
   const { token } = req;
   res.status(200).json({ token });
+});
+
+app.post('/crush', crushMiddleware, (_req, res) => {
+  res.status(201).json(_req.crush);
 });
 
 app.use(errorMiddleware);

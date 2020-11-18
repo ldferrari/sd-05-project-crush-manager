@@ -1,6 +1,15 @@
 module.exports = {
   NO_EMAIL: 'O campo "email" é obrigatório',
   NO_PASS: 'O campo "password" é obrigatório',
+  NO_NAME: 'O campo "name" é obrigatório',
+  NO_AGE: 'O campo "age" é obrigatório',
+  NO_DATE: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',
+  NO_TOKEN: 'Token não encontrado;401',
   INVALID_EMAIL: 'O "email" deve ter o formato "email@email.com"',
   INVALID_PASS: 'A "senha" deve ter pelo menos 6 caracteres',
+  INVALID_NAME: 'O "name" deve ter pelo menos 3 caracteres',
+  INVALID_AGE: 'O crush deve ser maior de idade',
+  INVALID_DATE_AT: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"',
+  INVALID_RATE: 'O campo "rate" deve ser um inteiro de 1 à 5',
+  INVALID_TOKEN: 'Token inválido;401',
 };
