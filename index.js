@@ -42,7 +42,7 @@ app.post('/login', (req, res) => {
     return res.status(400).send({ message: 'O campo "password" é obrigatório' });
   }
   if (!validatePassword(password)) {
-    return res.status(400).send({ message: 'O "password" ter pelo menos 6 caracteres' });
+    return res.status(400).send({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
   }
   // // ifs res token
   if (email && password) {
