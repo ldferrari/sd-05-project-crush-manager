@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 
-const crypto = require("crypto-extra");
+const crypto = require('crypto-extra');
 
 function validateEmail(email) {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
