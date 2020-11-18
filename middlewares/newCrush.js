@@ -24,11 +24,11 @@ module.exports = (req, res) => {
     return res.status(400).json({ message: 'message": "O campo "name" é obrigatório' });
   } if (!nameIsValid) {
     return res.status(400).json({ message: 'O "name" deve ter pelo menos 3 caracteres' });
-  } else if (!idade) {
+  } if (!idade) {
     return res.status(400).json({ message: 'O campo "age" é obrigatório' });
-  } else if (!ageIsValid) {
+  } if (!ageIsValid) {
     return res.status(400).json({ message: 'O crush deve ser maior de idade' });
-  } else if (nameIsValid && ageIsValid) {
+  } if (nameIsValid && ageIsValid) {
     return res.status(201).json({
       id: 1,
       name: 'Keanu Reeves',
