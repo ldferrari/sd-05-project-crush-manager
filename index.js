@@ -4,7 +4,7 @@ const app = express();
 
 // Importações e Uses
 const bodyParser = require('body-parser'); // melhor prática que app.use(express.json())
-const rescue = require('express-rescue');
+// const rescue = require('express-rescue');
 const middlewares = require('./middlewares');
 const { readCrushFile } = require('./services/addCrushFunctions');
 
