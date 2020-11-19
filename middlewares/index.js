@@ -5,6 +5,7 @@ const checkAge = require('./checkAge');
 const checkDate = require('./checkDate');
 const checkToken = require('./checkToken');
 const readF = require('./readFile/readF');
+const checkId = require('./checkId');
 
 module.exports = {
   checkEmail,
@@ -14,4 +15,5 @@ module.exports = {
   checkDate,
   checkToken,
   readF,
+  checkId,
 };

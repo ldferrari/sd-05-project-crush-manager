@@ -38,11 +38,24 @@ app.post(
         },
       });
     });
-  },
+  }
 );
 app.get('/crush', middleware.checkToken, async (req, res, _next) => {
   teste('./crush.json').then((result) => {
     res.status(200).json(JSON.parse(result));
+  });
+});
+app.get('/crush/:id', middleware.checkToken, middleware.checkId, async (req, res, _next) => {
+  teste('./crush.json').then(() => {
+    res.status(200).json({
+      id: req.params.id,
+      name: req.body.name,
+      age: req.body.age,
+      date: {
+        datedAt: req.body.date.datedAt,
+        rate: req.body.date.rate,
+      },
+    });
   });
 });
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
