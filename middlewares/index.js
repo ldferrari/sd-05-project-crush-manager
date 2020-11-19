@@ -1,6 +1,6 @@
 const logger = require('./logger');
-const checkCrush = require('./checkCrush');
 const auth = require('./auth');
+const checkCrush = require('./checkCrush');
 const addCrush = require('./addCrush');
 // const error = require('./error');
 
