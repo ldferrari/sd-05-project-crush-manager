@@ -38,7 +38,7 @@ app.post(
         },
       });
     });
-  }
+  },
 );
 app.get('/crush', middleware.checkToken, async (req, res, _next) => {
   teste('./crush.json').then((result) => {
