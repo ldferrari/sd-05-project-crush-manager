@@ -2,12 +2,7 @@ const express = require('express');
 
 const app = express();
 
-const crypto = require('crypto-extra');
-
-function validateEmail(email) {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
-}
+const mid = require('./middleware');
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
@@ -16,46 +11,19 @@ app.get('/', (request, response) => {
 
 app.use(express.json());
 
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
-  if (email === undefined || email === '') {
-    return res.status(400).json(
-      {
-        message: 'O campo "email" é obrigatório',
-      },
-    );
-  }
-  if (!validateEmail(email)) {
-    return res.status(400).json(
-      {
-        message: 'O "email" deve ter o formato "email@email.com"',
-      },
-    );
-  }
-  if (password === undefined || password === '') {
-    return res.status(400).json(
-      {
-        message: 'O campo "password" é obrigatório',
-      },
-    );
-  }
-  if (password.length < 6) {
-    return res.status(400).json(
-      {
-        message: 'A "senha" deve ter pelo menos 6 caracteres',
-      },
-    );
-  }
+app.post('/login', mid.login);
 
-  res.status(200).json(
-    {
-      token: crypto.randomKey(16),
-    },
-  );
-});
+app.post('/crush', mid.auth, mid.create, mid.saveFile);
+
+app.get('/crush', mid.auth, mid.read);
+
+app.get('/crush/:id', mid.auth, mid.searchId);
+
+app.put('/crush/:id', mid.auth, mid.create, mid.update);
 
 app.listen(3000, () => {
   console.log('Estou monitorando a porta 3000');
 });
 
 //  ref1: https://www.npmjs.com/package/crypto-extra
+//  ref2: https://stackoverflow.com/questions/15491894/regex-to-validate-date-format-dd-mm-yyyy
