@@ -4,6 +4,7 @@ const validateCrush = require('./validateCrush');
 const addNewCrush = require('./addNewCrush');
 const getAllCrushes = require('./getAllCrushs.js');
 const getCrushById = require('./getById');
+const updateCrushById = require('./updateCrushById');
 
 module.exports = {
   login,
@@ -12,4 +13,5 @@ module.exports = {
   addNewCrush,
   getAllCrushes,
   getCrushById,
+  updateCrushById,
 };
