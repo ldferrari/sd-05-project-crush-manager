@@ -3,14 +3,15 @@ const express = require('express');
 const app = express();
 
 // Importações e Uses
-const bodyParser = require('body-parser'); // melhor prática que app.use(express.json())
-// const rescue = require('express-rescue');
+
+const bodyParser = require('body-parser');
+// melhor prática que app.use(express.json())
 const middlewares = require('./middlewares');
 const { readCrushFile } = require('./services/crudFunctions');
-
 app.use(bodyParser.json());
 
 // ENDPOINTS
+
 // 0 - Não remova esse endpoint, é para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
@@ -37,8 +38,7 @@ app.put('/crush/:id', middlewares.auth, middlewares.checkCrush, middlewares.edit
 // 6 - Crie o endpoint DELETE /crush/:id
 app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
 
-// Middlewares de erro
-// app.use(middlewares.error);
+// 7 - Crie o endpoint GET /crush/search?q=searchTerm
 
 // Port listening
 const PORT = 3000;
@@ -49,5 +49,8 @@ app.listen(PORT, () => console.log(`${PORT} port OK!`));
 // Consulta do code da aula express CRUD:
 // Link https://github.com/tryber/sd-05-live-lectures/pull/49/files .
 
-// [ Melhorias possíveis ] -
-// Usar nomes Create Read Update Delete em vez de Add Check Edit Delete.
+// [ Melhorias possíveis do projeto ] -
+// Usar nomes Create Read Update Delete em vez de Add Read Edit Delete.
+// Centralizar apenas uma function writeFile para todos CRUDs.
+// Criar middlewares de erro - app.use(middlewares.error) em fim de arquivo.
+// Integrar rescue - nos endpoints e const rescue = require('express-rescue').
