@@ -6,11 +6,11 @@ module.exports = async (req, res) => {
   // tem que ser id para nao aparecer chave idNum no crush editado
   // const { id } = req.params;
   // const idNum = parseInt(id, 10);
-  const crushList = await readCrushFile();
-  const foundCrush = crushList.find((crush) => crush.id === id);
-  if (!foundCrush) {
-    return res.status(404).json({ message: 'Crush não encontrado' });
-  }
+  // const crushList = await readCrushFile();
+  // const foundCrush = crushList.find((crush) => crush.id === id);
+  // if (!foundCrush) {
+  //   return res.status(404).json({ message: 'Crush não encontrado' });
+  // }
   // Etapa do update
   const { name, age, date } = req.body;
   const iCrush = crushList.indexOf(foundCrush);

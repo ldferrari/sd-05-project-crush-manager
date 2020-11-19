@@ -6,10 +6,10 @@ module.exports = async (req, res) => {
   // const { id: stringId } = req.params;
   // const id = parseInt(stringId);
   const crushList = await readCrushFile();
-  const crushToDelete = crushList.find((crush) => crush.id === id);
-  if (!crushToDelete) {
-    return res.status(404).json({ message: 'Crush não encontrado' });
-  }
+  // const crushToDelete = crushList.find((crush) => crush.id === id);
+  // if (!crushToDelete) {
+  //   return res.status(404).json({ message: 'Crush não encontrado' });
+  // }
   // Etapa do delete
   const shorterCrushList = crushList.filter((crush) => crush.id !== id);
   await editCrushFile(shorterCrushList);
