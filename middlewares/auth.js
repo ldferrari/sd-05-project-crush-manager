@@ -8,6 +8,7 @@ function verifyEmail(email) {
 function verifypassword(password) {
   const pRegex = /^.{6,}$/;
   const sPassword = password.toString();
+  console.log(sPassword);
   return pRegex.test(sPassword);
 }
 
@@ -28,7 +29,7 @@ const auth = (req, res) => {
   } if (!password) {
     return res.status(400).json({ message: 'O campo "password" é obrigatório' });
   } if (!passwordIsValid) {
-    return res.status(400).json({ message: 'O "password" ter pelo menos 6 caracteres' });
+    return res.status(400).json({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
   } if (emailIsValid && passwordIsValid) {
     const rtoken = crypto.randomBytes(16).toString('hex');
     return res.status(200).json({ token: rtoken });
