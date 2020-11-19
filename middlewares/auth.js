@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
   if (!givenToken) {
     return res.status(401).json({ message: 'Token não encontrado' });
   }
-  if (givenToken.length < 16) {
+  if (givenToken.length !== 16) {
     return res.status(401).json({ message: 'Token inválido' });
   }
   next();

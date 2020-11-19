@@ -32,6 +32,7 @@ app.get('/crush', middlewares.auth, async (_req, res) => {
 app.get('/crush/:id', middlewares.auth, middlewares.findById);
 
 // 5 - Crie o endpoint PUT /crush/:id
+app.put('/crush/:id', middlewares.auth, middlewares.checkCrush, middlewares.editCrush);
 
 // Middlewares de erro
 // app.use(middlewares.error);
@@ -41,5 +42,9 @@ const PORT = 3000;
 app.listen(PORT, () => console.log(`${PORT} port OK!`));
 
 // [ Honestidade acadêmica ] -
-// Projeto parcialmente desenvolvido em pair programming
-// com os alunos Paulo Dandrea e Natalia Macedo.
+// Pairprogramming dos reqs 1 - 2 com o aluno Paulo Dandrea.
+// Consulta do code da aula express CRUD:
+// Link https://github.com/tryber/sd-05-live-lectures/pull/49/files .
+
+// [ Melhorias possíveis ] -
+// Usar nomes Create Read Update Delete em vez de Add Check Edit Delete.
