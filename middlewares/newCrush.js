@@ -20,40 +20,45 @@ function vRate(rate) {
   return (Int && maiorMenor);
 }
 
-module.exports = (req, res) => {
-  // const { body } = req;
+const newCrush = (req, res) => {
   const nome = req.body.name;
   console.log(nome);
   const idade = req.body.age;
   console.log(idade);
-  const data = req.body.date.datedAt;
-  console.log(data);
-  const rating = req.body.date.rate;
-  console.log(data);
-  const nameIsValid = vName(nome);
-  console.log(nameIsValid);
-  const ageIsValid = vAge(idade);
-  console.log(ageIsValid);
-  const dateIsValid = vDate(data);
-  console.log(ageIsValid);
-  const rateIsValid = vRate(rating);
-  console.log(rateIsValid);
+  const { date } = req.body
 
   if (!nome) {
-    return res.status(400).json({ message: 'message": "O campo "name" é obrigatório' });
-  } if (!nameIsValid) {
+    return res.status(400).json({ message: 'O campo "name" é obrigatório' });
+  } 
+  const nameIsValid = vName(nome);
+  console.log(nameIsValid);
+  if (!nameIsValid) {
     return res.status(400).json({ message: 'O "name" deve ter pelo menos 3 caracteres' });
   } if (!idade) {
     return res.status(400).json({ message: 'O campo "age" é obrigatório' });
-  } if (!ageIsValid) {
+  } const ageIsValid = vAge(idade);
+  console.log(ageIsValid);  
+  if (!ageIsValid) {
     return res.status(400).json({ message: 'O crush deve ser maior de idade' });
-  } if (!data || !rating) {
+  } if (!date || !date.datedAt || !date.rate) {
     return res.status(400).json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
-  } if (!dateIsValid) {
+  } const dateIsValid = vDate(date.datedAt);
+  const rateIsValid = vRate(date.rate);
+  console.log(rateIsValid);
+  if (!dateIsValid) {
     return res.status(400).json({ message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"' });
   } if (!rateIsValid) {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
+  } const { token } = req.headers;
+  console.log(token);
+  if (!token) {
+    return res.status(401).json({ message: 'Token não encontrado' });
   } 
+  const sToken = token.toString();
+  console.log(sToken);
+  if (token.length != 16) {
+    return res.status(401).json({ message: 'Token inválido' });
+  }
   if (nameIsValid && ageIsValid && dateIsValid && rateIsValid) {
     return res.status(201).json({
       id: 1,
@@ -66,3 +71,5 @@ module.exports = (req, res) => {
     });
   } return res.status(401).json('deu ruim');
 };
+
+module.exports = newCrush;
