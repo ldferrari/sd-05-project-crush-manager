@@ -32,7 +32,7 @@ app.put('/crush/:id', validateToken, validateCrush, rescue(async (req, res) => {
   return res.status(200).json({ name, age, id, date });
 }));
 
-app.get('/crush/:id', validateToken, validateCrush, rescue(async (req, res) => {
+app.get('/crush/:id', validateToken, rescue(async (req, res) => {
   const id = parseInt(req.params.id, 10);
   const crushList = await readCrushs();
   const crush = crushList.find((c) => c.id === id);
