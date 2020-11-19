@@ -21,7 +21,7 @@ const newCrushAdd = async (req, res) => {
     const newList = [...originalCrushes, newCrush];
     console.log(newList);
     fs.writeFile((path.resolve(__dirname, '..', 'crush.json')), JSON.stringify(newList), (err, _data) => {
-      if (err) throw('alguma coisa', err.message);
+      if (err) throw ('alguma coisa', err.message);
       console.log('adicionado novo crush');
     });
     res.status(201).json({ id, name, age, date });
