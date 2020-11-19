@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const { NO_CRUSH } = require('./dictionary/errors.dictionary');
+const { DELETED_CRUSH } = require('./dictionary/success.dictionary');
 
 const {
   authMiddleware,
@@ -11,11 +12,12 @@ const {
 } = require('./middleware');
 
 const {
-  getCrushDB,
+  deleteCrushById,
   getCrushById,
   getCrushByQuery,
-  updateCrushById,
+  getCrushDB,
   registerCrush,
+  updateCrushById,
 } = require('./services/utils.service');
 
 const app = express();
@@ -64,6 +66,13 @@ app.put('/crush/:id', addCrushMiddleware, async (req, res) => {
   const { params: { id }, crush } = req;
   const result = await updateCrushById(id, crush);
   res.status(200).json(result);
+});
+
+app.delete('/crush/:id', authMiddleware, async (req, res) => {
+  const { params: { id } } = req;
+  const result = await deleteCrushById(id);
+  if (result) res.status(200).json({ message: DELETED_CRUSH });
+  else res.status(200).json({ message: 'Nenhuma' });
 });
 
 app.use(errorMiddleware);

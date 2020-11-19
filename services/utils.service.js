@@ -24,9 +24,17 @@ const getCrushByQuery = async (q) => JSON
   .parse(await crushDB)
   .filter(({ name }) => name.includes(q));
 
-const getCrushLastId = () => JSON
-  .parse(crushDB)
+const getCrushLastId = async () => JSON
+  .parse(await crushDB)
   .reduce((id, current) => (id > current.id ? id : current.id), 0);
+
+const deleteCrushById = async (id) => {
+  const crushList = JSON
+    .parse(await crushDB)
+    .filter(({ id: crushId }) => crushId !== Number(id));
+  await replaceCrushDB(crushList);
+  return true;
+};
 
 const updateCrushById = async (id, updatedCrush) => {
   const crushList = JSON
@@ -39,7 +47,7 @@ const updateCrushById = async (id, updatedCrush) => {
 
 const registerCrush = async (crush) => {
   const crushList = await getCrushDB() || [];
-  const id = getCrushLastId() + 1;
+  const id = await getCrushLastId() + 1;
   crushList.push({ ...crush, id });
   await replaceCrushDB(crushList);
   return { ...crush, id };
@@ -52,4 +60,5 @@ module.exports = {
   getCrushById,
   getCrushByQuery,
   getCrushLastId,
+  deleteCrushById,
 };
