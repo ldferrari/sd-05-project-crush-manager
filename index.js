@@ -31,6 +31,9 @@ app.get('/crush', middlewares.auth, async (_req, res) => {
 // 4 - Crie o endpoint GET /crush/:id
 app.get('/crush/:id', middlewares.auth, middlewares.findById);
 
+// 5 - Crie o endpoint PUT /crush/:id
+
+
 // Middlewares de erro
 // app.use(middlewares.error);
 

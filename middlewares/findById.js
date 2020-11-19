@@ -1,9 +1,11 @@
 const { readCrushFile } = require('../services/addCrushFunctions');
 
 module.exports = async (req, res) => {
-  const { id } = Number(req.params);
+  const { id } = req.params;
+  const idNum = parseInt(id, 10);
+  // console.log(idNum);
   const crushList = await readCrushFile();
-  const foundCrush = crushList.find((crush) => crush.id === id);
+  const foundCrush = crushList.find((crush) => crush.id === idNum);
   if (!foundCrush) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
