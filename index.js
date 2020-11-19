@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 
 // Importações e Uses
-
 const bodyParser = require('body-parser');
 // melhor prática que app.use(express.json())
 const middlewares = require('./middlewares');
@@ -19,6 +18,9 @@ app.get('/', (request, response) => {
 
 // 1 - Crie o endpoint POST /login
 app.post('/login', middlewares.logger);
+
+// 7 - Crie o endpoint GET /crush/search?q=searchTerm
+app.get('/crush/search', middlewares.auth, middlewares.searchTerm);
 
 // 2 - Crie o endpoint POST /crush
 app.post('/crush', middlewares.auth, middlewares.checkCrush, middlewares.addCrush);
@@ -37,8 +39,6 @@ app.put('/crush/:id', middlewares.auth, middlewares.checkCrush, middlewares.edit
 
 // 6 - Crie o endpoint DELETE /crush/:id
 app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
-
-// 7 - Crie o endpoint GET /crush/search?q=searchTerm
 
 // Port listening
 const PORT = 3000;
