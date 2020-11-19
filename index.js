@@ -36,7 +36,7 @@ app.get('/crush/:id', authMiddleware, async (req, res, next) => {
     else throw new Error(NO_CRUSH);
   } catch ({ message }) {
     next({ message });
-  };
+  }
 });
 
 app.post('/login', loginMiddleware, (req, res) => {
