@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
   // const { id } = req.params;
   // const idNum = parseInt(id, 10);
   const crushList = await readCrushFile();
-  const foundCrush = crushList.find((crush) => crush.id === idNum);
+  const foundCrush = crushList.find((crush) => crush.id === id);
   if (!foundCrush) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
