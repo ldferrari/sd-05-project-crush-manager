@@ -1,7 +1,7 @@
 const { readCrushFile, writeCrushFile } = require('../services/addCrushFunctions');
 
 module.exports = async (req, res) => {
-  console.log("aqui no addCrush");
+  // console.log('aqui no addCrush');
   const { name, age, date } = req.body;
   const currentCrushList = await readCrushFile();
   const id = currentCrushList.length + 1;
