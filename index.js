@@ -5,7 +5,7 @@ const middleware = require('./middlewares');
 const app = express();
 const PORT = 3000;
 const genToken = randtoken.generate(16);
-// const crushs = require('./crush.json');
+const crushs = require('./crush.json');
 
 const teste = middleware.readF;
 
@@ -45,17 +45,17 @@ app.get('/crush', middleware.checkToken, async (req, res, _next) => {
     res.status(200).json(JSON.parse(result));
   });
 });
-app.get('/crush/:id', middleware.checkToken, middleware.checkId, async (req, res, _next) => {
-  teste('./crush.json').then(() => {
-    res.status(200).json({
-      id: req.params.id,
-      name: req.body.name,
-      age: req.body.age,
-      date: {
-        datedAt: req.body.date.datedAt,
-        rate: req.body.date.rate,
-      },
-    });
+app.get('/crush/:id', middleware.checkToken, middleware.checkId, (req, res, _next) => {
+  const auxId = parseInt(req.params.id, 10);
+  const indice = crushs.findIndex(({ id }) => id === auxId);
+  res.status(200).json({
+    id: crushs[indice].id,
+    name: crushs[indice].name,
+    age: crushs[indice].age,
+    date: {
+      datedAt: crushs[indice].date.datedAt,
+      rate: crushs[indice].date.rate,
+    },
   });
 });
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
