@@ -58,7 +58,7 @@ const newCrushValidate = (req, res, next) => {
     return res.status(401).json({ message: 'Token inválido' });
   }
   if (nameIsValid && ageIsValid && dateIsValid && rateIsValid) {
-    return next()
+    return next();
   } return res.status(401).json('deu ruim');
 };
 

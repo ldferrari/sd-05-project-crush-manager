@@ -14,9 +14,9 @@ app.get('/', (request, response) => {
 
 app.post('/login', middlewares.auth);
 
-app.post('/crush', middlewares.newCrushValidate, middlewares.newCrushAdd );
+app.post('/crush', middlewares.newCrushValidate, middlewares.newCrushAdd);
 
-app.use(function (err, req, res, next) {
+app.use((err, _req, res, _next) => {
   res.status(500).send(`Algo deu errado! Mensagem: ${err.message}`);
 });
 
