@@ -3,19 +3,15 @@ const rescue = require('express-rescue');
 const { readCrushFile, addNewCrushOnFile } = require('../Services');
 
 module.exports = rescue(async (req, res) => {
-  try {
-    const id = Number(req.params.id);
-    const { name, age, date } = req.body;
-    const crushData = await readCrushFile();
+  const id = Number(req.params.id);
+  const { name, age, date } = req.body;
+  const crushData = await readCrushFile();
 
-    const chosenCrush = crushData.find((e) => id === e.id);
+  const chosenCrush = crushData.find((e) => id === e.id);
 
-    crushData[crushData.indexOf(chosenCrush)] = { id, name, age, date };
+  crushData[crushData.indexOf(chosenCrush)] = { id, name, age, date };
 
-    await addNewCrushOnFile(crushData);
+  await addNewCrushOnFile(crushData);
 
-    res.status(200).json({ id, name, age, date });
-  } catch (err) {
-    console.log(err);
-  }
+  res.status(200).json({ id, name, age, date });
 });

@@ -31,7 +31,7 @@ const readCrushFile = async () => {
 
 const addNewCrushOnFile = async (allCrushes, oldCrushes, newCrush) => {
   if (allCrushes) {
-    fs.writeFile('./crush.json', JSON.stringify(allCrushes));
+    return fs.writeFile('./crush.json', JSON.stringify(allCrushes));
   }
   const newCrushes = [...oldCrushes, newCrush];
   await fs.writeFile('./crush.json', JSON.stringify(newCrushes));

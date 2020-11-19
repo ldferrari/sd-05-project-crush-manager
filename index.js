@@ -11,6 +11,10 @@ app.get('/', (request, response) => {
 });
 
 app.use(bodyParser.json());
+app.use((req, res, next )=>  {
+  console.log(req.method, req.path);
+  next();
+})
 
 // 1 - Crie o endpoint POST /login
 app.post('/login', middlewares.login);
