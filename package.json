@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
     "test": "jest --runInBand",
     "debug": "nodemon -w --exec node index.js",
     "start": "node index.js",
