@@ -10,12 +10,24 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.delete('/crush/:id', validateToken, rescue(async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  let crushList = await readCrushs();
+  crushList = crushList.filter((c) => c.id !== id);
+
+  await writeCrushs(crushList);
+
+  res.status(200).json({ message: 'Crush deletado com sucesso' });
+}));
+
 app.post('/crush', validateToken, validateCrush, rescue(async (req, res) => {
   const { name, age, date } = req.body;
   const crushList = await readCrushs();
   const id = crushList.length + 1;
   crushList.push({ name, age, id, date });
+
   await writeCrushs(crushList);
+
   res.status(201).json({ name, age, id, date });
 }));
 
@@ -28,7 +40,9 @@ app.put('/crush/:id', validateToken, validateCrush, rescue(async (req, res) => {
   if (!crush) return { err: { message: 'Crush não encontrada' } };
   const indexOfCrush = crushList.indexOf(crush);
   crushList[indexOfCrush] = { name, age, id, date };
+
   await writeCrushs(crushList);
+
   return res.status(200).json({ name, age, id, date });
 }));
 
@@ -49,6 +63,7 @@ app.get('/crush', validateToken, rescue(async (_, res) => {
 
 app.post('/login', validateLogin, rescue(async (_, res) => {
   const token = genToken();
+
   return res.status(200).json(token);
 }));
 
