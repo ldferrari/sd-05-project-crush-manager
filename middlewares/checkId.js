@@ -12,6 +12,6 @@ module.exports = (req, res, next) => {
     return next();
   }
   res.status(404).json({
-    message: `Crush não encontrado ${req.body.id}`,
+    message: 'Crush não encontrado',
   });
 };
