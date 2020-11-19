@@ -1,4 +1,4 @@
-const { readCrushFile } = require('../services/addCrushFunctions');
+const { readCrushFile } = require('../services/crudFunctions');
 
 module.exports = async (req, res) => {
   const { id } = req.params;

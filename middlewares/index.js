@@ -4,7 +4,7 @@ const checkCrush = require('./checkCrush');
 const addCrush = require('./addCrush');
 const findById = require('./findById');
 const editCrush = require('./editCrush');
-// const deleteCrush = require('./deleteCrush');
+const deleteCrush = require('./deleteCrush');
 // const error = require('./error');
 
 module.exports = {
@@ -14,6 +14,6 @@ module.exports = {
   addCrush,
   findById,
   editCrush,
-  // deleteCrush,
+  deleteCrush,
   // error,
 };

@@ -1,4 +1,4 @@
-const { readCrushFile, writeCrushFile } = require('../services/addCrushFunctions');
+const { readCrushFile, editCrushFile } = require('../services/crudFunctions');
 
 module.exports = async (req, res) => {
   // Inicia igual findById
@@ -11,10 +11,10 @@ module.exports = async (req, res) => {
   if (!foundCrush) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
-  // Etapa do update do crush achado
+  // Etapa do update
   const { name, age, date } = req.body;
   const iCrush = crushList.indexOf(foundCrush);
   crushList[iCrush] = { id, name, age, date };
-  await writeCrushFile(crushList);
+  await editCrushFile(crushList);
   return res.status(200).json({ id, name, age, date });
 };

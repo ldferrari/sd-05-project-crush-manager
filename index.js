@@ -6,7 +6,7 @@ const app = express();
 const bodyParser = require('body-parser'); // melhor prática que app.use(express.json())
 // const rescue = require('express-rescue');
 const middlewares = require('./middlewares');
-const { readCrushFile } = require('./services/addCrushFunctions');
+const { readCrushFile } = require('./services/crudFunctions');
 
 app.use(bodyParser.json());
 
@@ -35,7 +35,7 @@ app.get('/crush/:id', middlewares.auth, middlewares.findById);
 app.put('/crush/:id', middlewares.auth, middlewares.checkCrush, middlewares.editCrush);
 
 // 6 - Crie o endpoint DELETE /crush/:id
-// app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
+app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
 
 // Middlewares de erro
 // app.use(middlewares.error);

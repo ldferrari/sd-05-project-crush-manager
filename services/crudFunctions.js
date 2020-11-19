@@ -6,10 +6,14 @@ const readCrushFile = async () => {
   return JSON.parse(crushList);
 };
 
-const writeCrushFile = async (currentCrushList, newCrush) => {
+const addCrushFile = async (currentCrushList, newCrush) => {
   const newCrushList = [...currentCrushList, newCrush];
   // const newCrushList = currentCrushList.push(newCrush);
   fs.writeFile('./crush.json', JSON.stringify(newCrushList));
 };
 
-module.exports = { readCrushFile, writeCrushFile };
+const editCrushFile = async (newCrushList) => {
+  fs.writeFile('./crush.json', JSON.stringify(newCrushList));
+};
+
+module.exports = { readCrushFile, addCrushFile, editCrushFile };
