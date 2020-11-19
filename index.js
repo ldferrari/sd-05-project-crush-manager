@@ -12,8 +12,8 @@ app.get('/', (request, response) => {
 });
 
 app.post('/login', middleware.email, middleware.password, (req, res, _next) => {
-    const newtoken = generateToken 
-    res.json({ token: newtoken})
+  const newtoken = generateToken;
+  res.json({ token: newtoken });
 });
 
 app.listen(3000, () => {
