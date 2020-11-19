@@ -28,17 +28,15 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.get('/crush', authMiddleware, async (_req, res) => {
-  res.status(200).json(await getCrushDB());
-});
-
 app.get('/crush/search', authMiddleware, async (req, res) => {
-  const { query: { q } } = req || { query: { q: -1 } };
-  const crushList = await getCrushByQuery(q);
+  const { query } = req;
+  if (!Object.keys(query).includes('q')) res.status(200).json([]);
+  const crushList = await getCrushByQuery(query.q);
   res
     .status(crushList.length ? 200 : 201)
     .json(crushList);
 });
+
 
 app.get('/crush/:id', authMiddleware, async (req, res, next) => {
   const { params: { id } } = req;
@@ -49,6 +47,10 @@ app.get('/crush/:id', authMiddleware, async (req, res, next) => {
   } catch ({ message }) {
     next({ message });
   }
+});
+
+app.get('/crush', authMiddleware, async (_req, res) => {
+  res.status(200).json(await getCrushDB());
 });
 
 app.post('/login', loginMiddleware, (req, res) => {
