@@ -32,7 +32,7 @@ const addCrush = async (req, _res, next) => {
     if (!isValidRate(body)) throw new Error(INVALID_RATE);
     if (!isValidToken(headers)) throw new Error(INVALID_TOKEN);
     const { name, age, date } = body;
-    req.crush = { id: 5, name, age, date };
+    req.crush = { name, age, date };
     next();
   } catch ({ message }) {
     next({ message });

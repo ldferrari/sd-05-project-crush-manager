@@ -13,7 +13,9 @@ const {
 const {
   getCrushDB,
   getCrushById,
-  getCrushLastId,
+  getCrushByQuery,
+  updateCrushById,
+  registerCrush,
 } = require('./services/utils.service');
 
 const app = express();
@@ -26,6 +28,14 @@ app.get('/', (request, response) => {
 
 app.get('/crush', authMiddleware, async (_req, res) => {
   res.status(200).json(await getCrushDB());
+});
+
+app.get('/crush/search', authMiddleware, async (req, res) => {
+  const { query: { q } } = req || { query: { q: -1 } };
+  const crushList = await getCrushByQuery(q);
+  res.status(
+    crushList.length ? 200 : 201
+  ).json(crushList);
 });
 
 app.get('/crush/:id', authMiddleware, async (req, res, next) => {
@@ -44,9 +54,16 @@ app.post('/login', loginMiddleware, (req, res) => {
   res.status(200).json({ token });
 });
 
-app.post('/crush', addCrushMiddleware, (req, res) => {
+app.post('/crush', addCrushMiddleware, async (req, res) => {
   const { crush } = req;
-  res.status(201).json({ ...crush, id: getCrushLastId() + 1 });
+  const result = await registerCrush(crush);
+  res.status(201).json(result);
+});
+
+app.put('/crush/:id', addCrushMiddleware, async (req, res) => {
+  const { params: { id }, crush } = req;
+  const result = await updateCrushById(id, crush);
+  res.status(200).json(result);
 });
 
 app.use(errorMiddleware);
