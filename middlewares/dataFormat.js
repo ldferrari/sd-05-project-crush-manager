@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
     return res.status(400).json({ message: 'O campo "name" é obrigatório' });
   }
 
-  if (name < 3) {
+  if (name.length < 3) {
     return res.status(400).json({ message: 'O "name" deve ter pelo menos 3 caracteres' });
   }
 
@@ -30,5 +30,5 @@ module.exports = (req, res, next) => {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
   }
 
-  return next();
+  next();
 };

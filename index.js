@@ -27,9 +27,12 @@ app.post('/crush', middlewares.auth, middlewares.dataFormat, async (req, res, _n
     }
     return file;
   });
+
   const oldCrushList = JSON.parse(crushFile);
   const id = oldCrushList.length + 1;
+
   fs.writeFile('./crush.json', JSON.stringify([...oldCrushList, { id, name, age, date }]), (err) => { throw err; });
+
   res.status(201).json({
     id,
     name,
