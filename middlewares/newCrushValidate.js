@@ -20,16 +20,16 @@ function vRate(rate) {
   return (Int && maiorMenor);
 }
 
-const newCrush = (req, res) => {
+const newCrushValidate = (req, res, next) => {
   const nome = req.body.name;
   console.log(nome);
   const idade = req.body.age;
   console.log(idade);
-  const { date } = req.body
+  const { date } = req.body;
 
   if (!nome) {
     return res.status(400).json({ message: 'O campo "name" é obrigatório' });
-  } 
+  }
   const nameIsValid = vName(nome);
   console.log(nameIsValid);
   if (!nameIsValid) {
@@ -37,7 +37,7 @@ const newCrush = (req, res) => {
   } if (!idade) {
     return res.status(400).json({ message: 'O campo "age" é obrigatório' });
   } const ageIsValid = vAge(idade);
-  console.log(ageIsValid);  
+  console.log(ageIsValid);
   if (!ageIsValid) {
     return res.status(400).json({ message: 'O crush deve ser maior de idade' });
   } if (!date || !date.datedAt || !date.rate) {
@@ -53,23 +53,13 @@ const newCrush = (req, res) => {
   console.log(token);
   if (!token) {
     return res.status(401).json({ message: 'Token não encontrado' });
-  } 
-  const sToken = token.toString();
-  console.log(sToken);
-  if (token.length != 16) {
+  }
+  if (token.length !== 16) {
     return res.status(401).json({ message: 'Token inválido' });
   }
   if (nameIsValid && ageIsValid && dateIsValid && rateIsValid) {
-    return res.status(201).json({
-      id: 1,
-      name: 'Keanu Reeves',
-      age: 56,
-      date: {
-        datedAt: '22/10/2019',
-        rate: 5,
-      },
-    });
+    return next()
   } return res.status(401).json('deu ruim');
 };
 
-module.exports = newCrush;
+module.exports = newCrushValidate;

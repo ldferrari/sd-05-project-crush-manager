@@ -1,7 +1,9 @@
 const auth = require('./auth');
-const newCrush = require('./newCrush');
+const newCrushValidate = require('./newCrushValidate');
+const newCrushAdd = require('./newCrushAdd');
 
 module.exports = {
   auth,
-  newCrush,
+  newCrushValidate,
+  newCrushAdd,
 };

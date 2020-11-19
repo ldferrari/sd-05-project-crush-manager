@@ -14,6 +14,10 @@ app.get('/', (request, response) => {
 
 app.post('/login', middlewares.auth);
 
-app.post('/crush', middlewares.newCrush);
+app.post('/crush', middlewares.newCrushValidate, middlewares.newCrushAdd );
+
+app.use(function (err, req, res, next) {
+  res.status(500).send(`Algo deu errado! Mensagem: ${err.message}`);
+});
 
 app.listen(3000, () => console.log('o pai tá ON'));
