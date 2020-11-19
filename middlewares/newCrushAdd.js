@@ -2,9 +2,9 @@ const fs = require('fs').promises;
 const path = require('path');
 
 const readCrushes = async () => {
-  const list = await fs.readFile((path.resolve(__dirname, '..', 'crush.json')), 'utf8', (err, data) => {
+  const list = await fs.readFile((path.resolve(__dirname, '..', 'crush.json')), 'utf8', (err, _data) => {
     if (err) console.log('erro no read');
-    console.log('lido a Lista', data.1);
+    console.log('lido a Lista');
   });
   return JSON.parse(list.toString('utf-8'));
 };
