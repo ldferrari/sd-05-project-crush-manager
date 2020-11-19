@@ -12,7 +12,7 @@ const postCrushMock = {
 const url = 'http://localhost:3000';
 
 describe('2 - Crie o endpoint POST /crush', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     const crushSeed = fs.readFileSync(
       path.join(__dirname, 'seed.json'),
       'utf8',
