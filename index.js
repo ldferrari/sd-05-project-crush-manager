@@ -61,8 +61,7 @@ app.put('/crush/:id', middlewares.auth, middlewares.validateDate, middlewares.va
   };
   const selectedCrush = crushFile.find((crush) => parseInt(id, 10) === crush.id);
   crushFile.splice(selectedCrush.id - 1, 1, newCrush);
-  console.log(selectedCrush);
-  // writeFile(crushFilePath, crushFile);
+  writeFile(crushFilePath, crushFile);
   res.status(200).json(newCrush);
 });
 
@@ -75,6 +74,14 @@ app.get('/crush/:id', middlewares.auth, async (req, res) => {
   } else {
     res.status(404).json({ message: 'Crush não encontrado' });
   }
+});
+
+app.delete('/crush/:id', middlewares.auth, async (req, res) => {
+  const { id } = req.params;
+  const crushFile = JSON.parse(await readFile(crushFilePath));
+  const newCrushFile = crushFile.filter((crush) => crush.id !== parseInt(id, 10));
+  writeFile(crushFilePath, newCrushFile);
+  res.status(200).json({ message: 'Crush deletado com sucesso' });
 });
 
 app.listen(PORT, () => {
