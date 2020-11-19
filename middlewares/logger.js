@@ -14,10 +14,10 @@ module.exports = (req, res) => {
     return res.status(400).json({ message: 'O "email" deve ter o formato "email@email.com"' });
   }
   // ifs password
-  if (!password) {
+  if (!pw) {
     return res.status(400).json({ message: 'O campo "password" é obrigatório' });
   }
-  if (!validatePassword(password)) {
+  if (!validatePassword(pw)) {
     return res.status(400).json({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
   }
   // token
