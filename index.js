@@ -1,4 +1,5 @@
 const express = require('express');
+const rescue = require('express-rescue');
 const bodyParser = require('body-parser');
 const middlewares = require('./middlewares');
 const generateToken = require('./services/generate-token');
@@ -20,7 +21,7 @@ app.post('/login', middlewares.validateEmail, middlewares.validatePassword, (req
   res.status(200).json({ token: generateToken() });
 });
 
-app.post('/crush', middlewares.auth, middlewares.validateName, middlewares.validateAge, middlewares.validateDate, async (req, res) => {
+app.post('/crush', middlewares.auth, middlewares.validateName, middlewares.validateAge, middlewares.validateDate, rescue(async (req, res) => {
   const { name, age, date } = req.body;
   const crushFile = JSON.parse(await readFile(crushFilePath));
   const newCrush = {
@@ -35,18 +36,31 @@ app.post('/crush', middlewares.auth, middlewares.validateName, middlewares.valid
   crushFile.push(newCrush);
   writeFile(crushFilePath, crushFile);
   res.status(201).json(newCrush);
-});
+}));
 
-app.get('/crush', middlewares.auth, async (req, res) => {
+app.get('/crush/search', middlewares.auth, rescue(async (req, res) => {
+  const { q } = req.query;
+  const crushFile = JSON.parse(await readFile(crushFilePath));
+  const crushByName = crushFile.filter((crush) => crush.name.includes(q));
+  if (!q || q === '') {
+    res.status(200).json(crushFile);
+  } else if (crushByName === undefined) {
+    res.status(200).json([]);
+  } else {
+    res.status(200).json(crushByName);
+  }
+}));
+
+app.get('/crush', middlewares.auth, rescue(async (req, res) => {
   const crushFile = JSON.parse(await readFile(crushFilePath));
   if (crushFile.length > 0) {
     res.status(200).json(crushFile);
   } else {
     res.status(200).json([]);
   }
-});
+}));
 
-app.put('/crush/:id', middlewares.auth, middlewares.validateDate, middlewares.validateName, middlewares.validateAge, async (req, res) => {
+app.put('/crush/:id', middlewares.auth, middlewares.validateDate, middlewares.validateName, middlewares.validateAge, rescue(async (req, res) => {
   const { name, age, date } = req.body;
   const { id } = req.params;
   const crushFile = JSON.parse(await readFile(crushFilePath));
@@ -63,9 +77,9 @@ app.put('/crush/:id', middlewares.auth, middlewares.validateDate, middlewares.va
   crushFile.splice(selectedCrush.id - 1, 1, newCrush);
   writeFile(crushFilePath, crushFile);
   res.status(200).json(newCrush);
-});
+}));
 
-app.get('/crush/:id', middlewares.auth, async (req, res) => {
+app.get('/crush/:id', middlewares.auth, rescue(async (req, res) => {
   const { id } = req.params;
   const crushFile = JSON.parse(await readFile(crushFilePath));
   const selectedCrush = crushFile.find((crush) => parseInt(id, 10) === crush.id);
@@ -74,15 +88,15 @@ app.get('/crush/:id', middlewares.auth, async (req, res) => {
   } else {
     res.status(404).json({ message: 'Crush não encontrado' });
   }
-});
+}));
 
-app.delete('/crush/:id', middlewares.auth, async (req, res) => {
+app.delete('/crush/:id', middlewares.auth, rescue(async (req, res) => {
   const { id } = req.params;
   const crushFile = JSON.parse(await readFile(crushFilePath));
   const newCrushFile = crushFile.filter((crush) => crush.id !== parseInt(id, 10));
   writeFile(crushFilePath, newCrushFile);
   res.status(200).json({ message: 'Crush deletado com sucesso' });
-});
+}));
 
 app.listen(PORT, () => {
   console.log(`listening port ${PORT}`);
