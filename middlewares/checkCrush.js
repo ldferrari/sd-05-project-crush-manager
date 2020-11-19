@@ -28,6 +28,5 @@ module.exports = (req, res, next) => {
       .status(400)
       .json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
   }
-
   next();
 };

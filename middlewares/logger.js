@@ -22,4 +22,5 @@ module.exports = (req, res) => {
   }
   // token
   res.status(200).json(createToken());
+  // console.log(req.headers.authorization); retorna undefined?
 };

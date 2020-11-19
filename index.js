@@ -18,12 +18,7 @@ app.get('/', (request, response) => {
 app.post('/login', middlewares.logger);
 
 // 2 - Crie o endpoint POST /crush
-app.post(
-  '/crush',
-  middlewares.auth,
-  middlewares.checkCrush,
-  // middlewares.addCrush,
-);
+app.post('/crush', middlewares.auth, middlewares.checkCrush, middlewares.addCrush);
 
 // Middlewares de erro
 // app.use(middlewares.error);
