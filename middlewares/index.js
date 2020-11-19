@@ -1,6 +1,6 @@
 const email = require('./email');
 const password = require('./password');
-const age = require('./age')
+const age = require('./age');
 const name = require('./name');
 const token = require('./token');
 const date = require('./date');

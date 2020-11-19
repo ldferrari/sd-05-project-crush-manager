@@ -32,7 +32,7 @@ app.post(
         datedAt: req.body.date.datedAt,
         rate: req.body.date.rate,
       },
-    })
+    }),
 );
 
 app.listen(3000, () => {
