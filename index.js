@@ -21,10 +21,15 @@ app.post('/login', middlewares.logger, (_req, res, _next) => {
 
 app.post('/crush', middlewares.auth, middlewares.dataFormat, async (req, res, _next) => {
   const { name, age, date } = req.body;
-  const crushFile = await fs.readFile('./crush.json', 'utf-8');
-  const id = crushFile.length + 1;
-  JSON.parse(crushFile);
-  await fs.writeFile('./crush.json', JSON.stringify([...crushFile, id, name, age, date]));
+  const crushFile = await fs.readFile('./crush.json', 'utf-8', (err, file) => {
+    if (err) {
+      throw err;
+    }
+    return file;
+  });
+  const oldCrushList = JSON.parse(crushFile);
+  const id = oldCrushList.length + 1;
+  fs.writeFile('./crush.json', JSON.stringify([...oldCrushList, { id, name, age, date }]), (err) => { throw err; });
   res.status(201).json({
     id,
     name,
