@@ -7,5 +7,5 @@ module.exports = async (req, res) => {
   if (!idCrush) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
-  res.status(200).json(idCrush);
+  return res.status(200).json(idCrush);
 };
