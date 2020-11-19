@@ -1,8 +1,9 @@
 const { readCrushFile } = require('../services/crudFunctions');
 
-module.exports = async (req, res, next) => {
-  // const search = req.query.search; - tem que ser q dada a url testada
-  const q = req.query.q;
+module.exports = async (req, res) => {
+  // const search = req.query.search; - tem que ser q dada a url
+  // const q = req.query.q; - ESLINT reclamou
+  const { q } = req.query;
   console.log(q);
   const crushList = await readCrushFile();
   const searchedList = crushList.filter((crush) => crush.name.includes(q));

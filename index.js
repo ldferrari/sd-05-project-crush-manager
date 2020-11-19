@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 // melhor prática que app.use(express.json())
 const middlewares = require('./middlewares');
 const { readCrushFile } = require('./services/crudFunctions');
+
 app.use(bodyParser.json());
 
 // ENDPOINTS
