@@ -1,7 +1,6 @@
 module.exports = (req, res, next) => {
-  console.log(req.body.password);
   if (req.body.password === undefined) {
-    res.status(400).send({
+    return res.status(400).send({
       message: 'O campo "password" é obrigatório',
     });
   }

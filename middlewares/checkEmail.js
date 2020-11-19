@@ -1,7 +1,7 @@
 const regEmail = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
 module.exports = (req, res, next) => {
   if (req.body.email === undefined) {
-    res.status(400).send({
+    return res.status(400).send({
       message: 'O campo "email" é obrigatório',
     });
   }
