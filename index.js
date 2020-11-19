@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const middlewares = require('./Middlewares');
-const { readCrushFile } = require('./Services');
 
 const app = express();
 const PORT = 3000;
