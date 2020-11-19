@@ -46,6 +46,26 @@ app.get('/crush', middlewares.auth, async (req, res) => {
   }
 });
 
+app.put('/crush/:id', middlewares.auth, middlewares.validateDate, middlewares.validateName, middlewares.validateAge, async (req, res) => {
+  const { name, age, date } = req.body;
+  const { id } = req.params;
+  const crushFile = JSON.parse(await readFile(crushFilePath));
+  const newCrush = {
+    id: parseInt(id, 10),
+    name,
+    age,
+    date: {
+      datedAt: date.datedAt,
+      rate: date.rate,
+    },
+  };
+  const selectedCrush = crushFile.find((crush) => parseInt(id, 10) === crush.id);
+  crushFile.splice(selectedCrush.id - 1, 1, newCrush);
+  console.log(selectedCrush);
+  // writeFile(crushFilePath, crushFile);
+  res.status(200).json(newCrush);
+});
+
 app.get('/crush/:id', middlewares.auth, async (req, res) => {
   const { id } = req.params;
   const crushFile = JSON.parse(await readFile(crushFilePath));
