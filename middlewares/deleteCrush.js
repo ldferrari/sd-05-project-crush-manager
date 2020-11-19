@@ -13,5 +13,5 @@ module.exports = async (req, res) => {
   // Etapa do delete
   const shorterCrushList = crushList.filter((crush) => crush.id !== id);
   await editCrushFile(shorterCrushList);
-  return res.status(200).json({ message: 'Crush deletado com sucesso!' });
+  return res.status(200).json({ message: 'Crush deletado com sucesso' });
 };
