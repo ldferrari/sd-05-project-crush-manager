@@ -5,10 +5,8 @@ const app = express();
 // Importações e Uses
 const bodyParser = require('body-parser'); // melhor prática que app.use(express.json())
 const middlewares = require('./middlewares');
-const checkDatedAt = require('./services/checkDate');
 
 app.use(bodyParser.json());
-
 
 // ENDPOINTS
 // 0 - Não remova esse endpoint, é para o avaliador funcionar
@@ -34,4 +32,6 @@ app.post(
 const PORT = 3000;
 app.listen(PORT, () => console.log(`${PORT} port OK!`));
 
-// [ Honestidade acadêmica ] - Projeto parcialmente desenvolvido em pair programming com os alunos Paulo Dandrea e Natalia Macedo.
+// [ Honestidade acadêmica ] -
+// Projeto parcialmente desenvolvido em pair programming
+// com os alunos Paulo Dandrea e Natalia Macedo.

@@ -7,7 +7,7 @@ const auth = require('./auth');
 module.exports = {
   logger,
   checkCrush,
-  auth
+  auth,
   // addCrush
   // error,
 };
