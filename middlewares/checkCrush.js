@@ -17,7 +17,8 @@ module.exports = (req, res, next) => {
     return res.status(400).json({ message: 'O crush deve ser maior de idade' });
   }
   // if do date
-  if (!date || !date.datedAt || !date.rate) {
+  if (!date || !date.datedAt || date.rate === undefined) {
+    // troquei !date.rate para undefined porque integrava caso de rate:0
     return res
       .status(400)
       .json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
