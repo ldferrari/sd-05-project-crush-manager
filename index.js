@@ -13,11 +13,9 @@ app.get('/', (request, response) => {
 app.use(bodyParser.json());
 
 // 1 - Crie o endpoint POST /login
-
 app.post('/login', middlewares.login);
 
 // 2 - Crie o endpoint POST /crush
-
 app
   .route('/crush')
   .post(
@@ -33,5 +31,8 @@ app
 
 // 4 - Crie o endpoint GET /crush/:id
 app.get('/crush/:id', middlewares.authToken, middlewares.getCrushById);
+
+// 5 - Crie o endpoint PUT /crush/:id
+app.put('/crush/:id', middlewares.authToken, middlewares.validateCrush, middlewares.updateCrushById);
 
 app.listen(PORT, () => console.log(`We're in. Port ${PORT}`));

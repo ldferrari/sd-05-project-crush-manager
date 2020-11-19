@@ -4,6 +4,6 @@ module.exports = async (req, res) => {
   const { name, age, date } = req.body;
   const oldCrushes = await readCrushFile();
   const id = oldCrushes.length + 1;
-  addNewCrushOnFile(oldCrushes, { id, name, age, date });
+  addNewCrushOnFile(null, oldCrushes, { id, name, age, date });
   res.status(201).json({ id, name, age, date });
 };
