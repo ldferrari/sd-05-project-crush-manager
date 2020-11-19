@@ -1,9 +1,13 @@
-const errorMiddleware = require('./err.middleware');
 const authMiddleware = require('./auth.middleware');
-const crushMiddleware = require('./crush.middleware');
+const errorMiddleware = require('./err.middleware');
+const loginMiddleware = require('./login.middleware');
+const {
+  addCrush: addCrushMiddleware,
+} = require('./crush.middleware');
 
 module.exports = {
-  errorMiddleware,
   authMiddleware,
-  crushMiddleware,
+  addCrushMiddleware,
+  errorMiddleware,
+  loginMiddleware,
 };

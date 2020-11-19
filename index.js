@@ -1,13 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const { NO_CRUSH } = require('./dictionary/errors.dictionary');
+
 const {
-  errorMiddleware,
   authMiddleware,
-  crushMiddleware,
+  addCrushMiddleware,
+  errorMiddleware,
+  loginMiddleware,
 } = require('./middleware');
 
-const { getCrushLastId } = require('./services/utils.service');
+const {
+  getCrushDB,
+  getCrushById,
+  getCrushLastId,
+} = require('./services/utils.service');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,12 +24,27 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/login', authMiddleware, (req, res) => {
+app.get('/crush', authMiddleware, async (_req, res) => {
+  res.status(200).json(await getCrushDB());
+});
+
+app.get('/crush/:id', authMiddleware, async (req, res, next) => {
+  const { params: { id } } = req;
+  const crush = await getCrushById(id);
+  try {
+    if (crush.length) res.status(200).json(crush[0]);
+    else throw new Error(NO_CRUSH);
+  } catch ({ message }) {
+    next({ message });
+  };
+});
+
+app.post('/login', loginMiddleware, (req, res) => {
   const { token } = req;
   res.status(200).json({ token });
 });
 
-app.post('/crush', crushMiddleware, (req, res) => {
+app.post('/crush', addCrushMiddleware, (req, res) => {
   const { crush } = req;
   res.status(201).json({ ...crush, id: getCrushLastId() + 1 });
 });
