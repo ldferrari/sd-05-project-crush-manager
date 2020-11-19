@@ -5,7 +5,7 @@ const middlewares = require('./middlewares');
 
 const app = express();
 const PORT = 3000;
-const token = crypto.randomBytes(16).toString('hex');
+const token = crypto.randomBytes(8).toString('hex');
 
 app.use(bodyParser.json());
 
