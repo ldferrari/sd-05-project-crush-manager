@@ -1,5 +1,5 @@
 const express = require('express');
-const helpers = require('./helpers/tokenGenerator');
+const helpers = require('./helpers/index');
 const middlewares = require('./middlewares/index');
 
 const parser = express.json();
@@ -16,6 +16,12 @@ app.get('/', (request, response) => {
 app.post('/login', middlewares.emailValidator, (req, res) => {
   const token = helpers.tokenGenerator(16);
   res.send({ token });
+});
+
+app.post('/crush', middlewares.authorization, middlewares.createCrushValidator, (req, res) => {
+  const crush = helpers.createProfile(req.body);
+  console.log(req.body);
+  res.status(201).send(crush);
 });
 
 app.listen(PORT, () => {
