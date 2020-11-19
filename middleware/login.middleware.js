@@ -1,4 +1,4 @@
-const{
+const {
   generateToken,
   isValidEmail,
   isValidPassword,

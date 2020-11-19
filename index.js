@@ -33,9 +33,9 @@ app.get('/crush', authMiddleware, async (_req, res) => {
 app.get('/crush/search', authMiddleware, async (req, res) => {
   const { query: { q } } = req || { query: { q: -1 } };
   const crushList = await getCrushByQuery(q);
-  res.status(
-    crushList.length ? 200 : 201
-  ).json(crushList);
+  res
+    .status(crushList.length ? 200 : 201)
+    .json(crushList);
 });
 
 app.get('/crush/:id', authMiddleware, async (req, res, next) => {
