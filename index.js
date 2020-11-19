@@ -3,7 +3,7 @@ const rescue = require('express-rescue');
 const bodyParser = require('body-parser');
 
 const { genToken, validateLogin, validateCrush, validateToken } = require('./middlewares');
-const readCrushs = require('./middlewares/fs/readFile');
+const readCrushs = require('./utils/fs/readFile');
 const crushs = require('./crush.json');
 
 const PORT = 3000;
