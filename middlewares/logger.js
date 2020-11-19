@@ -3,8 +3,6 @@ const createToken = require('../services/createToken');
 
 module.exports = (req, res) => {
   const { email, password } = req.body;
-  // console.log(validateEmail(email));
-  // console.log(validatePassword(pw));
   // ifs email
   if (!email) {
     return res.status(400).json({ message: 'O campo "email" é obrigatório' });
@@ -22,5 +20,5 @@ module.exports = (req, res) => {
   }
   // token
   res.status(200).json(createToken());
-  // console.log(req.headers.authorization); retorna undefined?
+  // console.log(req.headers.authorization); retorna undefined porque tem que configurar diretamente no endpoint 2 no Postman
 };

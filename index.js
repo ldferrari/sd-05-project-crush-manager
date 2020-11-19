@@ -28,6 +28,9 @@ app.get('/crush', middlewares.auth, async (_req, res) => {
   res.status(200).json(crushList);
 });
 
+// 4 - Crie o endpoint GET /crush/:id
+app.get('/crush/:id', middlewares.auth, middlewares.findById);
+
 // Middlewares de erro
 // app.use(middlewares.error);
 
