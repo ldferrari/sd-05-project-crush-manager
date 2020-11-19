@@ -7,6 +7,8 @@ const {
   crushMiddleware,
 } = require('./middleware');
 
+const { getCrushLastId } = require('./services/utils.service');
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -20,8 +22,9 @@ app.post('/login', authMiddleware, (req, res) => {
   res.status(200).json({ token });
 });
 
-app.post('/crush', crushMiddleware, (_req, res) => {
-  res.status(201).json(_req.crush);
+app.post('/crush', crushMiddleware, (req, res) => {
+  const { crush } = req;
+  res.status(201).json({ ...crush, id: getCrushLastId() + 1 });
 });
 
 app.use(errorMiddleware);
