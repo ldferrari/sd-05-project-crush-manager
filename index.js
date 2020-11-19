@@ -5,9 +5,9 @@ const middleware = require('./middlewares');
 const app = express();
 const PORT = 3000;
 const genToken = randtoken.generate(16);
-const crushs = require('./crush.json');
+// const crushs = require('./crush.json');
 
-console.log(crushs.length);
+const teste = middleware.readF;
 
 app.use(express.json());
 // não remova esse endpoint, e para o avaliador funcionar
@@ -26,16 +26,23 @@ app.post(
   middleware.checkName,
   middleware.checkAge,
   middleware.checkDate,
-  (req, res, _next) =>
-    res.status(201).json({
-      id: crushs.length + 1,
-      name: req.body.name,
-      age: req.body.age,
-      date: {
-        datedAt: req.body.date.datedAt,
-        rate: req.body.date.rate,
-      },
-    }),
+  async (req, res, _next) => {
+    teste('./crush.json').then((result) => {
+      res.status(201).json({
+        id: JSON.parse(result).length + 1,
+        name: req.body.name,
+        age: req.body.age,
+        date: {
+          datedAt: req.body.date.datedAt,
+          rate: req.body.date.rate,
+        },
+      });
+    });
+  },
 );
-
+app.get('/crush', middleware.checkToken, async (req, res, _next) => {
+  teste('./crush.json').then((result) => {
+    res.status(200).json(JSON.parse(result));
+  });
+});
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));

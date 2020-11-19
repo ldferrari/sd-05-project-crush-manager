@@ -2,7 +2,7 @@ module.exports = (req, res, _next) => {
   // const checkTok = res.getHeaders().Authorization;
   const erroTok = req.headers.authorization;
   if (!erroTok) {
-    res.status(401).send({
+    return res.status(401).send({
       message: 'Token não encontrado',
     });
   }
