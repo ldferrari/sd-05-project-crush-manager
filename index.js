@@ -35,7 +35,7 @@ app.post(
         datedAt: req.body.date.datedAt,
         rate: req.body.date.rate,
       },
-    })
+    }),
 );
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
