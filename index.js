@@ -16,4 +16,13 @@ app.use(bodyParser.json());
 
 app.post('/login', middlewares.login);
 
+// 2 - Crie o endpoint POST /crush
+
+app.post(
+  '/crush',
+  middlewares.authToken,
+  middlewares.validateCrush,
+  middlewares.addNewCrush,
+);
+
 app.listen(PORT, () => console.log(`We're in. Port ${PORT}`));

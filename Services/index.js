@@ -1,4 +1,5 @@
 const randtoken = require('rand-token');
+const fs = require('fs').promises;
 
 function createToken() {
   const token = randtoken.generate(16);
@@ -23,4 +24,21 @@ function checkDatedAt(data) {
   return re.test(String(data));
 }
 
-module.exports = { createToken, validateEmail, validatePassword, checkDatedAt };
+const readCrushFile = async () => {
+  const crushData = await fs.readFile('./crush.json', 'utf-8');
+  return JSON.parse(crushData);
+};
+
+const addNewCrushOnFile = async (oldCrushes, newCrush) => {
+  const newCrushes = [...oldCrushes, newCrush];
+  fs.writeFile('./crush.json', JSON.stringify(newCrushes));
+};
+
+module.exports = {
+  createToken,
+  validateEmail,
+  validatePassword,
+  checkDatedAt,
+  readCrushFile,
+  addNewCrushOnFile,
+};
