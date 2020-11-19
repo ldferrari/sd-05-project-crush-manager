@@ -32,6 +32,6 @@ app
     middlewares.getAllCrushes,
   );
 
-// app.ro
+app.get('/crush/:id', middlewares.authToken, middlewares.getCrushById);
 
 app.listen(PORT, () => console.log(`We're in. Port ${PORT}`));
