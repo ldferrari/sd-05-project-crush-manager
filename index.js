@@ -46,6 +46,16 @@ app.put('/crush/:id', validateToken, validateCrush, rescue(async (req, res) => {
   return res.status(200).json({ name, age, id, date });
 }));
 
+app.get('/crush/search', validateToken, rescue(async (req, res) => {
+  const { q } = req.query;
+  let crushList = await readCrushs();
+  crushList = crushList.filter((c) => c.name.includes(q));
+
+  if (crushList.length === 0) return res.status(404).json({ message: 'nome não encontrado' });
+
+  res.status(200).json(crushList);
+}));
+
 app.get('/crush/:id', validateToken, rescue(async (req, res) => {
   const id = parseInt(req.params.id, 10);
   const crushList = await readCrushs();
