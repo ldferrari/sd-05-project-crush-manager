@@ -5,13 +5,13 @@ const app = express();
 
 // Importações
 const bodyParser = require('body-parser');
-// const middlewares = require('./middlewares');
-const createToken = require('./services/createtoken');
-const { validateEmail, validatePassword } = require('./services/validateLogin');
+const middlewares = require('./middlewares');
+const checkDatedAt = require('./services/checkDate');
 
 // Middlewares e uses diversos
 app.use(bodyParser.json());
 // app.use(middlewares.namemw);
+// middlewares vão ser chamados em cada endpoint
 
 // ENDPOINTS
 
@@ -21,37 +21,7 @@ app.get('/', (request, response) => {
 });
 
 // 1 - Crie o endpoint POST /login
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
-  const pw = password.toString();
-  console.log(validateEmail(email));
-  console.log(validatePassword(pw));
-  // ifs email
-  if (!email) {
-    return res.status(400).json({ message: 'O campo "email" é obrigatório' });
-  }
-  if (!validateEmail(email)) {
-    return res.status(400).json({ message: 'O "email" deve ter o formato "email@email.com"' });
-  }
-  // ifs password
-  if (!password) {
-    return res.status(400).json({ message: 'O campo "password" é obrigatório' });
-  }
-  if (!validatePassword(password)) {
-    return res.status(400).json({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
-  }
-  // // ifs res token
-  // if (email && password) {
-  //   return res.status(200).json(createToken());
-  // }
-  res.status(200).json(createToken());
-});
-
-function checkDatedAt(data) {
-  const re = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
-  return re.test(String(data));
-}
-// pacote moment é outra opçao
+app.post('/login', middlewares.logger);
 
 // 2 - Crie o endpoint POST /crush
 app.post('/crush', (req, res) => {
@@ -90,4 +60,4 @@ app.post('/crush', (req, res) => {
 
 // Port listening
 const PORT = 3000;
-app.listen(PORT, () => console.log('3000 port OK!'));
+app.listen(PORT, () => console.log(`${PORT} port OK!`));

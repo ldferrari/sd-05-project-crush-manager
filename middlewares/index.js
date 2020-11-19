@@ -1,9 +1,9 @@
 // const auth = require('auth');
 // const error = require('error');
-// const mw = requires('error');
+const logger = require('./logger');
 
-// module.exports = {
-//   auth,
-//   error,
-//   mw
-// }
+module.exports = {
+  // auth,
+  // error,
+  logger
+}
