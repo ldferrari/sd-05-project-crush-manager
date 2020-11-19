@@ -1,6 +1,7 @@
 const express = require('express');
 const helpers = require('./helpers/tokenGenerator');
 const middlewares = require('./middlewares/index');
+
 const parser = express.json();
 const PORT = 3000;
 

@@ -3,10 +3,9 @@ function tokenGenerator(length) {
     '',
   );
   const tokenGenerated = [];
-  for (let index = 0; index < length; index++) {
+  for (let index = 0; index < length; index += 1) {
     const caracterIndex = (
-      Math.random() *
-      (caractersAllowed.length - 1)
+      Math.random() * (caractersAllowed.length - 1)
     ).toFixed(0);
     tokenGenerated[index] = caractersAllowed[caracterIndex];
   }
