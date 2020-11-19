@@ -7,7 +7,8 @@ function verifyEmail(email) {
 
 function verifypassword(password) {
   const pRegex = /^.{6,}$/;
-  return pRegex.test(password);
+  const sPassword = password.toString();
+  return pRegex.test(sPassword);
 }
 
 const auth = (req, res) => {
