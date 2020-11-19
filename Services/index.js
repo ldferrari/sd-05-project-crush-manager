@@ -34,7 +34,7 @@ const addNewCrushOnFile = async (allCrushes, oldCrushes, newCrush) => {
     fs.writeFile('./crush.json', JSON.stringify(allCrushes));
   }
   const newCrushes = [...oldCrushes, newCrush];
-  fs.writeFile('./crush.json', JSON.stringify(newCrushes));
+  await fs.writeFile('./crush.json', JSON.stringify(newCrushes));
 };
 
 module.exports = {

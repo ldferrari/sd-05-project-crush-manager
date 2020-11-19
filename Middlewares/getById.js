@@ -1,6 +1,7 @@
+const rescue = require('express-rescue');
 const { readCrushFile } = require('../Services');
 
-module.exports = async (req, res) => {
+module.exports = rescue(async (req, res) => {
   const id = Number(req.params.id);
   const crushData = await readCrushFile();
 
@@ -11,4 +12,4 @@ module.exports = async (req, res) => {
   } else {
     res.status(404).json({ message: 'Crush não encontrado' });
   }
-};
+});

@@ -33,6 +33,11 @@ app
 app.get('/crush/:id', middlewares.authToken, middlewares.getCrushById);
 
 // 5 - Crie o endpoint PUT /crush/:id
-app.put('/crush/:id', middlewares.authToken, middlewares.validateCrush, middlewares.updateCrushById);
+app.put(
+  '/crush/:id',
+  middlewares.authToken,
+  middlewares.validateCrush,
+  middlewares.updateCrushById,
+);
 
 app.listen(PORT, () => console.log(`We're in. Port ${PORT}`));
