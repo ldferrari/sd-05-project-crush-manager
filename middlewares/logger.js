@@ -20,5 +20,7 @@ module.exports = (req, res) => {
   }
   // token
   res.status(200).json(createToken());
-  // console.log(req.headers.authorization); retorna undefined porque tem que configurar diretamente no endpoint 2 no Postman
+  // console.log(req.headers.authorization);
+  // retorna undefined porque tem que configurar
+  // diretamente no endpoint 2 no Postman
 };
