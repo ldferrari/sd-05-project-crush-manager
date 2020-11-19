@@ -1,4 +1,4 @@
-const { checkDatedAt } = require('../services/checkDate');
+const checkDatedAt = require('../services/checkDate');
 
 module.exports = (req, res, next) => {
   const { name, age, date } = req.body;
