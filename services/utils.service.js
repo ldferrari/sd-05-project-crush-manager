@@ -3,7 +3,8 @@ const path = require('path');
 
 const crushDB = fs.readFileSync(
   path.join(__dirname, '../crush.json'),
-  'utf8');
+  'utf8',
+);
 
 const getCrushLastId = () => JSON
   .parse(crushDB)
