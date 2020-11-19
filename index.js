@@ -17,7 +17,17 @@ app.post('/crush', validateToken, validateCrush, rescue(async (req, res) => {
   res.status(201).json({ name, age, id, date });
 }));
 
-app.get('/crush', validateToken, rescue(async (_req, res) => {
+app.get('/crush/:id', validateToken, rescue(async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const crushList = await readCrushs();
+  const crush = crushList.find((c) => c.id === id);
+
+  if (!crush) return res.status(404).json({ message: 'Crush não encontrado' });
+
+  return res.status(200).json(crush);
+}));
+
+app.get('/crush', validateToken, rescue(async (_, res) => {
   const crushList = await readCrushs();
   res.status(200).json(crushList);
 }));
