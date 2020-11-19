@@ -3,8 +3,7 @@ const rescue = require('express-rescue');
 const bodyParser = require('body-parser');
 
 const { genToken, validateLogin, validateCrush, validateToken } = require('./middlewares');
-const readCrushs = require('./utils/fs/readFile');
-const crushs = require('./crush.json');
+const { readCrushs, writeCrushs } = require('./utils/fs/index');
 
 const PORT = 3000;
 const app = express();
@@ -13,11 +12,27 @@ app.use(bodyParser.json());
 
 app.post('/crush', validateToken, validateCrush, rescue(async (req, res) => {
   const { name, age, date } = req.body;
-  const id = crushs.length + 1;
+  const crushList = await readCrushs();
+  const id = crushList.length + 1;
+  crushList.push({ name, age, id, date });
+  await writeCrushs(crushList);
   res.status(201).json({ name, age, id, date });
 }));
 
-app.get('/crush/:id', validateToken, rescue(async (req, res) => {
+app.put('/crush/:id', validateToken, validateCrush, rescue(async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const { name, age, date } = req.body;
+  const crushList = await readCrushs();
+  const crush = crushList.find((c) => c.id === id);
+
+  if (!crush) return { err: { message: 'Crush não encontrada' } };
+  const indexOfCrush = crushList.indexOf(crush);
+  crushList[indexOfCrush] = { name, age, id, date };
+  await writeCrushs(crushList);
+  return res.status(200).json({ name, age, id, date });
+}));
+
+app.get('/crush/:id', validateToken, validateCrush, rescue(async (req, res) => {
   const id = parseInt(req.params.id, 10);
   const crushList = await readCrushs();
   const crush = crushList.find((c) => c.id === id);
