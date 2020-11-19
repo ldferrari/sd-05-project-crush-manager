@@ -23,6 +23,8 @@ function emailValidator(req, res, next) {
   }
 }
 
+// alteração muito grande
+
 module.exports = {
   emailValidator,
 };
