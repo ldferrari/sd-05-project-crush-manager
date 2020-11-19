@@ -23,8 +23,8 @@ app.post('/login', middlewares.logger);
 // 7 - Crie o endpoint GET /crush/search?q=searchTerm
 app.get('/crush/search', middlewares.auth, middlewares.searchTerm);
 
-// 2 - Crie o endpoint POST /crush
-app.post('/crush', middlewares.auth, middlewares.checkCrush, middlewares.addCrush);
+// 4 - Crie o endpoint GET /crush/:id
+app.get('/crush/:id', middlewares.auth, middlewares.findById);
 
 // 3 - Crie o endpoint GET /crush
 app.get('/crush', middlewares.auth, async (_req, res) => {
@@ -32,8 +32,8 @@ app.get('/crush', middlewares.auth, async (_req, res) => {
   res.status(200).json(crushList);
 });
 
-// 4 - Crie o endpoint GET /crush/:id
-app.get('/crush/:id', middlewares.auth, middlewares.findById);
+// 2 - Crie o endpoint POST /crush
+app.post('/crush', middlewares.auth, middlewares.checkCrush, middlewares.addCrush);
 
 // 5 - Crie o endpoint PUT /crush/:id
 app.put('/crush/:id', middlewares.auth, middlewares.checkCrush, middlewares.editCrush);
