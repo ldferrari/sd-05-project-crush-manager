@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 
 function verifyEmail(email) {
-  const eRegex = /^([a-zA-Z0-9_-]+)@email\.com$/gm;
+  const eRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return eRegex.test(email);
 }
 
