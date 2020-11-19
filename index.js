@@ -6,6 +6,8 @@ const readFile = require('./services/readFile');
 const writeFile = require('./services/writeFile');
 
 const app = express();
+const PORT = 3000;
+const crushFilePath = './crush.json';
 
 app.use(bodyParser.json());
 
@@ -20,7 +22,6 @@ app.post('/login', middlewares.validateEmail, middlewares.validatePassword, (req
 
 app.post('/crush', middlewares.auth, middlewares.validateName, middlewares.validateAge, middlewares.validateDate, async (req, res) => {
   const { name, age, date } = req.body;
-  const crushFilePath = './crush.json';
   const crushFile = JSON.parse(await readFile(crushFilePath));
   const newCrush = {
     id: crushFile.length + 1,
@@ -32,12 +33,18 @@ app.post('/crush', middlewares.auth, middlewares.validateName, middlewares.valid
     },
   };
   crushFile.push(newCrush);
-  // JSON.stringify(crushFile);
   writeFile(crushFilePath, crushFile);
   res.status(201).json(newCrush);
 });
 
-const PORT = 3000;
+app.get('/crush', middlewares.auth, async (req, res) => {
+  const crushFile = JSON.parse(await readFile(crushFilePath));
+  if (crushFile.length > 0) {
+    res.status(200).json(crushFile);
+  } else {
+    res.status(200).json([]);
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`listening port ${PORT}`);
