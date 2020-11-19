@@ -34,6 +34,9 @@ app.get('/crush/:id', middlewares.auth, middlewares.findById);
 // 5 - Crie o endpoint PUT /crush/:id
 app.put('/crush/:id', middlewares.auth, middlewares.checkCrush, middlewares.editCrush);
 
+// 6 - Crie o endpoint DELETE /crush/:id
+app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
+
 // Middlewares de erro
 // app.use(middlewares.error);
 
