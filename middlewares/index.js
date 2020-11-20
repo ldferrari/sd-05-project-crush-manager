@@ -53,7 +53,7 @@ function createCrushValidator(req, res, next) {
 
 function dateValidator(req, res, next) {
   const crush = req.body;
-  if (!crush.date.datedAt || !crush.date.rate) {
+  if (!crush.date.datedAt || (!crush.date.rate && crush.date.rate !== 0)) {
     return res
       .status(400)
       .send({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });

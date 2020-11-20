@@ -30,6 +30,13 @@ app.get('/crush/:id', middlewares.authorization, async (req, res) => {
   res.status(200).json(crush);
 });
 
+app.put('/crush/:id', middlewares.authorization, middlewares.createCrushValidator, middlewares.dateValidator, async (req, res) => {
+  await helpers.deleteCrushById(req.params.id);
+  await helpers.createCrush(req.body, req.params.id);
+  const crushUpdated = helpers.createProfile(req.body, parseInt(req.params.id, 10));
+  res.status(200).json(crushUpdated);
+});
+
 app.listen(PORT, () => {
   console.log('O PAI TÁ ON NA PORTA %s', PORT);
 });
