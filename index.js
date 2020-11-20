@@ -20,9 +20,9 @@ app.use(express.json());
 //   res.status(200).json({ message: 'pong!' });
 // });
 
-app.post('/login', middlewares.validaEmail, middlewares.validaPassword, (_, res) => {
+app.post('/login', middlewares.validaEmail, middlewares.validaPassword, (req, res) => {
   // console.log(token);
-  res.json({ token: token });
+  res.status(200).json({ token: token });
 });
 
 const PORT = 3000;
