@@ -20,18 +20,18 @@ function vRate(rate) {
   return (Int && maiorMenor);
 }
 
-const newCrushValidate = (req, res, next) => {
+const CrushValidate = (req, res, next) => {
   const nome = req.body.name;
-  console.log(nome);
+  // console.log(nome);
   const idade = req.body.age;
-  console.log(idade);
+  // console.log(idade);
   const { date } = req.body;
 
   if (!nome) {
     return res.status(400).json({ message: 'O campo "name" é obrigatório' });
   }
   const nameIsValid = vName(nome);
-  console.log(nameIsValid);
+  // console.log(nameIsValid);
   if (!nameIsValid) {
     return res.status(400).json({ message: 'O "name" deve ter pelo menos 3 caracteres' });
   } if (!idade) {
@@ -44,13 +44,13 @@ const newCrushValidate = (req, res, next) => {
     return res.status(400).json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
   } const dateIsValid = vDate(date.datedAt);
   const rateIsValid = vRate(date.rate);
-  console.log(rateIsValid);
+  // console.log(rateIsValid);
   if (!dateIsValid) {
     return res.status(400).json({ message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"' });
   } if (!rateIsValid) {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
   } const { token } = req.headers;
-  console.log(token);
+  // console.log(token);
   if (!token) {
     return res.status(401).json({ message: 'Token não encontrado' });
   }
@@ -62,4 +62,4 @@ const newCrushValidate = (req, res, next) => {
   } return res.status(401).json('deu ruim');
 };
 
-module.exports = newCrushValidate;
+module.exports = CrushValidate;
