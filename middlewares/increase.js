@@ -7,18 +7,11 @@ const readList = async () => {
   return list;
 };
 
-// const writeList = async (preview, new) => {
-//   const writeFile = await fs.writeFile('./crush.json', JSON.stringify([...preview, new]));
-//   return writeFile;
-// }
-
-module.exports = async (req, res, next) => {
+module.exports = async (req, res) => {
   const { name, age, date } = req.body;
   const previewList = await readList();
   const id = previewList.length + 1;
-  const newCrush = { id, name, age, date };
-  const newCrushList = [...previewList, newCrush];
+  const newCrushList = [...previewList, { id, name, age, date }];
   fs.writeFile('./crush.json', JSON.stringify(newCrushList));
-  // console.log(newList);
   return res.status(201).json({ id, name, age, date });
 };

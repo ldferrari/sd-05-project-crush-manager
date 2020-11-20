@@ -3,11 +3,6 @@ const checkDate = (date) =>
 
 module.exports = (req, res, next) => {
   const { name, age, date } = req.body;
-  // if (date.rate === undefined) {
-  //   return res
-  //     .status(400)
-  //     .json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
-  // }
   if (!name || name === '') {
     return res.status(400).json({ message: 'O campo "name" é obrigatório' });
   }
@@ -17,7 +12,7 @@ module.exports = (req, res, next) => {
   if (!age || age === '') {
     return res.status(400).json({ message: 'O campo "age" é obrigatório' });
   }
-  if (typeof age !== 'number' || parseInt(age) < 18) {
+  if (typeof age !== 'number' || parseInt(age, 10) < 18) {
     return res.status(400).json({ message: 'O crush deve ser maior de idade' });
   }
   if (!date || !date.datedAt || date.rate === undefined) {
@@ -29,7 +24,7 @@ module.exports = (req, res, next) => {
     return res.status(400).json({ message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"' });
   }
 
-  if (!(parseInt(date.rate) >= 1 && parseInt(date.rate) <= 5)) {
+  if (!(parseInt(date.rate, 10) >= 1 && parseInt(date.rate, 10) <= 5)) {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
   }
 
