@@ -22,7 +22,6 @@ app.put('/crush/:id', middlewares.CrushValidate, middlewares.editCrush);
 
 app.delete('/crush/:id', middlewares.deleteCrush);
 
-
 app.get('/crush', middlewares.getAllCrushs);
 
 app.post('/crush', middlewares.CrushValidate, middlewares.newCrushAdd);
