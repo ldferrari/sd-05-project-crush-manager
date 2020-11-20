@@ -34,7 +34,7 @@ Você vai desenvolver uma API de um CRUD (**C**reate, **R**ead, **U**pdate e **D
 
 #### Data de Entrega
 
-O projeto tem até a seguinte data: `dd/mm/yyyy - 14:00h`. Para ser entregue a avaliação final.
+O projeto tem até a seguinte data: `26/11/2020 - 14:00h`. Para ser entregue a avaliação final.
 
 ---
 
@@ -44,9 +44,9 @@ O projeto tem até a seguinte data: `dd/mm/yyyy - 14:00h`. Para ser entregue a a
 
 1. Clone o repositório
 
-- `git clone https://github.com/betrybe/sd-0x-project-crush-manager.git`.
+- `git clone https://github.com/tryber/sd-05-project-crush-manager.git`.
 - Entre na pasta do repositório que você acabou de clonar:
-  - `cd sd-0x-project-crush-manager`
+  - `cd sd-05-project-crush-manager`
 
 2. Instale as dependências [**Caso existam**]
 
@@ -60,7 +60,7 @@ O projeto tem até a seguinte data: `dd/mm/yyyy - 14:00h`. Para ser entregue a a
   - Exemplo: `git checkout master`
 - Agora crie uma branch à qual você vai submeter os `commits` do seu projeto
   - Você deve criar uma branch no seguinte formato: `nome-de-usuario-nome-do-projeto`
-  - Exemplo: `git checkout -b joaozinho-sd-0x-project-crush-manager`
+  - Exemplo: `git checkout -b joaozinho-sd-05-project-crush-manager`
 
 4. Adicione as mudanças ao _stage_ do Git e faça um `commit`
 
@@ -72,12 +72,12 @@ O projeto tem até a seguinte data: `dd/mm/yyyy - 14:00h`. Para ser entregue a a
     - `git status` (deve aparecer listado o arquivo _joaozinho/README.md_ em verde)
 - Faça o `commit` inicial
   - Exemplo:
-    - `git commit -m 'iniciando o projeto x'` (fazendo o primeiro commit)
+    - `git commit -m 'iniciando o projeto 5'` (fazendo o primeiro commit)
     - `git status` (deve aparecer uma mensagem tipo _nothing to commit_ )
 
 5. Adicione a sua branch com o novo `commit` ao repositório remoto
 
-- Usando o exemplo anterior: `git push -u origin joaozinho-sd-0x-project-crush-manager`
+- Usando o exemplo anterior: `git push -u origin joaozinho-sd-05-project-crush-manager`
 
 6. Crie um novo `Pull Request` _(PR)_
 
@@ -183,7 +183,7 @@ O avaliador automático não necessariamente avalia seu projeto na ordem em que 
 
     ```js
     {
-      "message": "O \"password\" ter pelo menos 6 caracteres"
+      "message": "A \"senha\" deve ter pelo menos 6 caracteres"
     }
     ```
 
