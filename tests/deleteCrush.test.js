@@ -4,7 +4,7 @@ const path = require('path');
 
 const url = 'http://localhost:3000';
 
-describe.skip('6 - Crie o endpoint DELETE /crush/:id', () => {
+describe('6 - Crie o endpoint DELETE /crush/:id', () => {
   beforeEach(() => {
     const crushSeed = fs.readFileSync(
       path.join(__dirname, 'seed.json'),

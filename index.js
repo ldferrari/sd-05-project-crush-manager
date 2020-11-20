@@ -34,7 +34,7 @@ app.post(
     await res.json({
       token: uniqToken,
     });
-  }),
+  })
 );
 
 app.post(
@@ -63,7 +63,7 @@ app.post(
         });
       })
       .catch(() => console.log('ERROR: POST'));
-  }),
+  })
 );
 
 app.get(
@@ -75,7 +75,7 @@ app.get(
         res.status(200).json(JSON.parse(result));
       })
       .catch(() => console.log('ERROR : Getall'));
-  }),
+  })
 );
 
 app.get(
@@ -99,7 +99,7 @@ app.get(
         });
       })
       .catch(() => console.log('ERROR: Get by id'));
-  }),
+  })
 );
 
 app.put(
@@ -130,6 +130,22 @@ app.put(
         });
       })
       .catch((err) => console.log(`ERROR PUT:${err}`));
+  }),
+);
+app.delete(
+  '/crush/:id',
+  checkId,
+  checkToken,
+  rescue(async (req, res, _next) => {
+    await lerArquivo('./crush.json').then((result) => {
+      const auxId = parseInt(req.params.id, 10);
+      const auxArray = JSON.parse(result);
+      auxArray.filter((elemento) => elemento.id !== auxId);
+      writingFiles(JSON.stringify(auxArray));
+      res.status(200).json({
+        message: 'Crush deletado com sucesso',
+      });
+    });
   }),
 );
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
