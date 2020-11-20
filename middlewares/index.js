@@ -1,7 +1,9 @@
 const loginAuth = require('./loginAuth');
-const errMiddleware = require('./errMiddleware');
+const loginErr = require('./loginErr');
+const crushAuth = require('./crushAuth')
 
 module.exports = {
   loginAuth,
-  errMiddleware,
+  loginErr,
+  crushAuth,
 };
