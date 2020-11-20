@@ -5,7 +5,7 @@ const crushsSeed = require('./seed.json');
 
 const url = 'http://localhost:3000';
 
-describe.skip('3 - Crie o endpoint GET /crush', () => {
+describe('3 - Crie o endpoint GET /crush', () => {
   beforeEach(() => {
     const crushSeed = fs.readFileSync(
       path.join(__dirname, 'seed.json'),
