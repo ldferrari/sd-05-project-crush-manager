@@ -21,8 +21,9 @@ app.use(bodyParser.json());
 // 1 - Crie o endpoint POST /login
 app.post('/login', middlewares.login);
 
-// 6 - delete
-app.delete('/crush/:id', middlewares.authToken, middlewares.deleteCrush);
+// O crush search do requisito 7 precisa
+// ficar antes se não acaba entrando no caminho /crush/:id antes
+app.get('/crush/search', middlewares.authToken, middlewares.searchCrush);
 
 // 2 - Crie o endpoint POST /crush
 app
@@ -38,8 +39,6 @@ app
     middlewares.getAllCrushes,
   );
 
-// 7 - Search
-app.get('/crush/search', middlewares.searchCrush);
 // 4 - Crie o endpoint GET /crush/:id
 app
   .route('/crush/:id')
@@ -49,6 +48,7 @@ app
     middlewares.authToken,
     middlewares.validateCrush,
     middlewares.updateCrushById,
-  );
+  )
+  .delete(middlewares.authToken, middlewares.deleteCrush);
 
 app.listen(PORT, () => console.log(`We're in. Port ${PORT}`));
