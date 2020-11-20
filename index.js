@@ -18,9 +18,16 @@ app.post('/login', middlewares.emailValidator, (req, res) => {
   res.send({ token });
 });
 
-app.post('/crush', middlewares.authorization, middlewares.createCrushValidator, middlewares.dateValidator, (req, res) => {
-  const crush = helpers.createProfile(req.body);
-  res.status(201).send(crush);
+app.post('/crush', middlewares.authorization, middlewares.createCrushValidator, middlewares.dateValidator, async (req, res) => res.status(201).send(await helpers.createCrush(req.body)));
+
+app.get('/crush', middlewares.authorization, async (req, res) => {
+  res.json(await helpers.readCrush());
+});
+
+app.get('/crush/:id', middlewares.authorization, async (req, res) => {
+  const crush = await helpers.findCrushById(req.params.id);
+  if (!crush) res.status(404).send({ message: 'Crush não encontrado' });
+  res.status(200).json(crush);
 });
 
 app.listen(PORT, () => {

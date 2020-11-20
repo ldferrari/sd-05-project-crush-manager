@@ -1,4 +1,4 @@
-const createProfile = ({ id, name, age, date: { datedAt, rate } }) => ({
+const createProfile = ({ name, age, date: { datedAt, rate } }, id) => ({
   age,
   date: {
     datedAt,
