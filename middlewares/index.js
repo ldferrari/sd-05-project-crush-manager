@@ -1,5 +1,13 @@
-const auth = require('./auth');
+const authLogin = require('./authLogin');
+const authCrush = require('./authCrush');
+const authAge = require('./authAge');
+const authName = require('./authName');
+const authDate = require('./authDate');
 
 module.exports = {
-  auth,
+  authLogin,
+  authCrush,
+  authAge,
+  authName,
+  authDate,
 };
