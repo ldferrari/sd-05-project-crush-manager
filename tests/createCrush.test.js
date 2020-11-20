@@ -45,11 +45,7 @@ describe('2 - Crie o endpoint POST /crush', () => {
               },
             },
           })
-          .post(`${url}/crush`, {
-            name: 'Zendaya Maree',
-            age: 24,
-            date: { rate: 5, datedAt: '25/09/2020' },
-          })
+          .post(`${url}/crush`, postCrushMock)
           .expect('status', 201)
           .then((responseCreate) => {
             const { json } = responseCreate;
