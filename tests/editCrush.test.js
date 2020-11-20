@@ -6,16 +6,9 @@ const url = 'http://localhost:3000';
 
 describe('5 - Crie o endpoint PUT /crush/:id', () => {
   beforeEach(() => {
-    const crushMock = fs.readFileSync(
-      path.join(__dirname, 'seed.json'),
-      'utf8',
-    );
+    const crushMock = fs.readFileSync(path.join(__dirname, 'seed.json'), 'utf8');
 
-    fs.writeFileSync(
-      path.join(__dirname, '..', 'crush.json'),
-      crushMock,
-      'utf8',
-    );
+    fs.writeFileSync(path.join(__dirname, '..', 'crush.json'), crushMock, 'utf8');
   });
 
   it('Será validado que é possível editar um crush com sucesso', async () => {
@@ -228,9 +221,7 @@ describe('5 - Crie o endpoint PUT /crush/:id', () => {
           .expect('status', 400)
           .then((responseUpdate) => {
             const { json } = responseUpdate;
-            expect(json.message).toBe(
-              'O "name" deve ter pelo menos 3 caracteres',
-            );
+            expect(json.message).toBe('O "name" deve ter pelo menos 3 caracteres');
           });
       });
   });
@@ -583,9 +574,7 @@ describe('5 - Crie o endpoint PUT /crush/:id', () => {
           .expect('status', 400)
           .then((responseUpdate) => {
             const { json } = responseUpdate;
-            expect(json.message).toBe(
-              'O campo "rate" deve ser um inteiro de 1 à 5',
-            );
+            expect(json.message).toBe('O campo "rate" deve ser um inteiro de 1 à 5');
           });
       });
   });
@@ -656,9 +645,7 @@ describe('5 - Crie o endpoint PUT /crush/:id', () => {
           .expect('status', 400)
           .then((responseUpdate) => {
             const { json } = responseUpdate;
-            expect(json.message).toBe(
-              'O campo "rate" deve ser um inteiro de 1 à 5',
-            );
+            expect(json.message).toBe('O campo "rate" deve ser um inteiro de 1 à 5');
           });
       });
   });
@@ -801,9 +788,7 @@ describe('5 - Crie o endpoint PUT /crush/:id', () => {
           .expect('status', 400)
           .then((responseUpdate) => {
             const { json } = responseUpdate;
-            expect(json.message).toBe(
-              'O campo "datedAt" deve ter o formato "dd/mm/aaaa"',
-            );
+            expect(json.message).toBe('O campo "datedAt" deve ter o formato "dd/mm/aaaa"');
           });
       });
   });
@@ -865,7 +850,8 @@ describe('5 - Crie o endpoint PUT /crush/:id', () => {
           .then((responseUpdate) => {
             const { json } = responseUpdate;
             expect(json.message).toBe('Token não encontrado');
-          }));
+          }),
+      );
   });
 
   it('Será validado que não é possível editar um crush com token inválido', async () => {
@@ -933,6 +919,7 @@ describe('5 - Crie o endpoint PUT /crush/:id', () => {
           .then((responseUpdate) => {
             const { json } = responseUpdate;
             expect(json.message).toBe('Token inválido');
-          }));
+          }),
+      );
   });
 });
