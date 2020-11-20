@@ -1,21 +1,21 @@
 const auth = require('./auth');
-const login = require('./login');
-const create = require('./create');
-const saveFile = require('./saveFile');
-const read = require('./read');
-const searchId = require('./searchId');
-const update = require('./update');
+const checkBodyStructure = require('./checkBodyStructure');
 const del = require('./delete');
+const login = require('./login');
+const read = require('./read');
+const saveFile = require('./saveFile');
+const searchId = require('./searchId');
 const searchTerm = require('./searchTerm');
+const update = require('./update');
 
 module.exports = {
   auth,
-  login,
-  create,
-  saveFile,
-  read,
-  searchId,
-  update,
+  checkBodyStructure,
   del,
+  login,
+  read,
+  saveFile,
+  searchId,
   searchTerm,
+  update,
 };

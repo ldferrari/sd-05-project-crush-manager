@@ -13,5 +13,5 @@ module.exports = async (req, res) => {
   newItem.id = idInt;
   file[index] = newItem;
   await writeFile('./crush.json', JSON.stringify(file));
-  res.status(200).json(newItem);
+  return res.status(200).json(newItem);
 };
