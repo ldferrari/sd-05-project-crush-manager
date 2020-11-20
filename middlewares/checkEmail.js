@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     return next();
   }
 
-  res.status(400).send({
+  return res.status(400).send({
     message: 'O "email" deve ter o formato "email@email.com"',
   });
 };

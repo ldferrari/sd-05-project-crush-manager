@@ -31,7 +31,7 @@ app.post(
   checkPass,
   rescue(async (req, res, _next) => {
     const uniqToken = genToken;
-    res.json({
+    await res.json({
       token: uniqToken,
     });
   }),
@@ -44,7 +44,7 @@ app.post(
   checkAge,
   checkDate,
   rescue(async (req, res, _next) => {
-    lerArquivo('./crush.json')
+    await lerArquivo('./crush.json')
       .then((result) => {
         const { name, age, date } = req.body;
         const file = JSON.parse(result);
@@ -62,7 +62,7 @@ app.post(
           },
         });
       })
-      .catch((e) => console.log(e));
+      .catch(() => console.log('ERROR: POST'));
   }),
 );
 
@@ -70,11 +70,11 @@ app.get(
   '/crush',
   checkToken,
   rescue(async (_req, res, _next) => {
-    lerArquivo('./crush.json')
+    await lerArquivo('./crush.json')
       .then((result) => {
         res.status(200).json(JSON.parse(result));
       })
-      .catch(() => console.log('Error : getall'));
+      .catch(() => console.log('ERROR : Getall'));
   }),
 );
 
@@ -84,7 +84,7 @@ app.get(
   checkId,
   rescue(async (req, res, _next) => {
     const auxId = parseInt(req.params.id, 10);
-    lerArquivo('./crush.json')
+    await lerArquivo('./crush.json')
       .then((result) => {
         const re = JSON.parse(result);
         const indice = re.findIndex(({ id }) => id === auxId);
@@ -98,7 +98,7 @@ app.get(
           },
         });
       })
-      .catch(() => console.log('ERROR: Get all'));
+      .catch(() => console.log('ERROR: Get by id'));
   }),
 );
 
@@ -110,12 +110,11 @@ app.put(
   checkDate,
   checkId,
   rescue(async (req, res, _next) => {
-    lerArquivo('./crush.json')
+    await lerArquivo('./crush.json')
       .then((result) => {
         const { name, age, date } = req.body;
         const auxId = parseInt(req.params.id, 10);
         const indice = JSON.parse(result).findIndex(({ id }) => id === auxId);
-        console.log(indice);
         const file = JSON.parse(result);
         file[indice] = { name, age, id: auxId, date };
         // console.log(file);

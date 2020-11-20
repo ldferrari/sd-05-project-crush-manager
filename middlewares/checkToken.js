@@ -7,7 +7,7 @@ module.exports = (req, res, _next) => {
     });
   }
   if (erroTok.length < 16) {
-    res.status(401).send({
+    return res.status(401).send({
       message: 'Token inválido',
     });
   }

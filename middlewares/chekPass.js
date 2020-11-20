@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
   if (req.body.password.length > 5) {
     return next();
   }
-  res.status(400).send({
+  return res.status(400).send({
     message: 'A "senha" deve ter pelo menos 6 caracteres',
   });
 };

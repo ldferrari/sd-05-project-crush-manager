@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
   if (acharUsuario) {
     return next();
   }
-  res.status(404).json({
+  return res.status(404).json({
     message: 'Crush não encontrado',
   });
 };

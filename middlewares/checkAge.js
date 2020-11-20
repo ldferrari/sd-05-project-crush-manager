@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
   }
   const { age } = req.body;
   if (age < 18) {
-    res.status(400).send({
+    return res.status(400).send({
       message: 'O crush deve ser maior de idade',
     });
   }
