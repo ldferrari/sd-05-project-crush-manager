@@ -49,12 +49,12 @@ const CrushValidate = (req, res, next) => {
     return res.status(400).json({ message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"' });
   } if (!rateIsValid) {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
-  } const { token } = req.headers;
-  // console.log(token);
-  if (!token) {
+  } const { authorization } = req.headers;
+  console.log(authorization);
+  if (!authorization) {
     return res.status(401).json({ message: 'Token não encontrado' });
   }
-  if (token.length !== 16) {
+  if (authorization.length !== 16) {
     return res.status(401).json({ message: 'Token inválido' });
   }
   if (nameIsValid && ageIsValid && dateIsValid && rateIsValid) {
