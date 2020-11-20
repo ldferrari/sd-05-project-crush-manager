@@ -1,6 +1,6 @@
 const express = require('express');
-const middlewares = require('./middlewares');
 const bodyparser = require('body-parser');
+const middlewares = require('./middlewares');
 
 const app = express();
 app.use(bodyparser.json());
@@ -13,4 +13,4 @@ app.get('/', (request, response) => {
 
 app.post('/login', middlewares.login);
 
-app.listen (PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
