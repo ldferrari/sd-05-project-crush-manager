@@ -1,15 +1,11 @@
-const email = require('./email');
-const password = require('./password');
-const age = require('./age');
-const name = require('./name');
+const testLogin = require('./testLogin');
+const dateNameAgeRate = require('./dataNameAgeRate');
+const file = require('./file');
 const token = require('./token');
-const date = require('./date');
 
 module.exports = {
-  email,
-  password,
-  age,
-  name,
+  testLogin,
+  dateNameAgeRate,
+  file,
   token,
-  date,
 };

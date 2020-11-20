@@ -1,14 +1,16 @@
-module.exports = (req, res, _next) => {
-  const missToken = req.headers.authorization;
+module.exports = (req, res, next) => {
+  const { missToken } = req.headers;
+
   if (!missToken) {
-    res.status(401).send({
+    return res.status(401).json({
       message: 'Token não encontrado',
     });
   }
+
   if (missToken.length < 16) {
-    res.status(401).send({
+    return res.status(401).json({
       message: 'Token inválido',
     });
   }
-  _next();
+  next();
 };
