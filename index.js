@@ -16,6 +16,8 @@ app.post('/login', middlewares.auth);
 
 app.post('/crush', middlewares.newCrushValidate, middlewares.newCrushAdd);
 
+app.get('/crush', middlewares.getAllCrushs);
+
 app.use((err, _req, res, _next) => {
   res.status(500).send(`Algo deu errado! Mensagem: ${err.message}`);
 });
