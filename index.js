@@ -48,7 +48,7 @@ app.get('/crush', middlewares.authToken, rescue(async (_req, res) => {
 
 app.get('/crush/:id', middlewares.authToken, rescue(async (req, res) => {
   const crushFile = JSON.parse(await readFile(crushList));
-  const crushFind = crushFile.find((crush) => req.params.id === crush.id);
+  const crushFind = crushFile.find((crush) => parseInt(req.params.id, 10) === crush.id);
   if (crushFind) {
     res.status(200).json(crushFind);
   }
