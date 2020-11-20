@@ -1,4 +1,5 @@
 const randToken = require('rand-token');
+
 const generateToken = randToken.generate(16);
 
 const testEmail = (email) => {
