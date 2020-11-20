@@ -6,7 +6,7 @@ const readCrushes = async () => {
     if (err) console.log('erro no read');
     console.log('lido a Lista');
   });
-  return JSON.parse(list.toString('utf-8'));
+  return JSON.parse(list); //.toString('utf-8')
 };
 
 const newCrushAdd = async (req, res) => {
@@ -14,7 +14,8 @@ const newCrushAdd = async (req, res) => {
     const { name, age, date } = req.body;
     // console.log(name, age);
     const originalCrushes = await readCrushes();
-    const id = originalCrushes.lenght + 1; // NOT WORKING?!!!
+    //console.log('list:', originalCrushes);
+    const id = originalCrushes.length + 1;
     console.log(id);
     const newCrush = { id, name, age, date };
     console.log(newCrush);
