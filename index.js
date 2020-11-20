@@ -35,4 +35,10 @@ app.get('/crush', middlewares.auth, async (_req, res, _next) => {
   res.status(200).json(crushList);
 });
 
+app.get('/crush/:id', middlewares.auth, middlewares.checkId, async (req, res, _next) => {
+  const crushList = await helpers.readFileCrush();
+  const filteredCrush = crushList.find((crush) => crush.id === parseInt(req.params.id, 10));
+  res.status(200).json(filteredCrush);
+});
+
 app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}!`));
