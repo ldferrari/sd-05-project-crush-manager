@@ -1,5 +1,9 @@
 const express = require('express');
 
+const fs = require('fs');
+
+const path = require('path');
+
 const { MD5 } = require('crypto-js');
 
 const app = express();
@@ -7,6 +11,27 @@ const PORT = 3000;
 const bodyParser = require('body-parser');
 const middlewares = require('./middlewares');
 app.use(bodyParser.json());
+
+const idd = 4;
+
+const db = async () => JSON.parse(fs.readFileSync(path.join(__dirname, 'crush.json'), 'utf8'));
+const changeDb = async (newDB) =>
+  fs.writeFileSync(path.join(__dirname, '..', 'crush.json'), String(newDB), 'utf8');
+
+const updateDB = async (id, name, age, date) => {
+  const dbs = await db();
+  const newDBS = dbs.map((i, index) => {
+    if (i.id === parseInt(id, 10)) {
+      i[index] = {
+        id,
+        name,
+        age,
+        date,
+      };
+    }
+  });
+  await changeDb(newDBS);
+};
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
@@ -20,11 +45,40 @@ app.post('/login', middlewares.loginAuth, (req, res) => {
   res.status(200).json({ token });
 });
 
-app.post('/crush', middlewares.crushAuth, (req, res) => {
-  res.status(401).send(req);
+app.post('/crush', middlewares.createCrushAuth, (req, res) => {
+  res.status(201).json({ ...req.body, id: idd + 1 });
 });
 
-app.use('/login', middlewares.loginErr);
+app.get('/crush', middlewares.getAllCrushs, async (_req, res) => {
+  const dbs = await db();
+  console.log(dbs);
+  res.status(200).json(dbs);
+});
+
+app.get('/crush/:id', middlewares.getAllCrushs, async (req, res) => {
+  const dbs = await db();
+  const { id } = req.params;
+  const crushFound = dbs.find((i) => i.id === parseInt(id, 10));
+  if (!crushFound) {
+    res.status(404).json({ message: 'Crush não encontrado' });
+  }
+  res.status(200).json(crushFound);
+});
+
+app.put('/crush/:id', middlewares.createCrushAuth, async (req, res) => {
+  const { id } = req.params;
+  const { body } = req;
+  const { name, age, date } = body;
+  await updateDB(id, name, age, date);
+  const idd = parseInt(id, 10);
+  res.status(200).json({ ...body, id: idd });
+});
+
+app.post('/echo', (req, res) => {
+  res.status(201).send({ ...req.body, id: idd + 1 });
+});
+
+app.use(middlewares.errMiddleware);
 
 app.listen(PORT, function () {
   console.log('ouvindo a porta 3000');
