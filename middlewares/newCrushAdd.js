@@ -16,18 +16,18 @@ const newCrushAdd = async (req, res) => {
     const originalCrushes = await readCrushes();
     // console.log('list:', originalCrushes);
     const id = originalCrushes.length + 1;
-    console.log(id);
+    // console.log(id);
     const newCrush = { id, name, age, date };
-    console.log(newCrush);
+    // console.log(newCrush);
     const newList = [...originalCrushes, newCrush];
-    console.log(newList);
+    // console.log(newList);
     fs.writeFile((path.resolve(__dirname, '..', 'crush.json')), JSON.stringify(newList), (err, _data) => {
       if (err) throw ('alguma coisa', err.message);
       console.log('adicionado novo crush');
     });
     res.status(201).json({ id, name, age, date });
   } catch (error) {
-    console.log('linha30');
+    console.log('erro linha30');
   }
 };
 

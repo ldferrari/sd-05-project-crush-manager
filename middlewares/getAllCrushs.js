@@ -11,7 +11,7 @@ const readCrushs = async () => {
 
 const getAllCrushs = async (req, res) => {
   const { authorization } = req.headers;
-  console.log(authorization);
+  // console.log(authorization);
   if (!authorization) {
     return res.status(401).json({ message: 'Token não encontrado' });
   }

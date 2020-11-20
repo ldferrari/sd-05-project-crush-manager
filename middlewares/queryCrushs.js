@@ -11,7 +11,7 @@ const readCrushs = async () => {
 
 const queryCrushs = async (req, res) => {
   const { authorization } = req.headers;
-  console.log(authorization);
+  // console.log(authorization);
   if (!authorization) {
     return res.status(401).json({ message: 'Token não encontrado' });
   }
@@ -20,12 +20,11 @@ const queryCrushs = async (req, res) => {
   }
   const crushList = await readCrushs();
   const queryName = req.query.q;
-  console.log(req.query);
+  // console.log(req.query);
   const queryResponse = crushList.filter((crush) => crush.name.includes(queryName));
   if (!queryResponse || queryResponse.length === 0) {
     return res.status(404).json({ message: 'nome não encontrado' });
   }
-  // console.log(oProcurado);
   res.status(200).send(queryResponse);
 };
 

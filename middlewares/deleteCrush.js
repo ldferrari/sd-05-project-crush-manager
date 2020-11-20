@@ -12,7 +12,7 @@ const readCrushs = async () => {
 const deleteCrush = async (req, res) => {
   try {
     const { authorization } = req.headers;
-    console.log(authorization);
+    // console.log(authorization);
     if (!authorization) {
       return res.status(401).json({ message: 'Token não encontrado' });
     }
@@ -25,18 +25,13 @@ const deleteCrush = async (req, res) => {
     // console.log(numId);
     const listSemId = crushList.filter((crush) => crush.id !== numId);
     // console.log(listSemId)
-    // const { id, name, age, date } = req.body;
-    // const editedCrush = { id, name, age, date };
-    // console.log(editedCrush);
-    // const newList = [...listSemId, editedCrush];
-    // console.log(newList);
     fs.writeFile((path.resolve(__dirname, '..', 'crush.json')), JSON.stringify(listSemId), (err, _data) => {
       if (err) throw ('erro escrever', err.message);
       console.log('deletado o crush');
     });
     res.status(200).send({ message: 'Crush deletado com sucesso' });
   } catch (error) {
-    console.log('linha31');
+    console.log('linha34');
   }
 };
 

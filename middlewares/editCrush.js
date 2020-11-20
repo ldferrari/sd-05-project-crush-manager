@@ -19,7 +19,7 @@ const editCrush = async (req, res) => {
     // console.log(listSemId)
     const { name, age, date } = req.body;
     const editedCrush = { id: numId, name, age, date };
-    console.log(editedCrush);
+    // console.log(editedCrush);
     const newList = [...listSemId, editedCrush];
     // console.log(newList);
     fs.writeFile((path.resolve(__dirname, '..', 'crush.json')), JSON.stringify(newList), (err, _data) => {
