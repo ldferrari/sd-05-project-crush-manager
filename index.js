@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-// const rescue = require('express-rescue');
+const rescue = require('express-rescue');
 //  rescue para fazer o try/catch de funções assíncronas.
 const mid = require('./middleware');
 
@@ -14,25 +14,25 @@ app.get('/', (request, response) => {
 
 app.use(bodyParser.json());
 
-app.get('/crush/search', mid.auth, mid.searchTerm);
+app.get('/crush/search', mid.auth, rescue(mid.searchTerm));
 //  7 - Crie o endpoint GET /crush/search?q=searchTerm
 
 app.post('/login', mid.login);
 //  1 - Crie o endpoint POST /login
 
-app.post('/crush', mid.auth, mid.checkBodyStructure, mid.saveFile);
+app.post('/crush', mid.auth, mid.checkBodyStructure, rescue(mid.saveFile));
 //  2 - Crie o endpoint POST /crush
 
-app.get('/crush', mid.auth, mid.read);
+app.get('/crush', mid.auth, rescue(mid.read));
 //  3 - Crie o endpoint GET /crush
 
-app.get('/crush/:id', mid.auth, mid.searchId);
+app.get('/crush/:id', mid.auth, rescue(mid.searchId));
 //  4 - Crie o endpoint GET /crush/:id
 
-app.put('/crush/:id', mid.auth, mid.checkBodyStructure, mid.update);
+app.put('/crush/:id', mid.auth, mid.checkBodyStructure, rescue(mid.update));
 //  5 - Crie o endpoint PUT /crush/:id
 
-app.delete('/crush/:id', mid.auth, mid.del);
+app.delete('/crush/:id', mid.auth, rescue(mid.del));
 //  6 - Crie o endpoint DELETE /crush/:id
 
 app.listen(PORT, () => {
