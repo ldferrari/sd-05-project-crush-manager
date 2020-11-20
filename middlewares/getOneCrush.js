@@ -23,7 +23,7 @@ const getOneCrush = async (req, res) => {
   const numId = parseInt(givenId, 10);
   // console.log(numId);
   const oProcurado = crushList.find((crush) => crush.id === numId);
-  if(!oProcurado){
+  if (!oProcurado) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
   // console.log(oProcurado);
