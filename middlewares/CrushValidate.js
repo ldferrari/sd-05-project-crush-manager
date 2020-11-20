@@ -49,7 +49,13 @@ const CrushValidate = (req, res, next) => {
   console.log(ageIsValid);
   if (!ageIsValid) {
     return res.status(400).json({ message: 'O crush deve ser maior de idade' });
-  } if (!date || !date.datedAt || !date.rate) {
+  } if (!date) {
+    return res.status(400).json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
+  }
+  if(date.rate === 0){
+    return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
+  }
+  if (!date.datedAt || !date.rate) {
     return res.status(400).json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
   } const dateIsValid = vDate(date.datedAt);
   const rateIsValid = vRate(date.rate);

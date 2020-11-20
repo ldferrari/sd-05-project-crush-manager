@@ -17,8 +17,8 @@ const editCrush = async (req, res) => {
     // console.log(numId);
     const listSemId = crushList.filter((crush) => crush.id !== numId);
     // console.log(listSemId)
-    const { id, name, age, date } = req.body;
-    const editedCrush = { id, name, age, date };
+    const { name, age, date } = req.body;
+    const editedCrush = { id: numId, name, age, date };
     console.log(editedCrush);
     const newList = [...listSemId, editedCrush];
     // console.log(newList);
