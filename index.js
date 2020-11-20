@@ -14,11 +14,10 @@ app.get('/', (request, response) => {
 
 app.post('/login', middlewares.auth);
 
-app.post('/crush', middlewares.newCrushValidate, middlewares.newCrushAdd);
-
+app.get('/crush/:id', middlewares.getOneCrush);
 app.get('/crush', middlewares.getAllCrushs);
 
-app.get('/crush/:id', middlewares.getOneCrush);
+app.post('/crush', middlewares.newCrushValidate, middlewares.newCrushAdd);
 
 app.use((err, _req, res, _next) => {
   res.status(500).send(`Algo deu errado! Mensagem: ${err.message}`);
