@@ -7,19 +7,19 @@ module.exports = (req, res) => {
   const passString = password.toString();
 
   if (!email) {
-    return res.status(400).json({ message: 'O campo \'email\' é obrigatório' });
+    return res.status(400).json({ message: 'O campo "email" é obrigatório' });
   }
 
   if (!validaEmail(email)) {
-    return res.status(400).json({ message: 'O campo \'email\'deve ter o formato \'email@email.com\'' });
+    return res.status(400).json({ message: 'O campo "email" deve ter o formato "email@email.com"' });
   }
 
   if (!password) {
-    return res.status(400).json({ message: 'O campo \'password\' é obrigatório' });
+    return res.status(400).json({ message: 'O campo "password" é obrigatório' });
   }
 
   if (!validaPassword(passString)) {
-    return res.status(400).json({ message: 'A \'senha\' deve ter pelo menos 6 caracteres' });
+    return res.status(400).json({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
   }
 
   res.status(200).json(token());
