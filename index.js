@@ -1,4 +1,5 @@
 const express = require('express');
+
 const app = express();
 const bodyParser = require('body-parser');
 const middlewares = require('./middlewares');
@@ -12,7 +13,7 @@ app.get('/', (request, response) => {
 });
 
 app.post('/login', middlewares.auth, (_req, res) => {
-  res.status(200).json({ "token": generateToken() });
+  res.status(200).json({ token: generateToken() });
 });
 
 const PORT = 3000;
