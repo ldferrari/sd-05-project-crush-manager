@@ -27,7 +27,6 @@ const updateDB = async (id, name, age, date) => {
         date,
       };
     }
-    return;
   });
   await changeDb(newDBS);
 };
@@ -83,6 +82,6 @@ app.delete('/crush/:id', middlewares.getAllCrushs, async (req, res) => {
 
 app.use(middlewares.errMiddleware);
 
-app.listen(PORT, function () {
+app.listen(PORT/* , function () {
   console.log('ouvindo a porta 3000');
-});
+} */);
