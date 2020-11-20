@@ -1,17 +1,13 @@
-const fs = require('fs');
-const util = require('util');
-
-const readFile = util.promisify(fs.readFile);
-const writeFile = util.promisify(fs.writeFile);
+const readCrushFile = require('../functions/readCrushFile');
+const writeCrushFile = require('../functions/writeCrushFile.js');
 
 const createCrushIntoFile = async (input) => {
-  let file = await readFile('./crush.json', 'utf8');
-  file = JSON.parse(file);
+  const file = await readCrushFile();
   const proximoId = Math.max(...file.map((item) => item.id)) + 1;
   const clonedInput = { ...input };
   clonedInput.id = proximoId;
   file.push(clonedInput);
-  await writeFile('./crush.json', JSON.stringify(file));
+  await writeCrushFile(file);
   return clonedInput;
 };
 

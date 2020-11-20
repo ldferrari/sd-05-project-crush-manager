@@ -1,17 +1,13 @@
-const fs = require('fs');
-const util = require('util');
-
-const readFile = util.promisify(fs.readFile);
-const writeFile = util.promisify(fs.writeFile);
+const readCrushFile = require('../functions/readCrushFile');
+const writeCrushFile = require('../functions/writeCrushFile.js');
 
 module.exports = async (req, res) => {
-  let file = await readFile('./crush.json', 'utf-8');
-  file = await JSON.parse(file);
+  const file = await readCrushFile();
   const idInt = parseInt(req.params.id, 10);
   const index = file.findIndex((item) => item.id === idInt);
   const newItem = { ...req.body };
   newItem.id = idInt;
   file[index] = newItem;
-  await writeFile('./crush.json', JSON.stringify(file));
+  await writeCrushFile(file);
   return res.status(200).json(newItem);
 };
