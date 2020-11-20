@@ -21,13 +21,15 @@ app.use(express.json());
 // });
 
 app.post('/login', middlewares.validaEmail, middlewares.validaPassword, (_, res) => {
-  console.log(token);
-  res.status(200).json({ token: token });
+  // console.log(token);
+  res.json({ token: token });
 });
 
 const PORT = 3000;
 
-app.listen(PORT, () => { console.log(`Escutando na porta ${PORT}`) });
+app.listen(PORT, () => { 
+  console.log(`Escutando na porta ${PORT}`); 
+});
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
