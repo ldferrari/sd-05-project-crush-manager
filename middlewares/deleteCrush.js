@@ -34,7 +34,7 @@ const deleteCrush = async (req, res) => {
       if (err) throw ('erro escrever', err.message);
       console.log('deletado o crush');
     });
-    res.status(200).send({ message: 'Crush deletado com sucesso!' });
+    res.status(200).send({ message: 'Crush deletado com sucesso' });
   } catch (error) {
     console.log('linha31');
   }
