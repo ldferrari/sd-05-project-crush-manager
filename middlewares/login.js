@@ -16,7 +16,7 @@ module.exports = (req, res) => {
   }
   // Alterando a senha recebida pra String
   const pw = password.toString();
-  if(!checkPassword(pw)) {
+  if (!checkPassword(pw)) {
     return res.status(400).json({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
   }
   // Gerar o token

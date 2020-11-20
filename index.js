@@ -1,7 +1,8 @@
+const express = require('express');
+
 const app = express();
 // Importação e use - bodyParser boa prática seu uso
 const bodyParser = require('body-parser');
-const express = require('express');
 const middlewares = require('./middlewares');
 // const { readCrush } = require('./services/crudFunctions') //FAZER ESTA FUNCAO
 
