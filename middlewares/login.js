@@ -2,7 +2,7 @@ const validaEmail = require('../services/validaEmail');
 const validaPassword = require('../services/validaPassword');
 const token = require('../services/genToken');
 
-module.exports = (req, res) => {
+module.exports = (req, res, next) => {
   const { email, password } = req.body;
   const passString = password.toString();
 
@@ -23,4 +23,6 @@ module.exports = (req, res) => {
   }
 
   res.status(200).json(token());
+
+  return next();
 };
