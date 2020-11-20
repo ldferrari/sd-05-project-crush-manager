@@ -10,22 +10,26 @@ const readCrushs = async () => {
 };
 
 const editCrush = async (req, res) => {
-  const crushList = await readCrushs();
-  const givenId = req.params.id;
-  const numId = parseInt(givenId, 10);
-  // console.log(numId);
-  const listSemId = crushList.filter((crush) => crush.id !== numId);
-  // console.log(listSemId)
-  const { id, name, age, date } = req.body
-  const editedCrush = { id, name, age, date };
-  console.log(editedCrush);
-  const newList = [...listSemId, editedCrush];
-  // console.log(newList);
-  fs.writeFile((path.resolve(__dirname, '..', 'crush.json')), JSON.stringify(newList), (err, _data) => {
-    if (err) throw ('erro escrever', err.message);
-    console.log('atualizado o crush');
-  });
-  res.status(200).send(editedCrush);
+  try {
+    const crushList = await readCrushs();
+    const givenId = req.params.id;
+    const numId = parseInt(givenId, 10);
+    // console.log(numId);
+    const listSemId = crushList.filter((crush) => crush.id !== numId);
+    // console.log(listSemId)
+    const { id, name, age, date } = req.body;
+    const editedCrush = { id, name, age, date };
+    console.log(editedCrush);
+    const newList = [...listSemId, editedCrush];
+    // console.log(newList);
+    fs.writeFile((path.resolve(__dirname, '..', 'crush.json')), JSON.stringify(newList), (err, _data) => {
+      if (err) throw ('erro escrever', err.message);
+      console.log('atualizado o crush');
+    });
+    res.status(200).send(editedCrush);
+  } catch (error) {
+    console.log('linha31');
+  }
 };
 
 module.exports = editCrush;
