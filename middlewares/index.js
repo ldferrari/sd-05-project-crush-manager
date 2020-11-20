@@ -26,36 +26,48 @@ function emailValidator(req, res, next) {
 }
 
 function createCrushValidator(req, res, next) {
+  const crush = req.body;
   switch (true) {
-    case !req.body.name:
+    case !crush.name:
       return res.status(400).send({ message: 'O campo "name" é obrigatório' });
-    case !nameRegex.test(req.body.name):
+    case !nameRegex.test(crush.name):
       return res.status(400).send({
         message: 'O "name" deve ter pelo menos 3 caracteres',
       });
-    case !req.body.age:
+    case !crush.age:
       return res
         .status(400)
         .send({ message: 'O campo "age" é obrigatório' });
-    case req.body.age < 18:
+    case crush.age < 18:
       return res
         .status(400)
         .send({ message: 'O crush deve ser maior de idade' });
-    case !req.body.date.datedAt || !req.body.date.rate:
+    case !crush.date:
       return res
         .status(400)
         .send({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
-    case !dateRegex.test(req.body.date.datedAt):
-      return res
-        .status(400)
-        .send({ message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"' });
-    case req.body.date.rate < 1 || req.body.date.rate > 5:
-      return res
-        .status(400)
-        .send({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
     default:
       next();
   }
+}
+
+function dateValidator(req, res, next) {
+  const crush = req.body;
+  if (!crush.date.datedAt || !crush.date.rate) {
+    return res
+      .status(400)
+      .send({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
+  } if (!dateRegex.test(crush.date.datedAt)) {
+    return res
+      .status(400)
+      .send({ message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"' });
+  } if (crush.date.rate < 1 || crush.date.rate > 5) {
+    return res
+      .status(400)
+      .send({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
+  }
+
+  return next();
 }
 
 // alteração muito grande
@@ -64,4 +76,5 @@ module.exports = {
   emailValidator,
   createCrushValidator,
   authorization,
+  dateValidator,
 };

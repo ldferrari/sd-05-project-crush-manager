@@ -18,9 +18,8 @@ app.post('/login', middlewares.emailValidator, (req, res) => {
   res.send({ token });
 });
 
-app.post('/crush', middlewares.authorization, middlewares.createCrushValidator, (req, res) => {
+app.post('/crush', middlewares.authorization, middlewares.createCrushValidator, middlewares.dateValidator, (req, res) => {
   const crush = helpers.createProfile(req.body);
-  console.log(req.body);
   res.status(201).send(crush);
 });
 
