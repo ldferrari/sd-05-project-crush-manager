@@ -34,7 +34,7 @@ app.post(
     res.json({
       token: uniqToken,
     });
-  })
+  }),
 );
 
 app.post(
@@ -63,7 +63,7 @@ app.post(
         });
       })
       .catch((e) => console.log(e));
-  })
+  }),
 );
 
 app.get(
@@ -75,7 +75,7 @@ app.get(
         res.status(200).json(JSON.parse(result));
       })
       .catch(() => console.log('Error : getall'));
-  })
+  }),
 );
 
 app.get(
@@ -99,7 +99,7 @@ app.get(
         });
       })
       .catch(() => console.log('ERROR: Get all'));
-  })
+  }),
 );
 
 app.put(
@@ -131,6 +131,6 @@ app.put(
         });
       })
       .catch((err) => console.log(`ERROR PUT:${err}`));
-  })
+  }),
 );
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
