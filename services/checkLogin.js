@@ -5,7 +5,7 @@ function checkEmail(email) {
 } // Retorna true or false
 
 function checkPassword(password) {
-  if(password.length > 5) {
+  if (password.length > 5) {
     return true;
   }
   return false;
