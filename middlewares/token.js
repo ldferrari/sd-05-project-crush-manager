@@ -1,5 +1,5 @@
 module.exports = (req, res, next) => {
-  const { missToken } = req.headers;
+  const missToken = req.headers.authorization;
 
   if (!missToken) {
     return res.status(401).json({
