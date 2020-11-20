@@ -11,8 +11,8 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/login', (_req, res, _next) => {
-  res.send({ "token": generateToken() });
+app.post('/login', middlewares.auth, (_req, res) => {
+  res.status(200).json({ "token": generateToken() });
 });
 
 const PORT = 3000;
