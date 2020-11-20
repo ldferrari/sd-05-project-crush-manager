@@ -3,4 +3,4 @@ module.exports = (password) => {
     return true;
   }
   return false;
-}
+};
