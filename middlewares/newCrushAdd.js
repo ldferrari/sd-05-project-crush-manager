@@ -14,7 +14,7 @@ const newCrushAdd = async (req, res) => {
     const { name, age, date } = req.body;
     // console.log(name, age);
     const originalCrushes = await readCrushes();
-    const id = originalCrushes.lenght + 1;
+    const id = originalCrushes.lenght + 1; // NOT WORKING?!!!
     console.log(id);
     const newCrush = { id, name, age, date };
     console.log(newCrush);
