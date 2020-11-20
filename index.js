@@ -3,11 +3,11 @@ const express = require('express');
 const app = express();
 const rescue = require('express-rescue');
 const bodyParser = require('body-parser');
-
 const middlewares = require('./middlewares');
 const generateToken = require('./services/generate-token');
 const writeFile = require('./services/writeFile');
 const readFile = require('./services/readFile');
+
 const crushList = './crush.json';
 
 app.use(bodyParser.json());
