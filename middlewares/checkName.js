@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
   }
   const { name } = req.body;
   if (name.length < 3) {
-    res.status(400).send({
+    return res.status(400).send({
       message: 'O "name" deve ter pelo menos 3 caracteres',
     });
   }
