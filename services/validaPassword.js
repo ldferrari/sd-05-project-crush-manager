@@ -1,1 +1,7 @@
-module.exports = (password) => password.length > 5 ? true : false;
+module.exports = (password) => {
+  if (password) {
+    return true;
+  } else {
+    return false;
+  };
+};
