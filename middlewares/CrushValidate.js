@@ -52,7 +52,7 @@ const CrushValidate = (req, res, next) => {
   } if (!date) {
     return res.status(400).json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
   }
-  if(date.rate === 0){
+  if (date.rate === 0) {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
   }
   if (!date.datedAt || !date.rate) {

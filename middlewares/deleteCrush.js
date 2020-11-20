@@ -18,8 +18,7 @@ const deleteCrush = async (req, res) => {
     }
     if (authorization.length !== 16) {
       return res.status(401).json({ message: 'Token inválido' });
-    };
-    
+    }
     const crushList = await readCrushs();
     const givenId = req.params.id;
     const numId = parseInt(givenId, 10);
@@ -27,15 +26,15 @@ const deleteCrush = async (req, res) => {
     const listSemId = crushList.filter((crush) => crush.id !== numId);
     // console.log(listSemId)
     // const { id, name, age, date } = req.body;
-    //const editedCrush = { id, name, age, date };
+    // const editedCrush = { id, name, age, date };
     // console.log(editedCrush);
     // const newList = [...listSemId, editedCrush];
     // console.log(newList);
-    fs.writeFile((path.resolve(__dirname, '..', 'crush.json')), JSON.stringify(ListSemId), (err, _data) => {
+    fs.writeFile((path.resolve(__dirname, '..', 'crush.json')), JSON.stringify(listSemId), (err, _data) => {
       if (err) throw ('erro escrever', err.message);
       console.log('deletado o crush');
     });
-    res.status(200).send({ message: "Crush deletado com sucesso!" });
+    res.status(200).send({ message: 'Crush deletado com sucesso!' });
   } catch (error) {
     console.log('linha31');
   }
