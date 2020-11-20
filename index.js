@@ -1,5 +1,4 @@
 const express = require('express');
-const rescue = require('express-rescue');
 const {
   loginChecker,
   nameChecker,
@@ -27,7 +26,7 @@ app.post('/login', loginChecker, (req, res) => {
 app.get('/crush/search', tokenChecker, async (req, res) => {
   const searchTerm = req.query.q;
   const crushs = JSON.parse(await read('./crush.json'));
-  if ((!searchTerm || searchTerm === '')) {
+  if (!searchTerm || searchTerm === '') {
     return res.status(200).json(crushs);
   }
   const foundCrushs = crushs.filter((crush) => crush.name.includes(searchTerm));
@@ -35,23 +34,16 @@ app.get('/crush/search', tokenChecker, async (req, res) => {
   return res.status(200).json(foundCrushs);
 });
 
-app.post(
-  '/crush',
-  tokenChecker,
-  nameChecker,
-  ageChecker,
-  dateChecker,
-  rescue(async (req, res) => {
-    const crushs = JSON.parse(await read('./crush.json'));
-    const newCrush = req.body;
-    newCrush.id = crushs.length + 1;
-    crushs.push(newCrush);
+app.post('/crush', tokenChecker, nameChecker, ageChecker, dateChecker, async (req, res) => {
+  const crushs = JSON.parse(await read('./crush.json'));
+  const newCrush = req.body;
+  newCrush.id = crushs.length + 1;
+  crushs.push(newCrush);
 
-    await addNewCrush('./crush.json', crushs);
+  await addNewCrush('./crush.json', crushs);
 
-    return res.status(201).json(newCrush);
-  }),
-);
+  return res.status(201).json(newCrush);
+});
 
 app.get('/crush', tokenChecker, async (req, res) => {
   const crushList = JSON.parse(await read('./crush.json'));
