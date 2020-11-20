@@ -1,12 +1,12 @@
 const authLogin = require('./authLogin');
-const authCrush = require('./authCrush');
+const authToken = require('./authToken');
 const authAge = require('./authAge');
 const authName = require('./authName');
 const authDate = require('./authDate');
 
 module.exports = {
   authLogin,
-  authCrush,
+  authToken,
   authAge,
   authName,
   authDate,
