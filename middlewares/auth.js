@@ -2,22 +2,22 @@
 const randtoken = require('rand-token');
 
 function verifyEmail(email) {
-  const eRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const eRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/i;
   return eRegex.test(email);
 }
 
 function verifypassword(password) {
   const pRegex = /^.{6,}$/;
-  const sPassword = password.toString();
-  console.log(sPassword);
-  return pRegex.test(sPassword);
+  // const sPassword = password.toString();
+  // console.log(sPassword);
+  return pRegex.test(password);
 }
 
 const auth = (req, res) => {
   const Email = req.body.email;
   // console.log(Email);
   const { password } = req.body;
-  // console.log(password);
+  console.log(password);
   const passwordIsValid = verifypassword(password);
   // console.log(passwordIsValid);
   const emailIsValid = verifyEmail(Email);
@@ -26,8 +26,9 @@ const auth = (req, res) => {
   if (!Email) {
     return res.status(400).json({ message: 'O campo "email" é obrigatório' });
   } if (!emailIsValid) {
-    return res.status(400).json({ message: 'O "email" deve ter o formato "email@email.com' });
+    return res.status(400).json({ message: 'O "email" deve ter o formato "email@email.com"' });
   } if (!password) {
+    // console.log('oi Lizz')
     return res.status(400).json({ message: 'O campo "password" é obrigatório' });
   } if (!passwordIsValid) {
     return res.status(400).json({ message: 'A "senha" deve ter pelo menos 6 caracteres' });

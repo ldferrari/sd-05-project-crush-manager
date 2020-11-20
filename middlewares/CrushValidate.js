@@ -26,6 +26,15 @@ const CrushValidate = (req, res, next) => {
   const idade = req.body.age;
   // console.log(idade);
   const { date } = req.body;
+  
+  const { authorization } = req.headers;
+  console.log(authorization);
+  if (!authorization) {
+    return res.status(401).json({ message: 'Token não encontrado' });
+  }
+  if (authorization.length !== 16) {
+    return res.status(401).json({ message: 'Token inválido' });
+  }
 
   if (!nome) {
     return res.status(400).json({ message: 'O campo "name" é obrigatório' });
@@ -49,13 +58,6 @@ const CrushValidate = (req, res, next) => {
     return res.status(400).json({ message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"' });
   } if (!rateIsValid) {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
-  } const { authorization } = req.headers;
-  console.log(authorization);
-  if (!authorization) {
-    return res.status(401).json({ message: 'Token não encontrado' });
-  }
-  if (authorization.length !== 16) {
-    return res.status(401).json({ message: 'Token inválido' });
   }
   if (nameIsValid && ageIsValid && dateIsValid && rateIsValid) {
     return next();

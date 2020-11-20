@@ -10,12 +10,12 @@ const readCrushs = async () => {
 };
 
 const getOneCrush = async (req, res) => {
-  const { token } = req.headers;
-  console.log(token);
-  if (!token) {
+  const { authorization } = req.headers;
+  console.log(authorization);
+  if (!authorization) {
     return res.status(401).json({ message: 'Token não encontrado' });
   }
-  if (token.length !== 16) {
+  if (authorization.length !== 16) {
     return res.status(401).json({ message: 'Token inválido' });
   }
   const crushList = await readCrushs();
