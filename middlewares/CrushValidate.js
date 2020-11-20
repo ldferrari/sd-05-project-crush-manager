@@ -26,7 +26,7 @@ const CrushValidate = (req, res, next) => {
   const idade = req.body.age;
   // console.log(idade);
   const { date } = req.body;
-  
+
   const { authorization } = req.headers;
   console.log(authorization);
   if (!authorization) {
