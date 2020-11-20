@@ -37,6 +37,11 @@ app.put('/crush/:id', middlewares.authorization, middlewares.createCrushValidato
   res.status(200).json(crushUpdated);
 });
 
+app.delete('/crush/:id', middlewares.authorization, async (req, res) => {
+  await helpers.deleteCrushById(req.params.id);
+  res.status(200).json({ message: 'Crush deletado com sucesso' });
+});
+
 app.listen(PORT, () => {
   console.log('O PAI TÁ ON NA PORTA %s', PORT);
 });
