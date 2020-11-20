@@ -11,7 +11,7 @@ module.exports = (req, res) => {
   }
 
   if (!validaEmail(email)) {
-    return res.status(400).json({ message: 'O campo "email" deve ter o formato "email@email.com"' });
+    return res.status(400).json({ message: 'O "email" deve ter o formato "email@email.com"' });
   }
 
   if (!password) {
