@@ -10,7 +10,7 @@ const app = express();
 // const rt = randomToken.gen();
 // const token = randomToken.gen(16);
 
-const token = randtoken.generate(16);
+const gerarToken = randtoken.generate(16);
 
 app.use(bodyParser.json());
 
@@ -22,13 +22,13 @@ app.use(express.json());
 
 app.post('/login', middlewares.validaEmail, middlewares.validaPassword, (req, res) => {
   // console.log(token);
-  res.status(200).json({ token: token });
+  res.status(200).json({ token: gerarToken });
 });
 
 const PORT = 3000;
 
-app.listen(PORT, () => { 
-  console.log(`Escutando na porta ${PORT}`); 
+app.listen(PORT, () => {
+  console.log(`Escutando na porta ${PORT}`);
 });
 
 // não remova esse endpoint, e para o avaliador funcionar
