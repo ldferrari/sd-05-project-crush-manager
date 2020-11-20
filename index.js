@@ -46,6 +46,15 @@ app.get('/crush', middlewares.authToken, rescue(async (_req, res) => {
   res.status(200).json(crushFile);
 }));
 
+app.get('/crush/:id', middlewares.authToken, rescue(async (req, res) => {
+  const crushFile = JSON.parse(await readFile(crushList));
+  const crushFind = crushFile.find((crush) => req.params.id === crush.id);
+  if (crushFind) {
+    res.status(200).json(crushFind);
+  }
+  res.status(404).json({ message: 'Crush não encontrado' });
+}));
+
 const PORT = 3000;
 
 app.listen(3000, () => console.log(`Ouvindo a porta ${PORT}`));
