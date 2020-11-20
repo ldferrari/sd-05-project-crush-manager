@@ -10,16 +10,14 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-// console.log(`chave: ${token}`);
-
 app.use(express.json());
 
-// app.use(middlewares.auth);
+app.post('/login', middlewares.login);
 
-app.post('/login', middlewares.auth);
+app.post('/crush', middlewares.auth, middlewares.people, middlewares.increase);
 
-app.get('/ping', (_, res) => {
-  res.json({ message: 'ping test' });
-});
+// app.get('/ping', (_, res) => {
+//   res.json({ message: 'ping test' });
+// });
 
 app.listen(PORT, () => console.log('listening on 3k'));

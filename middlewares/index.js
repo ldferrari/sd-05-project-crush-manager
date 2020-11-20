@@ -1,9 +1,11 @@
-// const error = require('./error');
-// const logger = require("./logger");
 const auth = require('./auth');
+const increase = require('./increase');
+const login = require('./login');
+const people = require('./people');
 
 module.exports = {
-  // error,
-  // logger,
   auth,
+  increase,
+  login,
+  people,
 };
