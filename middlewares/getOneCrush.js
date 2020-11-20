@@ -9,7 +9,7 @@ const readCrushs = async () => {
   return JSON.parse(list.toString('utf-8'));
 };
 
-const getAllCrushs = async (req, res) => {
+const getOneCrush = async (req, res) => {
   const { token } = req.headers;
   console.log(token);
   if (!token) {
@@ -19,7 +19,15 @@ const getAllCrushs = async (req, res) => {
     return res.status(401).json({ message: 'Token inválido' });
   }
   const crushList = await readCrushs();
-  res.status(200).send(crushList);
+  const givenId = req.params.id;
+  const numId = parseInt(givenId, 10);
+  // console.log(numId);
+  const oProcurado = crushList.find((crush) => crush.id === numId);
+  if(!oProcurado){
+    return res.status(404).json({ message: 'Crush não encontrado' });
+  }
+  // console.log(oProcurado);
+  res.status(200).send(oProcurado);
 };
 
-module.exports = getAllCrushs;
+module.exports = getOneCrush;
