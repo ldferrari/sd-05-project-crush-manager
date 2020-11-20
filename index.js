@@ -2,17 +2,18 @@ const express = require('express');
 
 const app = express();
 
-const { MD5 } = require('crypto-js'); // Gerador de tokens
+const crypto = require('crypto-js'); // Gerador de tokens
 const middleware = require('./middleware');
 
 // não remova esse endpoint, e para o avaliador funcionar
-app.get('/', (request, response) => {
+app.get('/', (_request, response) => {
   response.send();
 });
 
 app.use(express.json());
 
 app.post('/login', middleware.exercicio01, (_req, res, _next) => {
+  const { MD5 } = crypto;
   const token = MD5().toString().substr(0, 16);
   res.status(200).json({ token });
 });
