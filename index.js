@@ -14,11 +14,14 @@ app.get('/', (request, response) => {
 
 app.post('/login', middlewares.auth);
 
+app.get('/crush/search', middlewares.queryCrushs);
+
 app.get('/crush/:id', middlewares.getOneCrush);
 
 app.put('/crush/:id', middlewares.CrushValidate, middlewares.editCrush);
 
 app.delete('/crush/:id', middlewares.deleteCrush);
+
 
 app.get('/crush', middlewares.getAllCrushs);
 
