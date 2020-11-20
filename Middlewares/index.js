@@ -5,6 +5,7 @@ const addNewCrush = require('./addNewCrush');
 const getAllCrushes = require('./getAllCrushs.js');
 const getCrushById = require('./getById');
 const updateCrushById = require('./updateCrushById');
+const deleteCrush = require('./deleteCrush');
 
 module.exports = {
   login,
@@ -14,4 +15,5 @@ module.exports = {
   getAllCrushes,
   getCrushById,
   updateCrushById,
+  deleteCrush,
 };

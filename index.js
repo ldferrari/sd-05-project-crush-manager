@@ -11,10 +11,12 @@ app.get('/', (request, response) => {
 });
 
 app.use(bodyParser.json());
-app.use((req, res, next) => {
-  console.log(req.method, req.path);
-  next();
-});
+
+// Mater debugger
+// app.use((req, res, next) => {
+//   console.log(req.method, req.path);
+//   next();
+// });
 
 // 1 - Crie o endpoint POST /login
 app.post('/login', middlewares.login);
@@ -34,14 +36,18 @@ app
   );
 
 // 4 - Crie o endpoint GET /crush/:id
-app.get('/crush/:id', middlewares.authToken, middlewares.getCrushById);
-
-// 5 - Crie o endpoint PUT /crush/:id
-app.put(
-  '/crush/:id',
-  middlewares.authToken,
-  middlewares.validateCrush,
-  middlewares.updateCrushById,
-);
+app
+  .route('/crush/:id')
+  .get(middlewares.authToken, middlewares.getCrushById)
+  // 5 - Crie o endpoint PUT /crush/:id
+  .put(
+    middlewares.authToken,
+    middlewares.validateCrush,
+    middlewares.updateCrushById,
+  )
+  .delete(
+    middlewares.authToken,
+    middlewares.deleteCrush,
+  );
 
 app.listen(PORT, () => console.log(`We're in. Port ${PORT}`));
