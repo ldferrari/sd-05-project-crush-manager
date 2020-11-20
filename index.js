@@ -74,8 +74,12 @@ app.put('/crush/:id', middlewares.createCrushAuth, async (req, res) => {
   res.status(200).json({ ...body, id: idd });
 });
 
-app.post('/echo', (req, res) => {
-  res.status(201).send({ ...req.body, id: idd + 1 });
+app.delete('/crush/:id', middlewares.getAllCrushs, async (req, res) => {
+  const { id } = req.params;
+  const dbs = await db();
+  const newDB = dbs.filter((i) => i.id !== id);
+  await changeDb(newDB);
+  res.status(200).json({ message: 'Crush deletado com sucesso' });
 });
 
 app.use(middlewares.errMiddleware);
