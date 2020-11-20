@@ -34,7 +34,7 @@ app.post(
     await res.json({
       token: uniqToken,
     });
-  })
+  }),
 );
 
 app.post(
@@ -63,7 +63,7 @@ app.post(
         });
       })
       .catch(() => console.log('ERROR: POST'));
-  })
+  }),
 );
 
 app.get(
@@ -75,7 +75,7 @@ app.get(
         res.status(200).json(JSON.parse(result));
       })
       .catch(() => console.log('ERROR : Getall'));
-  })
+  }),
 );
 
 app.get(
@@ -99,7 +99,7 @@ app.get(
         });
       })
       .catch(() => console.log('ERROR: Get by id'));
-  })
+  }),
 );
 
 app.put(
