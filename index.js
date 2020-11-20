@@ -21,6 +21,9 @@ app.use(bodyParser.json());
 // 1 - Crie o endpoint POST /login
 app.post('/login', middlewares.login);
 
+// 6 - delete
+app.delete('/crush/:id', middlewares.authToken, middlewares.deleteCrush);
+
 // 2 - Crie o endpoint POST /crush
 app
   .route('/crush')
@@ -35,6 +38,8 @@ app
     middlewares.getAllCrushes,
   );
 
+// 7 - Search
+app.get('/crush/search', middlewares.searchCrush);
 // 4 - Crie o endpoint GET /crush/:id
 app
   .route('/crush/:id')
@@ -44,10 +49,6 @@ app
     middlewares.authToken,
     middlewares.validateCrush,
     middlewares.updateCrushById,
-  )
-  .delete(
-    middlewares.authToken,
-    middlewares.deleteCrush,
   );
 
 app.listen(PORT, () => console.log(`We're in. Port ${PORT}`));
