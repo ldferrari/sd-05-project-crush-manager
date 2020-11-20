@@ -5,8 +5,8 @@ const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
 module.exports = async (req, res) => {
-  let file = await readFile('./crush.json');
-  file = await JSON.parse(file.toString('utf-8'));
+  let file = await readFile('./crush.json', 'utf-8');
+  file = await JSON.parse(file);
   const idInt = parseInt(req.params.id, 10);
   const index = file.findIndex((item) => item.id === idInt);
   const newItem = { ...req.body };

@@ -5,6 +5,8 @@ const saveFile = require('./saveFile');
 const read = require('./read');
 const searchId = require('./searchId');
 const update = require('./update');
+const del = require('./delete');
+const searchTerm = require('./searchTerm');
 
 module.exports = {
   auth,
@@ -14,4 +16,6 @@ module.exports = {
   read,
   searchId,
   update,
+  del,
+  searchTerm,
 };

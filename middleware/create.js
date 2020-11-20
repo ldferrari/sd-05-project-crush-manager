@@ -38,7 +38,7 @@ module.exports = (req, res, next) => {
     );
   }
 
-  if (!date || !date.datedAt || !date.rate && date.rate !== 0) {
+  if (!date || !date.datedAt || (!date.rate && date.rate !== 0)) {
     return res.status(400).json(
       {
         message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',

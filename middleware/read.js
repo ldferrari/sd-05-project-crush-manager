@@ -4,7 +4,7 @@ const util = require('util');
 const readFile = util.promisify(fs.readFile);
 
 module.exports = async (req, res) => {
-  let file = await readFile('./crush.json');
-  file = JSON.parse(file.toString('utf-8'));
+  let file = await readFile('./crush.json', 'utf8');
+  file = JSON.parse(file);
   res.status(200).json(file);
 };
