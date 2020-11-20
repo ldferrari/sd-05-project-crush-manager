@@ -27,12 +27,12 @@ module.exports = (req, _res, next) => {
     return next({ message: 'O crush deve ser maior de idade', status: 400 });
   }
   if (
-    !hasKey(body, 'date') ||
-    !hasKey(date, 'datedAt') ||
-    !hasKey(date, 'rate') ||
-    date.length === 0 ||
-    date.datedAt.length === 0 ||
-    String(date.rate).length === 0
+    !hasKey(body, 'date')
+    || !hasKey(date, 'datedAt')
+    || !hasKey(date, 'rate')
+    || date.length === 0
+    || date.datedAt.length === 0
+    || String(date.rate).length === 0
   ) {
     return next({
       message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',

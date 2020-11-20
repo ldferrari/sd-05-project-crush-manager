@@ -1,15 +1,13 @@
 const express = require('express');
-
 const fs = require('fs');
-
 const path = require('path');
-
 const { MD5 } = require('crypto-js');
 
 const app = express();
 const PORT = 3000;
 const bodyParser = require('body-parser');
 const middlewares = require('./middlewares');
+
 app.use(bodyParser.json());
 
 const idd = 4;
@@ -29,6 +27,7 @@ const updateDB = async (id, name, age, date) => {
         date,
       };
     }
+    return;
   });
   await changeDb(newDBS);
 };
@@ -70,15 +69,15 @@ app.put('/crush/:id', middlewares.createCrushAuth, async (req, res) => {
   const { body } = req;
   const { name, age, date } = body;
   await updateDB(id, name, age, date);
-  const idd = parseInt(id, 10);
-  res.status(200).json({ ...body, id: idd });
+  const idds = parseInt(id, 10);
+  res.status(200).json({ ...body, id: idds });
 });
 
 app.delete('/crush/:id', middlewares.getAllCrushs, async (req, res) => {
   const { id } = req.params;
   const dbs = await db();
   const newDB = dbs.filter((i) => i.id !== id);
-  await changeDb(newDB);
+  changeDb(newDB);
   res.status(200).json({ message: 'Crush deletado com sucesso' });
 });
 
