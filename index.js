@@ -16,6 +16,8 @@ const {
   getCrushById,
   editCrush,
   deleteCrush,
+  searchCrush,
+  checkQuery,
 } = require('./middlewares/index');
 
 // não remova esse endpoint, e para o avaliador funcionar
@@ -31,6 +33,9 @@ app.post('/login', validateEmail, validatePassword, generateToken);
 // Requisito 2
 app.post('/crush', validateToken, validateName, validateAge, validateDate, createCrush);
 
+// Requisito 7
+app.get('/crush/search', validateToken, checkQuery, searchCrush);
+
 // Requisito 3
 app.get('/crush', validateToken, getAllCrushs);
 
@@ -44,3 +49,5 @@ app.put('/crush/:id', validateToken, validateName, validateAge, validateDate, ed
 app.delete('/crush/:id', validateToken, deleteCrush);
 
 app.listen(3000, () => console.log('Listening to port 3000'));
+
+// Honestidade acadêmica: requisito 2 desenvolvido com a ajuda de Juliette Beaudet
