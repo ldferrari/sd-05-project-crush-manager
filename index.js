@@ -25,7 +25,7 @@ app.post('/crush', middlewares.auth, middlewares.dataFormat, async (req, res, _n
   const oldCrushList = await helpers.readFileCrush();
   const id = oldCrushList.length + 1;
 
-  fs.writeFile('./crush.json', JSON.stringify([...oldCrushList, { id, name, age, date }]), (err) => { throw err; });
+  fs.writeFile('./crush.json', JSON.stringify([...oldCrushList, { name, age, id, date }]), (err) => { throw err; });
 
   res.status(201).json({ id, name, age, date });
 });
@@ -39,6 +39,17 @@ app.get('/crush/:id', middlewares.auth, middlewares.checkId, async (req, res, _n
   const crushList = await helpers.readFileCrush();
   const filteredCrush = crushList.find((crush) => crush.id === parseInt(req.params.id, 10));
   res.status(200).json(filteredCrush);
+});
+
+app.put('/crush/:id', middlewares.auth, middlewares.checkId, async (req, res, _next) => {
+  const crushList = await helpers.readFileCrush();
+  const id = parseInt(req.params.id, 10);
+  console.log(id);
+  const { name, age, date } = req.body;
+  const filteredCrush = crushList.findIndex((crush) => crush.id === id);
+  crushList[filteredCrush] = { name, age, id, date };
+  fs.writeFile('./crush.json', JSON.stringify([crushList]), (err) => { throw err; });
+  res.status(200).json(crushList[filteredCrush]);
 });
 
 app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}!`));
