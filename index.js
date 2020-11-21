@@ -15,6 +15,7 @@ const {
   createCrush,
   getCrushById,
   editCrush,
+  deleteCrush,
 } = require('./middlewares/index');
 
 // não remova esse endpoint, e para o avaliador funcionar
@@ -38,5 +39,8 @@ app.get('/crush/:id', validateToken, getCrushById);
 
 // Requisito 5
 app.put('/crush/:id', validateToken, validateName, validateAge, validateDate, editCrush);
+
+// Requisito 6
+app.delete('/crush/:id', validateToken, deleteCrush);
 
 app.listen(3000, () => console.log('Listening to port 3000'));

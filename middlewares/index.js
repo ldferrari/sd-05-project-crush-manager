@@ -9,6 +9,7 @@ const validateDate = require('./validateDate');
 const createCrush = require('./createCrush');
 const getCrushById = require('./getCrushById');
 const editCrush = require('./editCrush');
+const deleteCrush = require('./deleteCrush');
 
 module.exports = {
   generateToken,
@@ -22,4 +23,5 @@ module.exports = {
   createCrush,
   getCrushById,
   editCrush,
+  deleteCrush,
 };
