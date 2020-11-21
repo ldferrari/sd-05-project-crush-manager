@@ -9,7 +9,7 @@ const deleteCrush = async (req, res) => {
     const crushIndex = crushs.findIndex((crush) => crush.id === id);
     crushs.splice(crushIndex, 1);
     await writeFile(crushs);
-    res.status(200).json({ message: 'Crush deletado com sucesso!' });
+    res.status(200).json({ message: 'Crush deletado com sucesso' });
   } catch (err) {
     console.error('Erro ', err);
   }
