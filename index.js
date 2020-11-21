@@ -24,6 +24,11 @@ app.post('/login', checkLogin, (_req, res) => {
   res.status(200).send(newToken);
 });
 
+app.get('/crush', checkToken, async (_req, res) => {
+  const crushs = JSON.parse(await readFile('./crush.json'));
+  return res.status(200).json(crushs);
+});
+
 app.post('/crush', checkToken, checkCrushName, checkRateDate, checkcrushAge, async (req, res) => {
   const crushs = JSON.parse(await readFile('./crush.json'));
   const crush = req.body;
@@ -33,11 +38,6 @@ app.post('/crush', checkToken, checkCrushName, checkRateDate, checkcrushAge, asy
   await writeFile('./crush.json', crushs);
 
   return res.status(201).json(crush);
-});
-
-app.get('/crush', checkToken, async (_req, res) => {
-  const crushs = JSON.parse(await readFile('./crush.json'));
-  return res.status(200).json(crushs);
 });
 
 app.get('/crush/:id', checkToken, checkCrushId, async (req, res) => {
