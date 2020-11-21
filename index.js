@@ -5,7 +5,7 @@ const {
   checkLogin,
   checkToken,
   checkCrushId,
-  checkcrushAge,
+  checkCrushAge,
   checkRateDate,
   checkCrushName,
 } = require('./middlewares');
@@ -29,7 +29,7 @@ app.get('/crush', checkToken, async (_req, res) => {
   return res.status(200).json(crushs);
 });
 
-app.post('/crush', checkToken, checkCrushName, checkRateDate, checkcrushAge, async (req, res) => {
+app.post('/crush', checkToken, checkCrushName, checkRateDate, checkCrushAge, async (req, res) => {
   const crushs = JSON.parse(await readFile('./crush.json'));
   const crush = req.body;
   crush.id = crushs.length + 1;
@@ -47,7 +47,7 @@ app.get('/crush/:id', checkToken, checkCrushId, async (req, res) => {
   return res.status(200).json(crushFound);
 });
 
-app.put('/crush/:id', checkToken, checkCrushName, checkcrushAge, checkRateDate, checkCrushId, async (req, res) => {
+app.put('/crush/:id', checkToken, checkCrushName, checkCrushAge, checkRateDate, checkCrushId, async (req, res) => {
   const { name, age, date } = req.body;
   const crushList = JSON.parse(await readFile('./crush.json'));
   const { id } = parseInt(req.params, 10);
