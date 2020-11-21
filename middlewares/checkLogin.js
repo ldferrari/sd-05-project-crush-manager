@@ -1,7 +1,7 @@
 module.exports = (req, res, next) => {
   const { email, password } = req.body;
   const regEmail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/i;
-  
+
   if (!email || email === '') {
     return res.status(400).json({
       message: 'O campo "email" é obrigatório',
@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
       message: 'O "email" deve ter o formato "email@email.com"',
     });
   }
-  
+
   if (!password || password === '') {
     return res.status(400).json({
       message: 'O campo "password" é obrigatório',

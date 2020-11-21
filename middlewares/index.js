@@ -2,7 +2,7 @@ const checkLogin = require('./checkLogin');
 const checkToken = require('./checkToken');
 const nameChecker = require('./checkCrushName');
 const checkCrushId = require('./checkCrushId');
-const checkcrushAge = require('./checkcrushAge');
+const checkCrushAge = require('./checkCrushAge');
 const checkRateDate = require('./checkRateDate');
 const checkCrushName = require('./checkCrushName');
 
@@ -11,7 +11,7 @@ module.exports = {
   checkToken,
   nameChecker,
   checkCrushId,
-  checkcrushAge,
+  checkCrushAge,
   checkRateDate,
-  checkCrushName, 
+  checkCrushName,
 };

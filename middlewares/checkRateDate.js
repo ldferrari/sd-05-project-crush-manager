@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
     return res.status(400).json({
       message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',
     });
-  };
+  }
 
   if (date.rate < 1 || date.rate > 5) {
     return res.status(400).json({
