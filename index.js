@@ -16,6 +16,8 @@ app.post('/login', middlewares.login);
 
 app.post('/crush', middlewares.auth, middlewares.people, middlewares.increase);
 
+app.get('/crush', middlewares.auth, middlewares.list);
+
 // app.get('/ping', (_, res) => {
 //   res.json({ message: 'ping test' });
 // });

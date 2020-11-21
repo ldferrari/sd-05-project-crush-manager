@@ -1,11 +1,6 @@
 const fs = require('fs').promises;
 
-const readList = async () => {
-  const readFile = await fs.readFile('./crush.json', 'utf-8');
-  const list = await JSON.parse(readFile);
-  console.log(list);
-  return list;
-};
+const { readList } = require('../services');
 
 module.exports = async (req, res) => {
   const { name, age, date } = req.body;
