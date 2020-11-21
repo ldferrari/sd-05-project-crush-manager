@@ -47,7 +47,7 @@ app.put('/crush/:id', middlewares.auth, middlewares.checkId, middlewares.dataFor
   const { name, age, date } = req.body;
   const filteredCrush = crushList.findIndex((crush) => crush.id === id);
   crushList[filteredCrush] = { name, age, id, date };
-  fs.writeFile('./crush.json', JSON.stringify([crushList]), (err) => { throw err; });
+  await fs.writeFile('./crush.json', JSON.stringify([crushList]), (err) => { throw err; });
   res.status(200).json(crushList[filteredCrush]);
 });
 
