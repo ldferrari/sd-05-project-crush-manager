@@ -10,6 +10,8 @@ const createCrush = require('./createCrush');
 const getCrushById = require('./getCrushById');
 const editCrush = require('./editCrush');
 const deleteCrush = require('./deleteCrush');
+const searchCrush = require('./searchCrush');
+const checkQuery = require('./checkQuery');
 
 module.exports = {
   generateToken,
@@ -24,4 +26,6 @@ module.exports = {
   getCrushById,
   editCrush,
   deleteCrush,
+  searchCrush,
+  checkQuery,
 };
