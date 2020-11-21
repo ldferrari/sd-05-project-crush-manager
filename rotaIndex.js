@@ -4,8 +4,7 @@ const router = express.Router();
 const crypto = require('crypto'); // gera token
 
 // live com Hugão (meu ídolo)
-
-// arquivos devem permanecer na raiz
+// devem permanecer na raiz
 
 function geraToken() {
   return crypto.randomBytes(2).toString('hex');
