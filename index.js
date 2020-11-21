@@ -57,7 +57,7 @@ app.delete('/crush/:id', middlewares.auth, async (req, res, _next) => {
   const filteredList = crushList.filter((crush) => crush.id !== id);
   await fs.writeFile('./crush.json', JSON.stringify([filteredList]), (err) => { throw err; });
   console.log(filteredList);
-  res.status(200).json({ message: 'Crush deletado com sucesso!' });
+  res.status(200).json({ message: 'Crush deletado com sucesso' });
 });
 
 app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}!`));
