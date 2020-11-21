@@ -35,7 +35,7 @@ app.get('/crush', middlewares.auth, async (_req, res, _next) => {
   res.status(200).json(crushList);
 });
 
-app.get('/crush/:id', middlewares.auth, middlewares.checkId, async (req, res, _next) => {
+app.get('/crush/:id', middlewares.auth, middlewares.checkId, middlewares.dataFormat, async (req, res, _next) => {
   const crushList = await helpers.readFileCrush();
   const filteredCrush = crushList.find((crush) => crush.id === parseInt(req.params.id, 10));
   res.status(200).json(filteredCrush);
@@ -44,7 +44,6 @@ app.get('/crush/:id', middlewares.auth, middlewares.checkId, async (req, res, _n
 app.put('/crush/:id', middlewares.auth, middlewares.checkId, async (req, res, _next) => {
   const crushList = await helpers.readFileCrush();
   const id = parseInt(req.params.id, 10);
-  console.log(id);
   const { name, age, date } = req.body;
   const filteredCrush = crushList.findIndex((crush) => crush.id === id);
   crushList[filteredCrush] = { name, age, id, date };
