@@ -1,8 +1,10 @@
 const express = require('express');
 const fs = require('fs').promises;
+
 const bodyParser = require('body-parser');
+
 const crypto = require('crypto');
-const loginMid = require('./src/loginMidWares.js')
+const loginMid = require('./src/loginMidWares.js');
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,10 +16,10 @@ app.get('/', (request, response) => {
 
 // desafio 1
 
-app.post('/login', loginMid.validateLoginMidware, (req, res, next) => {
-    const token = crypto.randomBytes(8).toString('hex');
-    res.send({ token });
-  });
+app.post('/login', loginMid.validateLoginMidware, (req, res, _) => {
+  const token = crypto.randomBytes(8).toString('hex');
+  res.send({ token });
+});
 
 // desafio 2
 
@@ -25,9 +27,9 @@ app.post('/login', loginMid.validateLoginMidware, (req, res, next) => {
 app.get('/crush', (req, res, next) => {
   const { authorization } = req.headers;
   if (authorization === undefined) {
-    res.status(401).send({"message": "Token não encontrado"});
+    res.status(401).send({ message: 'Token não encontrado' });
   } else if (authorization.length !== 16 || authorization === '') {
-    res.status(401).send({"message": "Token inválido"});
+    res.status(401).send({ message: 'Token inválido' });
   } else {
     next();
   }
@@ -40,8 +42,8 @@ app.get('/crush', async (_req, res, _next) => {
   } else {
     res.status(200).json(JSON.parse(crushs));
   }
-})
+});
 
 app.listen(3000, () => {
-  console.log('on')
-})
+  console.log('on');
+});

@@ -2,6 +2,7 @@ const express = require('express');
 
 const app = express();
 const bodyParser = require('body-parser');
+
 const porta = 3000;
 
 app.use(bodyParser.json());
@@ -34,16 +35,16 @@ app.post('/crush', (req, res, next) => {
   const { date } = req.body;
   const { datedAt, rate } = req.body.date;
   if (
-    date === undefined ||
-    date === '' ||
-    datedAt === undefined ||
-    datedAt === '' ||
-    rate === undefined ||
-    rate === ''
+    date === undefined || date === '' || datedAt === undefined || datedAt === '' || rate === undefined || rate === ''
   ) {
-    res.status(400).send({"message": "O campo \"date\" é obrigatório e \"datedAt\" e \"rate\" não podem ser vazios"});
+    res
+      .status(400)
+      .send({
+        message:
+          'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',
+      });
   } else {
-    next()
+    next();
   }
 });
 
@@ -77,17 +78,17 @@ app.post('/crush', (req, res, next) => {
 app.post('/crush', (req, res, next) => {
   const { token } = req.headers;
   if (token === undefined) {
-    res.status(401).send({"message": "Token não encontrado"});
+    res.status(401).send({ message: 'Token não encontrado' });
   } else if (token.length !== 16) {
-    res.status(401).send({"message": "Token inválido"});
+    res.status(401).send({ message: 'Token inválido' });
   } else {
     next();
   }
 });
 
 app.post('/crush', (req, res) => {
-  res.status(201).send(req.body)
-})
+  res.status(201).send(req.body);
+});
 
 app.listen(porta, () => {
   console.log(`on na porta ${porta}`);
