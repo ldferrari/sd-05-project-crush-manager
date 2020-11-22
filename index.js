@@ -19,6 +19,8 @@ app.get('/crush/:id', middleware.token, middleware.id);
 
 app.put('/crush/:id', middleware.token, middleware.dateNameAgeRate, middleware.editCrush);
 
+app.delete('/crush/:id', middleware.token, middleware.deleteCrush);
+
 app.listen(3000, () => {
   console.log('O pai tá de olho na porta 3000');
 });
