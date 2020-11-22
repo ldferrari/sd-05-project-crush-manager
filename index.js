@@ -15,8 +15,6 @@ app.get('/', (request, response) => {
 
 // -----------------------------------------------
 
-
-
 app.use('/login', routeSignup);
 
 app.listen(PORT, () => {

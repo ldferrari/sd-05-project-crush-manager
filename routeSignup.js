@@ -4,10 +4,10 @@ const crypto = require('crypto');
 
 const router = express.Router();
 
-const  validateEmail = (email) => {
+const validateEmail = (email) => {
   const regexEmail = /\S+@\S+\.\S+/;
   return regexEmail.test(String(email).toLowerCase());
-}
+};
 
 function generateToken() {
   return crypto.randomBytes(8).toString('hex');
