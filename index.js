@@ -43,4 +43,9 @@ app.post('/crush', tokenCheck, nameCheck, ageCheck, dateCheck, async (req, res) 
   return res.status(201).json(newCrush);
 });
 
+app.get('/crush', tokenCheck, async (_req, res) => {
+  const allCrushes = await readCrush(__dirname, 'crush.json');
+  return res.status(200).json(allCrushes);
+});
+
 app.listen(3000, () => console.log('Conectamos clã!'));
