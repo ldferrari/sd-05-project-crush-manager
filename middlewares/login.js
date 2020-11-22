@@ -41,9 +41,10 @@ module.exports = (req, res, next) => {
   if (!password || password === '') {
     res.status(400).send({ message: 'O campo "password" é obrigatório' });
   }
-  if (password.length < 6) {
+  if (password && password.length < 6) {
     res.status(400).send({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
   } else if (email && checkEmail(email)) {
+  // } else {
     res.status(200).json({ token: tokenGenerator() });
   }
   next();
