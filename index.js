@@ -49,6 +49,19 @@ app.get('/crush', tokenCheck, async (_req, res) => {
   return res.status(200).json(allCrushes);
 });
 
+app.get('/crush/search', tokenCheck, async (req, res) => {
+  const term = req.query.q;
+  const allCrushes = await readCrush(__dirname, 'crush.json');
+
+  if (!term || term === '') {
+    return res.status(200).json(allCrushes);
+  }
+
+  const searchResult = allCrushes.filter((crush) => crush.name.includes(term));
+
+  return res.status(200).json(searchResult);
+});
+
 app.get('/crush/:id', tokenCheck, idCheck, async (req, res) => {
   const id = parseInt(req.params.id, 10);
   const allCrushes = await readCrush(__dirname, 'crush.json');
