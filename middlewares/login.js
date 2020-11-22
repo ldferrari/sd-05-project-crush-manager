@@ -24,8 +24,7 @@ console.log(result); */
 
 const crypto = require('crypto');
 
-const tokenGenerator = () => crypto.randomBytes(16).toString('hex');
-
+const tokenGenerator = () => crypto.randomBytes(8).toString('hex');
 const checkEmail = (email) => {
   if (email) return email.match(mail) ? 1 : 0;
 };
