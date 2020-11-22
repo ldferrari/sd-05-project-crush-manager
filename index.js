@@ -77,8 +77,7 @@ app.put(
     await writeFile('./crush.json', crushList);
 
     return res.status(200).json(crushList[crushEdited]);
-  }
-);
+  });
 
 app.delete('./crush/:id', checkToken, async (req, res) => {
   const crushList = JSON.parse(await readFile('./crush.json'));
