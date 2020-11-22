@@ -17,6 +17,8 @@ app.get('/crush', middleware.token, middleware.readCrushs);
 
 app.get('/crush/:id', middleware.token, middleware.id);
 
+app.put('/crush/:id', middleware.token, middleware.dateNameAgeRate, middleware.editCrush);
+
 app.listen(3000, () => {
   console.log('O pai tá de olho na porta 3000');
 });
