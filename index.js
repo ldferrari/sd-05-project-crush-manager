@@ -57,4 +57,17 @@ app.get('/crush/:id', tokenCheck, idCheck, async (req, res) => {
   return res.status(200).json(crush);
 });
 
+app.put('/crush/:id', tokenCheck, nameCheck, ageCheck, dateCheck, async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const { name, age, date: { datedAt, rate } } = req.body;
+  const allCrushes = await readCrush(__dirname, 'crush.json');
+
+  const crushId = allCrushes.findIndex((el) => el.id === id);
+  allCrushes[crushId] = { name, age, date: { datedAt, rate }, id };
+
+  await createCrush(__dirname, 'crush.json', allCrushes);
+
+  return res.status(200).json(allCrushes[crushId]);
+});
+
 app.listen(3000, () => console.log('Conectamos clã!'));
