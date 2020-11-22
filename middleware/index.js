@@ -3,6 +3,7 @@ const tokenCheck = require('./tokenCheckMid');
 const nameCheck = require('./nameCheckMid');
 const ageCheck = require('./ageCheckMid');
 const dateCheck = require('./dateCheckMid');
+const idCheck = require('./idCheckMid');
 
 module.exports = {
   loginCheck,
@@ -10,4 +11,5 @@ module.exports = {
   nameCheck,
   ageCheck,
   dateCheck,
+  idCheck,
 };

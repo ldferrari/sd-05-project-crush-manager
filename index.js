@@ -10,6 +10,7 @@ const {
   nameCheck,
   ageCheck,
   dateCheck,
+  idCheck,
 } = require('./middleware');
 
 const {
@@ -46,6 +47,14 @@ app.post('/crush', tokenCheck, nameCheck, ageCheck, dateCheck, async (req, res) 
 app.get('/crush', tokenCheck, async (_req, res) => {
   const allCrushes = await readCrush(__dirname, 'crush.json');
   return res.status(200).json(allCrushes);
+});
+
+app.get('/crush/:id', tokenCheck, idCheck, async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const allCrushes = await readCrush(__dirname, 'crush.json');
+
+  const crush = allCrushes.find((el) => el.id === id);
+  return res.status(200).json(crush);
 });
 
 app.listen(3000, () => console.log('Conectamos clã!'));
