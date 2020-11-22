@@ -70,4 +70,16 @@ app.put('/crush/:id', tokenCheck, nameCheck, ageCheck, dateCheck, async (req, re
   return res.status(200).json(allCrushes[crushId]);
 });
 
+app.delete('/crush/:id', tokenCheck, async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const allCrushes = await readCrush(__dirname, 'crush.json');
+
+  allCrushes.filter((crush) => crush.id !== id);
+  await createCrush(__dirname, 'crush.json', allCrushes);
+
+  return res.status(200).json({
+    message: 'Crush deletado com sucesso',
+  });
+});
+
 app.listen(3000, () => console.log('Conectamos clã!'));
