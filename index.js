@@ -42,9 +42,9 @@ app.post('/crush', checkToken, checkCrushName, checkCrushAge, checkRateDate, asy
   const crush = req.body;
   crush.id = crushs.length + 1;
   crushs.push(crush);
-  
+
   await writeFile('./crush.json', crushs);
-  
+
   return res.status(201).json(crush);
 });
 
@@ -77,7 +77,8 @@ app.put(
     await writeFile('./crush.json', crushList);
 
     return res.status(200).json(crushList[crushEdited]);
-});
+  }
+);
 
 app.delete('./crush/:id', checkToken, async (req, res) => {
   const crushList = JSON.parse(await readFile('./crush.json'));
