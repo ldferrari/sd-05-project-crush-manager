@@ -1,6 +1,7 @@
 const fs = require('fs').promises;
 const express = require('express');
 const path = require('path');
+
 const router = express.Router();
 
 const readCrushFile = async () => {
@@ -15,8 +16,8 @@ router.get('/', async (_req, res) => {
 
 router.get('/:id', async (req, res) => {
   const crush = await readCrushFile();
-  const id = req.params.id;
-  const filteredCharacter = crush.find(character => character.id === id) || [];
+  const { id } = req.params;
+  const filteredCharacter = crush.find((character) => character.id === id) || [];
   res.status(200).send(filteredCharacter);
 });
 
