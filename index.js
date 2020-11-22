@@ -2,7 +2,7 @@ const express = require('express');
 
 const bodyParser = require('body-parser');
 
-const randomToken = require('random-token');
+const crypto = require('crypto');
 
 const app = express();
 
@@ -17,11 +17,12 @@ senha vazia, senha inválida;
 
 app.use(bodyParser.json());
 
+const token = crypto.randomBytes(8).toString('hex');
+/* https://stackoverflow.com/questions/8855687/secure-random-token-in-node-js */
+
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
-  const token = randomToken(16);
-  /* pacote utilizado para criar o token: https://www.npmjs.com/package/random-token */
 
   const validateEmail = (userEmail) => {
     const regex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
@@ -61,7 +62,7 @@ app.post('/login', (req, res) => {
       .json({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
   }
 
-  res.status(200).json(token);
+  res.status(200).json({ token });
 });
 
 /* ouvindo na porta 3000 */
