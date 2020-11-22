@@ -34,16 +34,16 @@ module.exports = (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || email === '') {
-    res.status(400).send({ message: 'O campo \"email\" é obrigatório' });
+    res.status(400).send({ message: 'O campo "email" é obrigatório' });
   }
   if (!checkEmail(email)) {
-    res.status(400).send({ message: 'O \"email\" deve ter o formato \"email@email.com\"' });
+    res.status(400).send({ message: 'O "email" deve ter o formato "email@email.com"' });
   }
   if (!password || password === '') {
-    res.status(400).send({ message: 'O campo \"password\" é obrigatório' });
+    res.status(400).send({ message: 'O campo "password" é obrigatório' });
   }
   if (password.length < 6) {
-    res.status(400).send({ message: 'A \"senha\" deve ter pelo menos 6 caracteres' });
+    res.status(400).send({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
   } else if (email && checkEmail(email)) {
     res.status(200).json({ token: tokenGenerator() });
   }
