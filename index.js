@@ -6,7 +6,15 @@ const crypto = require('crypto');
 
 const {
   loginCheck,
+  tokenCheck,
+  nameCheck,
+  ageCheck,
+  dateCheck,
 } = require('./middleware');
+
+const {
+  readCrush, createCrush,
+} = require('./utils');
 
 function generateToken() {
   return crypto.randomBytes(8).toString('hex');
@@ -22,6 +30,17 @@ app.get('/', (request, response) => {
 app.post('/login', loginCheck, (_req, res) => {
   const token = generateToken();
   return res.status(200).send({ token });
+});
+
+app.post('/crush', tokenCheck, nameCheck, ageCheck, dateCheck, async (req, res) => {
+  const allCrushes = await readCrush(__dirname, 'crush.json');
+  const newCrush = req.body;
+  newCrush.id = allCrushes.length + 1;
+  allCrushes.push(newCrush);
+
+  await createCrush(__dirname, 'crush.json', allCrushes);
+
+  return res.status(201).json(newCrush);
 });
 
 app.listen(3000, () => console.log('Conectamos clã!'));
