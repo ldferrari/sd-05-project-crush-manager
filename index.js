@@ -72,8 +72,8 @@ app.put('/crush/:id', middlewares.authToken, middlewares.authName, middlewares.a
 
 app.delete('/crush/:id', middlewares.authToken, rescue(async (req, res) => {
   const crushFile = JSON.parse(await readFile(crushList));
-  const crushFilter = crushFile.filter((crush) => parseInt(req.params.id, 10) !== crush.id);
-  writeFile(crushList, crushFilter);
+  const crushNew = crushFile.filter((crush) => parseInt(req.params.id, 10) !== crush.id);
+  writeFile(crushList, crushNew);
   res.status(200).json({ message: 'Crush deletado com sucesso!' });
 }));
 
