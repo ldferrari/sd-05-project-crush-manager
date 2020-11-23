@@ -51,6 +51,6 @@ module.exports = async (req, res) => {
     },
     id: idParam,
   };
-  createCrush('./crush.json', crushList[crushIndex]);
+  await createCrush('./crush.json', crushList[crushIndex]);
   res.status(200).json(crushList[crushIndex]);
 };

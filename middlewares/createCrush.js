@@ -44,7 +44,7 @@ module.exports = async (req, res, _next) => {
     const crushList = JSON.parse(await readCrushFile('./crush.json'));
     const crushId = crushList.length + 1;
     const crush = { ...req.body, id: crushId };
-    createCrush('./crush.json', crush);
+    await createCrush('./crush.json', crush);
     return res.status(201).json(crush);
   }
 };
