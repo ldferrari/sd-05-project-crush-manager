@@ -34,9 +34,8 @@ router.get('/:id', async (req, res) => {
   if (authorization && authorization.length !== 16) {
     res.status(401).json({ message: 'Token inválido' });
   }
-  
   const filteredCharacter = crush.find((character) => character.id === Number(id));
-  if (filteredCharacter === undefined) return res.status(404).json({ message: 'Crush não encontrado'});
+  if (filteredCharacter === undefined) return res.status(404).json({ message: 'Crush não encontrado' });
   res.status(200).json(filteredCharacter);
 });
 
