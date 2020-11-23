@@ -11,7 +11,7 @@ app.get('/', (request, response) => response.send());
 
 app.post('/login', middlewares.logger);
 
-app.get('/crush/search', middlewares.auth, middlewares.searchCrush);
+app.get('/crush/search?q=searchTerm', middlewares.auth, middlewares.searchCrush);
 //  crush by id routes
 app.put('/crush/:id', middlewares.auth, middlewares.editCrush);
 app.get('/crush/:id', middlewares.auth, middlewares.getCrushById);
