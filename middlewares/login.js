@@ -32,7 +32,7 @@ const checkEmail = (email) => {
   if (email) return email.match(mail) ? 1 : 0;
 };
 
-module.exports = (req, res, next) => {
+module.exports = (req, res) => {
   const { email, password } = req.body;
 
   if (!email || email === '') {
@@ -45,12 +45,11 @@ module.exports = (req, res, next) => {
     return res.status(400).json({ message: 'O campo "password" é obrigatório' });
   }
   if (password && password.length < 6) {
-    return res.status(400).json({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
+    return res.status(400).json({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
   }
   if (email && checkEmail(email)) {
     return res.status(200).json({ token: tokenGenerator() });
   }
-  next();
 };
 
 /*
