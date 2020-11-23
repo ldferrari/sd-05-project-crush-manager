@@ -23,7 +23,6 @@ const token = crypto.randomBytes(8).toString('hex');
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
-
   const validateEmail = (userEmail) => {
     const regex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
     return regex.test(String(userEmail).toLowerCase());
