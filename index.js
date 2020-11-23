@@ -10,10 +10,15 @@ app.use(bodyParser.json());
 app.get('/', (request, response) => response.send());
 
 app.post('/login', middlewares.logger);
-app.get('/crush/:id', middlewares.auth, middlewares.getCrushById);
+
+//  crush by id routes
 app.put('/crush/:id', middlewares.auth, middlewares.editCrush);
+app.get('/crush/:id', middlewares.auth, middlewares.getCrushById);
+
 app.get('/crush', middlewares.auth, middlewares.getAllCrushs);
 app.post('/crush', middlewares.auth, middlewares.createCrush);
+
+app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
 
 const PORT = 3000;
 app.listen(PORT, console.log(`Listening on port :${PORT}`));

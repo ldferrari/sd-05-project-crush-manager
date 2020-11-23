@@ -2,6 +2,7 @@ const auth = require('./auth');
 const error = require('./error');
 const logger = require('./logger');
 const editCrush = require('./editCrush');
+const deleteCrush = require('./deleteCrush');
 const createCrush = require('./createCrush');
 const getAllCrushs = require('./getAllCrushs');
 const getCrushById = require('./getCrushById');
@@ -11,6 +12,7 @@ module.exports = {
   error,
   logger,
   editCrush,
+  deleteCrush,
   createCrush,
   getAllCrushs,
   getCrushById,
