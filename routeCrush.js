@@ -24,10 +24,20 @@ router.get('/', async (_req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
+  const { authorization } = req.headers;
   const crush = await readCrushFile();
   const { id } = req.params;
-  const filteredCharacter = crush.find((character) => character.id === id) || [];
-  res.status(200).send(filteredCharacter);
+
+  if (!authorization) {
+    res.status(401).json({ message: 'Token não encontrado' });
+  }
+  if (authorization && authorization.length !== 16) {
+    res.status(401).json({ message: 'Token inválido' });
+  }
+  
+  const filteredCharacter = crush.find((character) => character.id === Number(id));
+  if (filteredCharacter === undefined) return res.status(404).json({ message: 'Crush não encontrado'});
+  res.status(200).json(filteredCharacter);
 });
 
 router.post('/', async (req, res) => {
