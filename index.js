@@ -22,8 +22,6 @@ app.get('/crush/:id', middlewares.auth, middlewares.search);
 
 app.put('/crush/:id', middlewares.auth, middlewares.people, middlewares.edit);
 
-// app.get('/ping', (_, res) => {
-//   res.json({ message: 'ping test' });
-// });
+app.delete('/crush/:id', middlewares.auth, middlewares.erase);
 
 app.listen(PORT, () => console.log('listening on 3k'));
