@@ -25,6 +25,7 @@ console.log(result); */
 const crypto = require('crypto');
 
 const tokenGenerator = () => crypto.randomBytes(8).toString('hex');
+console.log(tokenGenerator());
 const checkEmail = (email) => {
   if (email) return email.match(mail) ? 1 : 0;
 };
@@ -33,19 +34,19 @@ module.exports = (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || email === '') {
-    res.status(400).send({ message: 'O campo "email" é obrigatório' });
+    return res.status(400).send({ message: 'O campo "email" é obrigatório' });
   }
   if (!checkEmail(email)) {
-    res.status(400).send({ message: 'O "email" deve ter o formato "email@email.com"' });
+    return res.status(400).send({ message: 'O "email" deve ter o formato "email@email.com"' });
   }
   if (!password || password === '') {
-    res.status(400).send({ message: 'O campo "password" é obrigatório' });
+    return res.status(400).send({ message: 'O campo "password" é obrigatório' });
   }
   if (password && password.length < 6) {
-    res.status(400).send({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
-  } else if (email && checkEmail(email)) {
-  // } else {
-    res.status(200).json({ token: tokenGenerator() });
+    return res.status(400).send({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
+  }
+  if (email && checkEmail(email)) {
+    return res.status(200).json({ token: tokenGenerator() });
   }
   next();
 };

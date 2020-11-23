@@ -6,7 +6,7 @@ const middlewares = require('./middlewares');
 
 const app = express();
 app.use(bodyParser.json());
-const urlenconderParser = bodyParser.urlencoded({ extended: false });
+// const urlenconderParser = bodyParser.urlencoded({ extended: false });
 
 // app.use(express.json());
 
@@ -17,6 +17,6 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/login', urlenconderParser, middlewares.login);
+app.post('/login', /* urlenconderParser,  */middlewares.login);
 
 app.listen(3000, () => console.log('ouvindo na porta 3000'));
