@@ -1,4 +1,5 @@
-const exercicio01error = require('./exercicio01error');
+const errorPassword = require('./errorPassword');
+const errorEmail = require('./errorEmail');
 const errorName = require('./errorName.js');
 const errorToken = require('./errorToken');
 const errorAge = require('./errorAge');
@@ -13,7 +14,8 @@ const exercicio03vazio = require('./exercicio03vazio');
 // const exercicio07 = require('./exercicio07');
 
 module.exports = {
-  exercicio01error,
+  errorPassword,
+  errorEmail,
   errorAge,
   errorDate,
   errorName,

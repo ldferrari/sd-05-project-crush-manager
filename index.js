@@ -10,7 +10,7 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 
-app.post('/login', m.exercicio01error, m.exercicio01);
+app.post('/login', m.errorEmail, m.errorPassword, m.exercicio01);
 app.post('/crush', m.errorToken, m.errorName, m.errorAge, m.errorDate, m.exercicio02);
 app.get('/crush', m.errorToken, m.exercicio03);
 app.get('/crush/:id', m.exercicio03vazio);
