@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const crypto = require('crypto');
 const loginMid = require('./src/loginMidWares.js');
+const createCrush = require('./src/createCrush');
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,6 +23,16 @@ app.post('/login', loginMid.validateLoginMidware, (req, res, _) => {
 });
 
 // desafio 2
+
+app.post('/crush', createCrush.createCrush, async (req, res, _) => {
+  const { body } = req;
+  const list = await fs.readFile('./crush.json', 'utf8');
+  const newList = await JSON.parse(list);
+  body.id = newList.length + 1;
+  newList.push(body);
+  fs.writeFile('./crush.json', newList, 'utf8');
+  res.status(201).send(req.body);
+});
 
 // desafio 3
 app.get('/crush', (req, res, next) => {
