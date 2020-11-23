@@ -1,1 +1,3 @@
-// First push
+const checkLogin = require('./checkLogin');
+
+module.exports = { checkLogin };
