@@ -5,5 +5,4 @@ const exercicio01error = (_req, res, _next) => {
   const token = MD5().toString().substr(0, 16);
   res.status(200).json({ token });
 };
-
 module.exports = exercicio01error;
