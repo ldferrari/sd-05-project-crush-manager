@@ -1,5 +1,6 @@
-const checkDate = (date) =>
-  date.match(/^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/);
+const { checkDate } = require('../services');
+// const checkDate = (date) =>
+//   date.match(/^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/);
 
 module.exports = (req, res, next) => {
   const { name, age, date } = req.body;

@@ -14,11 +14,13 @@ app.use(express.json());
 
 app.post('/login', middlewares.login);
 
-app.get('/crush/:id', middlewares.auth, middlewares.search);
-
 app.post('/crush', middlewares.auth, middlewares.people, middlewares.increase);
 
 app.get('/crush', middlewares.auth, middlewares.list);
+
+app.get('/crush/:id', middlewares.auth, middlewares.search);
+
+app.put('/crush/:id', middlewares.auth, middlewares.people, middlewares.edit);
 
 // app.get('/ping', (_, res) => {
 //   res.json({ message: 'ping test' });
