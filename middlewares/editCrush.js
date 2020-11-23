@@ -1,13 +1,12 @@
-const { createCrush, readCrushFile } = require('../utils');
+const { readCrushFile, createCrush } = require('../utils');
 
 const dateVerify = (dateString) => {
   const dateRegex = /^(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/](19|20)\d\d$/g;
   return dateRegex.test(String(dateString));
 };
-
-module.exports = async (req, res, _next) => {
-  const token = req.headers.authorization;
-  const { name, age, date } = req.body;
+module.exports = async (req, res) => {
+  const idParam = Number(req.params.id);
+  const { name, date, age } = req.body;
   const { rate, datedAt } = req.body.date ? date : '';
   //  crush name validation
   if (!name) return res.status(400).json({ message: 'O campo "name" é obrigatório' });
@@ -40,11 +39,18 @@ module.exports = async (req, res, _next) => {
   if (!dateVerify(datedAt)) {
     return res.status(400).json({ message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"' });
   }
-  if (token) {
-    const crushList = JSON.parse(await readCrushFile('./crush.json'));
-    const crushId = crushList.length + 1;
-    const crush = { ...req.body, id: crushId };
-    createCrush('./crush.json', crush);
-    return res.status(201).json(crush);
-  }
+
+  const crushList = JSON.parse(await readCrushFile('./crush.json'));
+  const crushIndex = crushList.indexOf((person) => person.id === idParam);
+  crushList[crushIndex] = {
+    name,
+    age,
+    date: {
+      datedAt,
+      rate,
+    },
+    id: idParam,
+  };
+  createCrush('./crush.json', crushList[crushIndex]);
+  res.status(200).json(crushList[crushIndex]);
 };

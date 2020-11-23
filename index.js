@@ -11,6 +11,7 @@ app.get('/', (request, response) => response.send());
 
 app.post('/login', middlewares.logger);
 app.get('/crush/:id', middlewares.auth, middlewares.getCrushById);
+app.put('/crush/:id', middlewares.auth, middlewares.editCrush);
 app.get('/crush', middlewares.auth, middlewares.getAllCrushs);
 app.post('/crush', middlewares.auth, middlewares.createCrush);
 
