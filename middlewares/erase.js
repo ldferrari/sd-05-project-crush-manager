@@ -3,7 +3,7 @@ const fs = require('fs').promises;
 const { readList } = require('../services');
 
 module.exports = async (req, res) => {
-  const { name, age, date } = req.body;
+  // const { name, age, date } = req.body;
   const crushList = await readList();
   const id = +req.params.id;
   const newList = crushList.filter((crush) => crush.id !== id);
