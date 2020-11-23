@@ -1,3 +1,4 @@
 const checkLogin = require('./checkLogin');
+const checkToken = require('./checkToken');
 
-module.exports = { checkLogin };
+module.exports = { checkLogin, checkToken };
