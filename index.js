@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs').promises;
 
 const { createToken } = require('./services');
-const { checkLogin, checkToken } = require('./middlewares');
+const { checkLogin, checkToken, findCrush } = require('./middlewares');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,6 +17,8 @@ app.post('/login', checkLogin, (_req, res) => {
   const token = createToken();
   res.status(200).send(token);
 });
+
+app.get('/crush/:id', checkToken, findCrush);
 
 app.get('/crush', checkToken, async (_req, res) => {
   const myCrushes = await fs.readFile('./crush.json', 'utf8');
