@@ -21,6 +21,31 @@ app.post('/login', middlewares.authLogin, (_req, res) => {
   res.status(200).json({ token: generateToken() });
 });
 
+app.post('/crush', middlewares.authToken, middlewares.authName, middlewares.authAge, middlewares.authDate, rescue(async (req, res) => {
+  const { name, age, date } = req.body;
+  const crushFile = JSON.parse(await readFile(crushList));
+  const newCrush = {
+    id: crushFile.length + 1,
+    name,
+    age,
+    date: {
+      datedAt: date.datedAt,
+      rate: date.rate,
+    },
+  };
+  crushFile.push(newCrush);
+  writeFile(crushList, crushFile);
+  res.status(201).json(newCrush);
+}));
+
+app.get('/crush', middlewares.authToken, rescue(async (_req, res) => {
+  const crushFile = JSON.parse(await readFile(crushList));
+  if (crushFile.length === 0) {
+    res.status(200).json([]);
+  }
+  res.status(200).json(crushFile);
+}));
+
 app.get('/crush/:id', middlewares.authToken, rescue(async (req, res) => {
   const crushFile = JSON.parse(await readFile(crushList));
   const crushFind = crushFile.find((crush) => parseInt(req.params.id, 10) === crush.id);
@@ -50,31 +75,6 @@ app.delete('/crush/:id', middlewares.authToken, rescue(async (req, res) => {
   const crushNew = crushFile.filter((crush) => parseInt(req.params.id, 10) !== crush.id);
   writeFile(crushList, crushNew);
   res.status(200).json({ message: 'Crush deletado com sucesso' });
-}));
-
-app.post('/crush', middlewares.authToken, middlewares.authName, middlewares.authAge, middlewares.authDate, rescue(async (req, res) => {
-  const { name, age, date } = req.body;
-  const crushFile = JSON.parse(await readFile(crushList));
-  const newCrush = {
-    id: crushFile.length + 1,
-    name,
-    age,
-    date: {
-      datedAt: date.datedAt,
-      rate: date.rate,
-    },
-  };
-  crushFile.push(newCrush);
-  writeFile(crushList, crushFile);
-  res.status(201).json(newCrush);
-}));
-
-app.get('/crush', middlewares.authToken, rescue(async (_req, res) => {
-  const crushFile = JSON.parse(await readFile(crushList));
-  if (crushFile.length === 0) {
-    res.status(200).json([]);
-  }
-  res.status(200).json(crushFile);
 }));
 
 const PORT = 3000;
