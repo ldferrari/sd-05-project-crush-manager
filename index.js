@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const loginMid = require('./src/loginMidWares.js');
 const createCrush = require('./src/createCrush');
+const crushId = require('./src/crushByIdMid');
 
 const app = express();
 app.use(bodyParser.json());
@@ -57,4 +58,12 @@ app.get('/crush', async (_req, res, _next) => {
 
 app.listen(3000, () => {
   console.log('on');
+});
+
+// desafio 4
+app.get('/crush/:id', crushId.byId, async (req, res, _) => {
+  const { id } = req.params;
+  const crushs = await fs.readFile('./crush.json', 'utf8');
+  const list = JSON.parse(crushs);
+  res.status(200).json(list[id - 1]);
 });
