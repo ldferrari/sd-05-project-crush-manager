@@ -14,5 +14,6 @@ app.post('/login', m.errorEmail, m.errorPassword, m.exercicio01);
 app.post('/crush', m.errorToken, m.errorName, m.errorAge, m.errorDate, m.exercicio02);
 app.get('/crush', m.errorToken, m.exercicio03);
 app.get('/crush/:id', m.errorToken, m.errorId, m.exercicio04);
+app.put('/crush/:id', m.errorToken, m.errorName, m.errorAge, m.errorDate, m.exercicio05);
 
 app.listen(3000, () => console.log('Test Listen'));
