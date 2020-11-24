@@ -70,7 +70,7 @@ app.get('/crush/:id', crushId.byId, async (req, res, _) => {
 });
 
 // desafio 5
-app.put('/crush/:id', createCrush.createCrush, async (req, res, _next) => {
+/* app.put('/crush/:id', createCrush.createCrush, async (req, res, _next) => {
   const { name, age } = req.body;
   const { datedAt, rate } = req.body.date;
   const { id } = req.params;
@@ -84,7 +84,7 @@ app.put('/crush/:id', createCrush.createCrush, async (req, res, _next) => {
   const newCrush = JSON.stringify(crushs);
   fs.writeFile('./crush.json', newCrush);
   res.status(200).json(crushs[i]);
-});
+}); */
 
 // desafio 6
 app.delete('/crush/:id', dc.deleteCrush, async (req, res, _next) => {
