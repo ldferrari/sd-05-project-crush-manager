@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
-const createCrush = (req, res, next) => {
+const createCrush = async (req, res, next) => {
   const { name, age, date } = req.body;
   const dataForm = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
   const { authorization } = req.headers;
@@ -25,6 +25,7 @@ const createCrush = (req, res, next) => {
   if (name === '' || name === undefined) {
     res.status(400).send({ message: 'O campo "name" é obrigatório' });
   }
+
   if (name.length < 3) {
     res
       .status(400)

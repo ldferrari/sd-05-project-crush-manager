@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const loginMid = require('./src/loginMidWares.js');
 const createCrush = require('./src/createCrush');
 const crushId = require('./src/crushByIdMid');
+const dc = require('./src/deleteCrushMid');
 
 const app = express();
 app.use(bodyParser.json());
@@ -66,4 +67,33 @@ app.get('/crush/:id', crushId.byId, async (req, res, _) => {
   const crushs = await fs.readFile('./crush.json', 'utf8');
   const list = JSON.parse(crushs);
   res.status(200).json(list[id - 1]);
+});
+
+// desafio 5
+app.put('/crush/:id', createCrush.createCrush, async (req, res, _next) => {
+  const { name, age } = req.body;
+  const { datedAt, rate } = req.body.date;
+  const { id } = req.params;
+  const list = await fs.readFile('./crush.json', 'utf8');
+  const crushs = JSON.parse(list);
+  const i = id - 1;
+  crushs[i].name = name;
+  crushs[i].age = age;
+  crushs[i].date.datedAt = datedAt;
+  crushs[i].date.rate = rate;
+  const newCrush = JSON.stringify(crushs);
+  fs.writeFile('./crush.json', newCrush);
+  res.status(200).json(crushs[i]);
+});
+
+// desafio 6
+app.delete('/crush/:id', dc.deleteCrush, async (req, res, _next) => {
+  const { id } = req.params;
+  const i = id - 1;
+  const list = await fs.readFile('./crush.json', 'utf8');
+  const crush = JSON.parse(list);
+  crush.splice(i, 1);
+  const newList = JSON.stringify(crush);
+  fs.writeFile('./crush.json', newList, 'utf8');
+  res.status(200).send({ message: 'Crush deletado com sucesso' });
 });
