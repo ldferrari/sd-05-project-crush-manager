@@ -1,7 +1,14 @@
 const fs = require('fs');
 
-module.exports = async (path, newCrushFile) => {
-  await fs.writeFile(path, JSON.stringify(newCrushFile), (err) => {
-    if (err) return console.log(err);
-  });
+module.exports = async (path) => {
+  const file = await fs.writeFile(
+    path.join(path),
+    'utf8',
+    (err, fileData) => {
+      if (err) return err;
+      return fileData;
+    },
+  );
+
+  return JSON.parse(file);
 };
