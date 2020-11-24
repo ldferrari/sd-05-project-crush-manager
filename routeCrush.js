@@ -92,4 +92,69 @@ router.post('/', async (req, res) => {
   res.status(201).json(newArrayOfCrush[id - 1]);
 });
 
+router.put('/:id', async (req, res) => {
+  const { name, age, date } = req.body;
+  const { id } = req.params;
+  const { authorization } = req.headers;
+  const crush = await readCrushFile();
+
+  const filteredCharacter = crush.find((character) => character.id === Number(id));
+  if (!filteredCharacter) {
+    return res.status(404).json({ message: 'id não encontrado' });
+  }
+  if (!authorization) {
+    return res.status(401).json({ message: 'Token não encontrado' });
+  }
+  if (authorization && authorization.length !== 16) {
+    return res.status(401).json({ message: 'Token inválido' });
+  }
+  if (!name) {
+    return res.status(400).json({ message: 'O campo "name" é obrigatório' });
+  }
+  if (name.length < 3) {
+    return res.status(400).json({ message: 'O "name" deve ter pelo menos 3 caracteres' });
+  }
+  if (!age) {
+    return res.status(400).json({ message: 'O campo "age" é obrigatório' });
+  }
+  if (Number(age) < 18) {
+    return res.status(400).json({ message: 'O crush deve ser maior de idade' });
+  }
+  if (!date) {
+    return res.status(400).json({
+      message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',
+    });
+  }
+  if (Number(date.rate) < 1 || Number(date.rate) > 5) {
+    return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
+  }
+  if (date.datedAt === undefined || date.rate === undefined) {
+    return res.status(400).json({
+      message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',
+    });
+  }
+  if (!moment(date.datedAt, 'DD/MM/AAAA').isValid()) {
+    return res.status(400).json({ message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"' });
+  }
+  const { datedAt, rate } = date;
+  const oldCrush = await readCrushFile();
+  // id = oldCrush.length + 1;
+  const newArrayOfCrush = oldCrush.map((value) => {
+    if (value.id === Number(id)) {
+      return {
+        id: Number(id),
+        name,
+        age,
+        date: {
+          datedAt,
+          rate,
+        },
+      };
+    }
+    return value;
+  });
+  await writeCrushFile(newArrayOfCrush);
+  res.status(200).json(newArrayOfCrush[id - 1]);
+});
+
 module.exports = router;
