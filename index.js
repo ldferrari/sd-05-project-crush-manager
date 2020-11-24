@@ -19,7 +19,7 @@ app.get('/', (request, response) => {
 
 // desafio 1
 
-app.post('/login', loginMid.validateLoginMidware, (req, res, _) => {
+app.post('/login', loginMid.validateLoginMidware, async (_req, res, _) => {
   const token = crypto.randomBytes(8).toString('hex');
   res.send({ token });
 });
@@ -37,7 +37,7 @@ app.post('/crush', createCrush.createCrush, async (req, res, _) => {
 });
 
 // desafio 3
-app.get('/crush', (req, res, next) => {
+app.get('/crush', async (req, res, next) => {
   const { authorization } = req.headers;
   if (authorization === undefined) {
     res.status(401).send({ message: 'Token não encontrado' });
@@ -70,7 +70,7 @@ app.get('/crush/:id', crushId.byId, async (req, res, _) => {
 });
 
 // desafio 5
-/* app.put('/crush/:id', createCrush.createCrush, async (req, res, _next) => {
+app.put('/crush/:id', createCrush.createCrush, async (req, res, _next) => {
   const { name, age } = req.body;
   const { datedAt, rate } = req.body.date;
   const { id } = req.params;
@@ -84,7 +84,7 @@ app.get('/crush/:id', crushId.byId, async (req, res, _) => {
   const newCrush = JSON.stringify(crushs);
   fs.writeFile('./crush.json', newCrush);
   res.status(200).json(crushs[i]);
-}); */
+});
 
 // desafio 6
 app.delete('/crush/:id', dc.deleteCrush, async (req, res, _next) => {

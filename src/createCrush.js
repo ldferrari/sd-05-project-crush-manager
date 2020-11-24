@@ -45,7 +45,6 @@ const createCrush = async (req, res, next) => {
         'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',
     });
   }
-
   const { datedAt, rate } = date;
 
   if (
