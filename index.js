@@ -15,5 +15,6 @@ app.post('/crush', m.errorToken, m.errorName, m.errorAge, m.errorDate, m.exercic
 app.get('/crush', m.errorToken, m.exercicio03);
 app.get('/crush/:id', m.errorToken, m.errorId, m.exercicio04);
 app.put('/crush/:id', m.errorToken, m.errorName, m.errorAge, m.errorDate, m.exercicio05);
+app.delete('/crush/:id', m.errorToken, m.exercicio06);
 
 app.listen(3000, () => console.log('Test Listen'));
