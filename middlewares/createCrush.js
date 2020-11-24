@@ -42,9 +42,17 @@ module.exports = async (req, res, _next) => {
   }
   if (token) {
     const crushList = JSON.parse(await readCrushFile('./crush.json'));
-    const crushId = crushList.length + 1;
-    const crush = { ...req.body, id: crushId };
-    await createCrush('./crush.json', crush);
+    const crush = {
+      name,
+      age,
+      date: {
+        datedAt,
+        rate,
+      },
+      id: crushList.length + 1,
+    };
+    crushList.push(crush);
+    await createCrush('./crush.json', crushList);
     return res.status(201).json(crush);
   }
 };

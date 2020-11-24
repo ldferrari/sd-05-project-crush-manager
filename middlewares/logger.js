@@ -8,8 +8,8 @@ const validateEmail = (email) => {
 const validatePassword = (password) => password.length > 5;
 
 module.exports = (req, res, _next) => {
-  req.startTime = Date.now();
-  console.log(`[${req.method}] ${req.path}`);
+  // req.startTime = Date.now();
+  // console.log(`[${req.method}] ${req.path}`);
   const { email, password } = req.body;
   //  validação email vazio
   if (!email) {
