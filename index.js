@@ -28,10 +28,7 @@ app.post('/crush', middlewares.authToken, middlewares.authName, middlewares.auth
     id: crushFile.length + 1,
     name,
     age,
-    date: {
-      datedAt: date.datedAt,
-      rate: date.rate,
-    },
+    date,
   };
   crushFile.push(newCrush);
   writeFile(crushList, crushFile);
