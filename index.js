@@ -55,31 +55,26 @@ app.get('/crush/:id', middlewares.authToken, rescue(async (req, res) => {
   res.status(404).json({ message: 'Crush não encontrado' });
 }));
 
-app.put('/crush/:id', middlewares.authToken, middlewares.authDate, middlewares.authName, middlewares.authAge, rescue(async (req, res) => {
+app.put('/crush/:id', middlewares.authToken, middlewares.authName, middlewares.authAge, middlewares.authDate, rescue(async (req, res) => {
   const { name, age, date } = req.body;
-  const { id } = req.params;
   const crushFile = JSON.parse(await readFile(crushList));
-  const newCrush = {
-    id: parseInt(id, 10),
+  const crushFilter = crushFile.filter((crush) => parseInt(req.params.id, 10) !== crush.id);
+  const updatedCrush = {
+    id: parseInt(req.params.id, 10),
     name,
     age,
-    date: {
-      datedAt: date.datedAt,
-      rate: date.rate,
-    },
+    date,
   };
-  const selectedCrush = crushFile.find((crush) => parseInt(id, 10) === crush.id);
-  crushFile.splice(selectedCrush.id - 1, 1, newCrush);
-  writeFile(crushList, crushFile);
-  res.status(200).json(newCrush);
+  crushFilter.push(updatedCrush);
+  writeFile(crushList, crushFilter);
+  res.status(200).json(updatedCrush);
 }));
 
-app.delete('/crush/:id', middlewares.auth, rescue(async (req, res) => {
-  const { id } = req.params;
+app.delete('/crush/:id', middlewares.authToken, rescue(async (req, res) => {
   const crushFile = JSON.parse(await readFile(crushList));
-  const newCrushFile = crushFile.filter((crush) => crush.id !== parseInt(id, 10));
-  writeFile(crushList, newCrushFile);
-  res.status(200).json({ message: 'Crush deletado com sucesso' });
+  const crushNew = crushFile.filter((crush) => parseInt(req.params.id, 10) !== crush.id);
+  writeFile(crushList, crushNew);
+  res.status(200).json({ message: 'Crush deletado com sucesso!' });
 }));
 
 const PORT = 3000;
