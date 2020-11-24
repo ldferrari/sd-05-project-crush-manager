@@ -18,7 +18,7 @@ const changeDb = async (newDB) =>
 
 const updateDB = async (id, name, age, date) => {
   const dbs = await db();
-  const newDBS = dbs.map((i, index) => {
+  const newDBS = dbs.foreach((i, index) => {
     if (i.id === parseInt(id, 10)) {
       i[index] = {
         id,
@@ -82,6 +82,7 @@ app.delete('/crush/:id', middlewares.getAllCrushs, async (req, res) => {
 
 app.use(middlewares.errMiddleware);
 
-app.listen(PORT/* , function () {
+app.listen(PORT,/* , function () {
   console.log('ouvindo a porta 3000');
-} */);
+} */
+);
