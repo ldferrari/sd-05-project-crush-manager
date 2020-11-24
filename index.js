@@ -28,10 +28,7 @@ app.post('/crush', middlewares.authToken, middlewares.authName, middlewares.auth
     id: crushFile.length + 1,
     name,
     age,
-    date: {
-      datedAt: date.datedAt,
-      rate: date.rate,
-    },
+    date,
   };
   crushFile.push(newCrush);
   writeFile(crushList, crushFile);
@@ -70,12 +67,12 @@ app.put('/crush/:id', middlewares.authToken, middlewares.authName, middlewares.a
   res.status(200).json(updatedCrush);
 }));
 
-/* app.delete('/crush/:id', middlewares.authToken, rescue(async (req, res) => {
+app.delete('/crush/:id', middlewares.authToken, rescue(async (req, res) => {
   const crushFile = JSON.parse(await readFile(crushList));
   const crushNew = crushFile.filter((crush) => parseInt(req.params.id, 10) !== crush.id);
   writeFile(crushList, crushNew);
   res.status(200).json({ message: 'Crush deletado com sucesso' });
-})); */
+}));
 
 const PORT = 3000;
 
