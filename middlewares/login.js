@@ -1,6 +1,8 @@
 module.exports = (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  const { email, password } = req.body;
+  const emailValid = RegExp(
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{3})*$/,
+  );
 
   if (email === undefined) {
     return res.status(400).json({ message: 'O campo "email" é obrigatório' });
@@ -9,7 +11,7 @@ module.exports = (req, res, next) => {
   if (!emailValid.test(email)) {
     return res.status(400).json({ message: 'O "email" deve ter o formato "email@email.com"' });
   }
-console.log(password)
+  console.log(password);
   if (password === undefined) {
     return res.status(400).json({ message: 'O campo "password" é obrigatório' });
   }
@@ -17,4 +19,4 @@ console.log(password)
     return res.status(400).json({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
   }
   next();
-}
+};
