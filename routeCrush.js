@@ -157,4 +157,21 @@ router.put('/:id', async (req, res) => {
   res.status(200).json(newArrayOfCrush[id - 1]);
 });
 
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { authorization } = req.headers;
+  const crush = await readCrushFile();
+
+  const deleteId = crush.find((character) => character.id === Number(id));
+  if (deleteId) {
+    return res.status(200).json({ message: 'Crush deletado com sucesso' });
+  }
+  if (!authorization) {
+    return res.status(401).json({ message: 'Token não encontrado' });
+  }
+  if (authorization && authorization.length !== 16) {
+    return res.status(401).json({ message: 'Token inválido' });
+  }
+});
+
 module.exports = router;
