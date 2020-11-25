@@ -11,7 +11,7 @@ const exercicio03 = require('./exercicio03');
 const exercicio04 = require('./exercicio04');
 const exercicio05 = require('./exercicio05');
 const exercicio06 = require('./exercicio06');
-// const exercicio07 = require('./exercicio07');
+const exercicio07 = require('./exercicio07');
 
 module.exports = {
   errorPassword,
@@ -27,5 +27,5 @@ module.exports = {
   exercicio04,
   exercicio05,
   exercicio06,
-  // exercicio07,
+  exercicio07,
 };
