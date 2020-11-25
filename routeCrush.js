@@ -23,6 +23,17 @@ router.get('/', async (_req, res) => {
   res.status(200).send(crush);
 });
 
+router.get('/search', async (req, res) => {
+  const { q } = req.query;
+  const readCrush = await readCrushFile();
+  // const searchCrush = readCrush.find((character) => character.name.includes(q));
+  const searchCrush = readCrush.filter((crush) => crush.name.includes(q));
+  if (!q) {
+    return res.status(200).send(readCrush);
+  }
+  return res.status(200).send(searchCrush);
+});
+
 router.get('/:id', async (req, res) => {
   const { authorization } = req.headers;
   const crush = await readCrushFile();
