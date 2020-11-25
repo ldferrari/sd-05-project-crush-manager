@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
   // Difere do getById a partir deste trecho
   const { name, age, date } = req.body;
   const upCrush = crushArray.indexOf(crush);
-  crushArray[upCrush] = { id, name, age, date };
+  crushArray[upCrush] = { name, age, id, date };
   await editCrush(crushArray);
-  return res.status(200).json({ id, name, age, date });
+  return res.status(200).json({ name, age, id, date });
 };
