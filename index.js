@@ -37,6 +37,6 @@ app.put('/crush/:id', middlewares.auth, middlewares.checkCrush, middlewares.upda
 // 6 - Crie o endpoint DELETE /crush/:id
 app.delete('/crush/:id', middlewares.auth, middlewares.excludeCrush);
 
-// // PORT listening
+// PORT listening
 const PORT = 3000;
 app.listen(PORT, () => console.log(`${PORT} chegou no crush!`));
