@@ -19,11 +19,13 @@ app.use(bodyParser.json());
 
 app.post('/login', middlewares.login);
 
+// 7 - SearchTerm
+
 // 4 - Crie o endpoint GET /crush/:id
 app.get('/crush/:id', middlewares.auth, middlewares.getById);
 
 // 3 - Crie o endpoint GET /crush
-app.get('/crush', middlewares.auth, async (_req, res) => {
+app.get('/crush', middlewares.auth, middlewares.checkCrush, async (_req, res) => {
   const arrayCrush = await readCrush();
   res.status.apply(200).json(arrayCrush); // Método apply chamar or argumentos como um array
 });
