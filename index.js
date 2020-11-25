@@ -13,8 +13,6 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.use(bodyParser.json());
-
 // 1 - Crie o endpoint POST/Login
 
 app.post('/login', middlewares.login);
