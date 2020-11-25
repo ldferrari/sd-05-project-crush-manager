@@ -11,7 +11,6 @@ module.exports = (req, res, next) => {
   if (!emailValid.test(email)) {
     return res.status(400).json({ message: 'O "email" deve ter o formato "email@email.com"' });
   }
-  console.log(password);
   if (password === undefined) {
     return res.status(400).json({ message: 'O campo "password" é obrigatório' });
   }
