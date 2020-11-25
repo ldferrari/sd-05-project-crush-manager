@@ -77,7 +77,8 @@ app.post(
     await writeFile('./crush.json', crushs);
 
     return res.status(201).json(crush);
-  });
+  }
+);
 
 app.get('/crush/:id', checkToken, checkCrushId, async (req, res) => {
   const crushs = JSON.parse(await readFile('./crush.json'));
