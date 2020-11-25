@@ -60,8 +60,8 @@ app.get('/crush/:id', crushId.byId, async (req, res, _) => {
 });
 
 app.put('/crush/:id', createCrush.createCrush, async (req, res, _next) => {
-  const { name, age, date: {datedAt, rate} } = req.body;
-  const id = parseInt(req.params.id);
+  const { name, age, date: { datedAt, rate } } = req.body;
+  const id = parseInt(req.params.id, 10);
   const list = await fs.readFile('./crush.json', 'utf8');
   const crushs = JSON.parse(list);
   const i = id - 1;
