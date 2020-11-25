@@ -8,4 +8,4 @@ module.exports = async (req, res) => {
   res.status(201).json({ id, name, age, date });
 };
 
-// Ponto de atenção INCREMENTAR o id
+// Ponto de atenção INCREMENTAR o id 'manualmente'

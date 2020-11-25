@@ -19,6 +19,9 @@ app.use(bodyParser.json());
 
 app.post('/login', middlewares.login);
 
+// 4 - Crie o endpoint GET /crush/:id
+app.get('/crush/:id', middlewares.auth, middlewares.getById);
+
 // 3 - Crie o endpoint GET /crush
 app.get('/crush', middlewares.auth, async (_req, res) => {
   const arrayCrush = await readCrush();
@@ -27,6 +30,12 @@ app.get('/crush', middlewares.auth, async (_req, res) => {
 
 // 2 - Crie o endpoint POST /crush
 app.post('/crush', middlewares.auth, middlewares.checkCrush, middlewares.newCrush);
+
+// 5 - Crie o endpoint PUT /crush/:id
+app.put('/crush/:id', middlewares.auth, middlewares.checkCrush, middlewares.updateCrush);
+
+// 6 - Crie o endpoint DELETE /crush/:id
+app.delete('/crush/:id', middlewares.auth, middlewares.excludeCrush);
 
 // // PORT listening
 const PORT = 3000;
