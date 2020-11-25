@@ -77,8 +77,7 @@ app.post(
     await writeFile('./crush.json', crushs);
 
     return res.status(201).json(crush);
-  }
-);
+  });
 
 app.get('/crush/:id', checkToken, checkCrushId, async (req, res) => {
   const crushs = JSON.parse(await readFile('./crush.json'));
@@ -89,10 +88,8 @@ app.get('/crush/:id', checkToken, checkCrushId, async (req, res) => {
 
 app.delete('/crush/:id', checkToken, async (req, res) => {
   const crushList = JSON.parse(await readFile('./crush.json'));
-  const id = req.params.id;
-  const newCrushList = crushList.filter(
-    (crush) => crush.id !== parseInt(id, 10)
-  );
+  const { id } = req.params;
+  const newCrushList = crushList.filter((crush) => crush.id !== parseInt(id, 10));
 
   await writeFile('./crush.json', newCrushList);
 
