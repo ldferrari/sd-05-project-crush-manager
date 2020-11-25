@@ -65,7 +65,7 @@ const dateVal = (req, res, next) => {
     return res.status(400).json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',
     });
   }
-  if (date.rate === undefined && date.rate !== 0 ) {
+  if (date.rate === undefined && date.rate !== 0) {
     return res.status(400).json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',
     });
   }
