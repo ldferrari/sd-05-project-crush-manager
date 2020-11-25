@@ -1,6 +1,6 @@
 const checkDate = require('../services/checkDate');
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   const { name, age, date } = req.body;
   // Verificação do nome
   if (!name) {
