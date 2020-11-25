@@ -25,7 +25,7 @@ describe('2 - Crie o endpoint POST /crush', () => {
     );
   });
 
-  /* it('Será validado que é possível cadastrar um crush com sucesso', async () => {
+  it('Será validado que é possível cadastrar um crush com sucesso', async () => {
     await frisby
       .post(`${url}/login`, {
         body: {
@@ -57,7 +57,7 @@ describe('2 - Crie o endpoint POST /crush', () => {
           });
       });
   });
- */
+
   it('Será validado que não é possível cadastrar um crush sem nome', async () => {
     await frisby
       .post(`${url}/login`, {
@@ -450,4 +450,5 @@ describe('2 - Crie o endpoint POST /crush', () => {
             expect(json.message).toBe('Token inválido');
           }));
   });
+
 });

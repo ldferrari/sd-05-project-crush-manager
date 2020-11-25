@@ -1,3 +1,4 @@
 const login = require('./login');
+const addCrush = require('./addCrush');
 
-module.exports = { login };
+module.exports = { login, addCrush };
