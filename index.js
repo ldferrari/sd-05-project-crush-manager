@@ -23,9 +23,9 @@ app.post('/login', middlewares.login);
 app.get('/crush/:id', middlewares.auth, middlewares.getById);
 
 // 3 - Crie o endpoint GET /crush
-app.get('/crush', middlewares.auth, middlewares.checkCrush, async (_req, res) => {
+app.get('/crush', middlewares.auth, async (_req, res) => {
   const arrayCrush = await readCrush();
-  res.status.apply(200).json(arrayCrush); // Método apply chamar or argumentos como um array
+  res.status(200).json(arrayCrush);
 });
 
 // 2 - Crie o endpoint POST /crush
