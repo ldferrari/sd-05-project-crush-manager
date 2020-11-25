@@ -35,6 +35,13 @@ app.get('/crush', middlewares.auth, async (_req, res, _next) => {
   res.status(200).json(crushList);
 });
 
+app.get('/crush/search', middlewares.auth, async (req, res, _next) => {
+  const searchedString = req.query.q;
+  const crushList = await helpers.readFileCrush();
+  const foundCrush = crushList.filter((crush) => crush.name.includes(searchedString));
+  res.status(200).json(foundCrush);
+});
+
 app.get('/crush/:id', middlewares.auth, middlewares.checkId, async (req, res, _next) => {
   const crushList = await helpers.readFileCrush();
   const filteredCrush = crushList.find((crush) => crush.id === parseInt(req.params.id, 10));
@@ -54,9 +61,9 @@ app.put('/crush/:id', middlewares.auth, middlewares.checkId, middlewares.dataFor
 app.delete('/crush/:id', middlewares.auth, async (req, res, _next) => {
   const crushList = await helpers.readFileCrush();
   const id = parseInt(req.params.id, 10);
+  // tive problema pra remover com splice e vi no repo do Felipe essa maneira de remover com filter
   const filteredList = crushList.filter((crush) => crush.id !== id);
   await fs.writeFile('./crush.json', JSON.stringify([filteredList]), (err) => { throw err; });
-  console.log(filteredList);
   res.status(200).json({ message: 'Crush deletado com sucesso' });
 });
 
