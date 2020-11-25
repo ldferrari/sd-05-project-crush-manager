@@ -71,16 +71,12 @@ app.get('/crush/:id', crushId.byId, async (req, res, _) => {
 
 // desafio 5
 app.put('/crush/:id', createCrush.createCrush, async (req, res, _next) => {
-  const { name, age } = req.body;
-  const { datedAt, rate } = req.body.date;
-  const { id } = req.params;
+  const { name, age, date: {datedAt, rate} } = req.body;
+  const id = parseInt(req.params.id);
   const list = await fs.readFile('./crush.json', 'utf8');
   const crushs = JSON.parse(list);
   const i = id - 1;
-  crushs[i].name = name;
-  crushs[i].age = age;
-  crushs[i].date.datedAt = datedAt;
-  crushs[i].date.rate = rate;
+  crushs[i] = { name, age, date: { datedAt, rate }, id };
   const newCrush = JSON.stringify(crushs);
   fs.writeFile('./crush.json', newCrush);
   res.status(200).json(crushs[i]);
