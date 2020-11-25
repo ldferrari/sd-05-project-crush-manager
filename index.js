@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { dataAuth } = require('./middlewares/authMid');
-const { userLogin } = require('./controller/userController');
+const { getUser } = require('./middlewares/auth');
+const { dataAuth } = require('./controller/userController');
 // const { setCrush } = require('./middlewares/crushMid');
 //const middleware = require('./middlewares/index);
 
@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 //   response.send('Olá');
 // });
 
-app.post('/login', dataAuth, userLogin);
+app.post('/login', dataAuth, getUser);
 
 // app.post('/crush', setCrush);
 
