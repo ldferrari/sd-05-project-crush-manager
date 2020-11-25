@@ -1,8 +1,6 @@
 const express = require('express');
 const crypto = require('crypto');
 const bodyparse = require('body-parser');
-const { unwatchFile } = require('fs');
-const { nextTick } = require('process');
 const middlewares = require('./middlewares');
 
 const app = express();
