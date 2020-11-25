@@ -1,3 +1,5 @@
+const fs = require('fs').promises;
+
 const nameVal = (req, res, next) => {
   const { name } = req.body;
   if (name === undefined || name === '') {
@@ -62,4 +64,21 @@ const dateVal = (req, res, next) => {
   next();
 };
 
-module.exports = { tokenVal, nameVal, ageVal, dateVal };
+const readingCrushFile = async () => {
+  const dataJSON = await fs.readFile('./crush.json', 'utf-8');
+  const data = await (JSON.parse(dataJSON));
+  const id = 1 + data.reduce((max, actual) =>
+    (actual.id > max ? actual.id : max), 0);
+  return { data, id };
+};
+const writingCrushFile = async (data) => {
+  await fs.writeFile('./crush.json', JSON.stringify(data), 'utf-8', (err) => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log('The file was saved!');
+  });
+  return null;
+};
+
+module.exports = { tokenVal, nameVal, ageVal, dateVal, readingCrushFile, writingCrushFile };
