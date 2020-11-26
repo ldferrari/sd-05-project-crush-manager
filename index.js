@@ -22,7 +22,7 @@ app.post('/login', loginMid.validateLoginMidware, async (_req, res, _) => {
   res.send({ token });
 });
 
-app.post('/crush', createCrush.createCrush, async (req, res, _) => {
+app.post('/crush', lv.authValidation, createCrush.createCrush, async (req, res, _) => {
   const { body } = req;
   const list = await fs.readFile('./crush.json', 'utf8');
   const newList = JSON.parse(list);
@@ -48,7 +48,7 @@ app.get('/crush/:id', crushId.byId, async (req, res, _) => {
   res.status(200).json(list[id - 1]);
 });
 
-app.put('/crush/:id', createCrush.createCrush, async (req, res, _) => {
+app.put('/crush/:id', lv.authValidation, createCrush.createCrush, async (req, res, _) => {
   try {
     const {
       name,
@@ -64,7 +64,7 @@ app.put('/crush/:id', createCrush.createCrush, async (req, res, _) => {
     fs.writeFile('./crush.json', newCrush);
     res.status(200).json(crushs[i]);
   } catch (er) {
-    console.log('erro de novo');
+    console.log(er + '< ------------------------- esse erro');
   }
 });
 
@@ -76,7 +76,7 @@ app.delete('/crush/:id', lv.authValidation, async (req, res, _next) => {
   crush.splice(i, 1);
   const newList = JSON.stringify(crush);
   fs.writeFile('./crush.json', newList, 'utf8');
-  res.status(200).send({ message: 'Crush deletado com sucesso' });
+  res.status(200).json({ message: 'Crush deletado com sucesso' });
 });
 
 app.listen(3000, () => {
