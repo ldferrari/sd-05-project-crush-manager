@@ -32,7 +32,7 @@ app.post('/crush', createCrush.createCrush, async (req, res, _) => {
   res.status(201).send(req.body);
 });
 
-app.get('/crush', lv.authValidation, async (_req, res, _next) => {
+app.get('/crush', lv.authValidation, async (_req, res, _) => {
   const crushs = await fs.readFile('./crush.json', 'utf8');
   if (crushs === '') {
     res.status(200).send([]);
@@ -48,16 +48,24 @@ app.get('/crush/:id', crushId.byId, async (req, res, _) => {
   res.status(200).json(list[id - 1]);
 });
 
-app.put('/crush/:id', createCrush.createCrush, async (req, res, _next) => {
-  const { name, age, date: { datedAt, rate } } = req.body;
-  const id = parseInt(req.params.id, 10);
-  const list = await fs.readFile('./crush.json', 'utf8');
-  const crushs = JSON.parse(list);
-  const i = id - 1;
-  crushs[i] = { name, age, date: { datedAt, rate }, id };
-  const newCrush = JSON.stringify(crushs);
-  fs.writeFile('./crush.json', newCrush);
-  res.status(200).json(crushs[i]);
+app.put('/crush/:id', createCrush.createCrush, async (req, res, _) => {
+  try {
+    const {
+      name,
+      age,
+      date: { datedAt, rate },
+    } = req.body;
+    const id = parseInt(req.params.id, 10);
+    const list = await fs.readFile('./crush.json', 'utf8');
+    const crushs = JSON.parse(list);
+    const i = id - 1;
+    crushs[i] = { name, age, date: { datedAt, rate }, id };
+    const newCrush = JSON.stringify(crushs);
+    fs.writeFile('./crush.json', newCrush);
+    res.status(200).json(crushs[i]);
+  } catch (er) {
+    console.log('erro de novo');
+  }
 });
 
 app.delete('/crush/:id', lv.authValidation, async (req, res, _next) => {

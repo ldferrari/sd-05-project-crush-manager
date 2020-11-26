@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
-const validateLoginMidware = (req, res, next) => {
+const validateLoginMidware = async (req, res, next) => {
   const vEmail = joi.object({
     email: joi
       .string()
