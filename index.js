@@ -24,6 +24,18 @@ app.get('/crush', tokenVal, async (_req, res, _next) => {
   res.status(200).json(data);
 });
 
+app.get('/crush/search', tokenVal, async (req, res, _next) => {
+  const { data } = await readingCrushFile();
+  const { q } = req.query;
+  console.log(typeof q);
+  const regexName = new RegExp(q, 'i');
+  const crush = data.find((person) => regexName.test(person.name));
+  /* if (crush === undefined) {
+    return res.status(404).json({ message: 'Crush não encontrado' });
+  } */
+  res.status(200).json(crush);
+});
+
 app.get('/crush/:id', tokenVal, async (req, res, _next) => {
   const { data } = await readingCrushFile();
   const { id } = req.params;
