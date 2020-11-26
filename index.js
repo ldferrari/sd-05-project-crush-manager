@@ -41,7 +41,7 @@ app.get('/crush', lv.authValidation, async (_req, res, _) => {
   }
 });
 
-app.get('/crush/:id', crushId.byId, async (req, res, _) => {
+app.get('/crush/:id', lv.authValidation, crushId.byId, async (req, res, _) => {
   const { id } = req.params;
   const crushs = await fs.readFile('./crush.json', 'utf8');
   const list = JSON.parse(crushs);
@@ -78,6 +78,10 @@ app.delete('/crush/:id', lv.authValidation, async (req, res, _next) => {
   fs.writeFile('./crush.json', newList, 'utf8');
   res.status(200).json({ message: 'Crush deletado com sucesso' });
 });
+
+app.get('/crush/search?:q', lv.authValidation, async (req, res, _next) => {
+  console.log(req);
+})
 
 app.listen(3000, () => {
   console.log('on');
