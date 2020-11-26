@@ -14,6 +14,8 @@ app.use(express.json());
 
 app.post('/login', middlewares.login);
 
+app.get('/crush/search', middlewares.auth, middlewares.browse);
+
 app.post('/crush', middlewares.auth, middlewares.people, middlewares.increase);
 
 app.get('/crush', middlewares.auth, middlewares.list);
