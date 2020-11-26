@@ -16,5 +16,7 @@ app.get('/crush', middlewares.token, middlewares.pegouCrush);
 
 app.post('/crush', middlewares.token, middlewares.createCrush);
 
+app.get('/crush/:id', middlewares.token, middlewares.buscarCrush);
+
 const PORT = 3000;
 app.listen(PORT, console.log(`Alôôôôô. Ta me ouvindo na :${PORT}?`));
