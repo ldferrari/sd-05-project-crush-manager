@@ -18,6 +18,12 @@ app.post('/login', middlewares.login, (_req, res) => {
   });
 });
 
+app.get('/crush', tokenVal, async (_req, res, _next) => {
+  let data = await readingCrushFile();
+  data = data.data;
+  res.status(200).json(data);
+});
+
 app.post('/crush', tokenVal, nameVal, ageVal, dateVal, async (req, res, _next) => {
   const { name, age, date } = req.body;
 
