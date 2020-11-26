@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const loginMid = require('./src/loginMidWares.js');
 const createCrush = require('./src/createCrush');
 const crushId = require('./src/crushByIdMid');
-const dc = require('./src/deleteCrushMid');
+const lv = require('./src/loginValidation');
 
 const app = express();
 app.use(bodyParser.json());
@@ -32,18 +32,7 @@ app.post('/crush', createCrush.createCrush, async (req, res, _) => {
   res.status(201).send(req.body);
 });
 
-app.get('/crush', async (req, res, next) => {
-  const { authorization } = req.headers;
-  if (authorization === undefined) {
-    res.status(401).send({ message: 'Token não encontrado' });
-  } else if (authorization.length !== 16 || authorization === '') {
-    res.status(401).send({ message: 'Token inválido' });
-  } else {
-    next();
-  }
-});
-
-app.get('/crush', async (_req, res, _next) => {
+app.get('/crush',lv.authValidation, async (_req, res, _next) => {
   const crushs = await fs.readFile('./crush.json', 'utf8');
   if (crushs === '') {
     res.status(200).send([]);
@@ -71,7 +60,7 @@ app.put('/crush/:id', createCrush.createCrush, async (req, res, _next) => {
   res.status(200).json(crushs[i]);
 });
 
-app.delete('/crush/:id', dc.deleteCrush, async (req, res, _next) => {
+app.delete('/crush/:id', lv.authValidation, async (req, res, _next) => {
   const { id } = req.params;
   const i = id - 1;
   const list = await fs.readFile('./crush.json', 'utf8');
