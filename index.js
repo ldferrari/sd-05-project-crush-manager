@@ -25,7 +25,7 @@ app.post('/login', loginMid.validateLoginMidware, async (_req, res, _) => {
 app.post('/crush', createCrush.createCrush, async (req, res, _) => {
   const { body } = req;
   const list = await fs.readFile('./crush.json', 'utf8');
-  const newList = await JSON.parse(list);
+  const newList = JSON.parse(list);
   body.id = newList.length + 1;
   newList.push(body);
   fs.writeFile('./crush.json', newList, 'utf8');
