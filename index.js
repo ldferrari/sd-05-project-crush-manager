@@ -79,10 +79,6 @@ app.delete('/crush/:id', lv.authValidation, async (req, res, _next) => {
   res.status(200).json({ message: 'Crush deletado com sucesso' });
 });
 
-app.get('/crush/search?:q', lv.authValidation, async (req, res, _next) => {
-  console.log(req);
-})
-
 app.listen(3000, () => {
   console.log('on');
 });
