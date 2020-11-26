@@ -80,5 +80,5 @@ app.delete('/crush/:id', lv.authValidation, async (req, res, _next) => {
 });
 
 app.listen(3000, () => {
-  console.log('on');
+  console.log('tentando novamente');
 });
