@@ -32,7 +32,7 @@ app.post('/crush', createCrush.createCrush, async (req, res, _) => {
   res.status(201).send(req.body);
 });
 
-app.get('/crush',lv.authValidation, async (_req, res, _next) => {
+app.get('/crush', lv.authValidation, async (_req, res, _next) => {
   const crushs = await fs.readFile('./crush.json', 'utf8');
   if (crushs === '') {
     res.status(200).send([]);
