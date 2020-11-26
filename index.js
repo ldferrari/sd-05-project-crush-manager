@@ -24,6 +24,16 @@ app.get('/crush', tokenVal, async (_req, res, _next) => {
   res.status(200).json(data);
 });
 
+app.get('/crush/:id', tokenVal, async (req, res, _next) => {
+  const { data } = await readingCrushFile();
+  const { id } = req.params;
+  const crush = data.find((person) => person.id === Number(id));
+  if (crush === undefined) {
+    return res.status(404).json({ message: 'Crush não encontrado' });
+  }
+  res.status(200).json(crush);
+});
+
 app.post('/crush', tokenVal, nameVal, ageVal, dateVal, async (req, res, _next) => {
   const { name, age, date } = req.body;
 
