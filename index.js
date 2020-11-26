@@ -64,7 +64,7 @@ app.put('/crush/:id', lv.authValidation, createCrush.createCrush, async (req, re
     fs.writeFile('./crush.json', newCrush);
     res.status(200).json(crushs[i]);
   } catch (er) {
-    console.log(er + '< ------------------------- esse erro');
+    console.log(er);
   }
 });
 
