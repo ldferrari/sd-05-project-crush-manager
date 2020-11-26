@@ -25,6 +25,8 @@ app.post('/login', middlewares.validaEmail, middlewares.validaPassword, (req, re
   res.status(200).json({ token: gerarToken });
 });
 
+app.get('/crush', middlewares.auth, middlewares.readCrushes);
+
 const PORT = 3000;
 
 app.listen(PORT, () => {
