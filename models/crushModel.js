@@ -25,7 +25,6 @@ const ageIsValid = (age) => {
 };
 
 const dateIsValid = (date) => {
-
   const regDate = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
   if (!regDate.test(date)) {
     return {
@@ -37,28 +36,11 @@ const dateIsValid = (date) => {
       message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"',
     };
   }
-  if(!date || !date.datedAt || !date.rate)
+  if (!date || !date.datedAt || !date.rate) {
     return {
-      message: 'O campo "date" é obrigatório e "dateAt" e "rate" não podem ser vazios'
-  };
+      message: 'O campo "date" é obrigatório e "dateAt" e "rate" não podem ser vazios',
+    };
+  }
 };
 
-const setCrush = (req, res, next) => {
-    const { name, age, date } = req.body;
-    const nameWorks = nameIsValid(name);
-    const ageWorks = ageIsValid(age);
-    const dateWorks = dateIsValid(date);
-
-    if (nameWorks.message) {
-      return res.status(400).json(nameWorks);
-    }
-    if (ageWorks.message) {
-      return res.status(400).json(ageWorks);
-    }
-    if (dateWorks.message) {
-      return res.status(400).json(dateWorks);
-    }
-    return next();
-  };
- 
-module.exports = { setCrush };
+module.exports = { nameIsValid, ageIsValid, dateIsValid };

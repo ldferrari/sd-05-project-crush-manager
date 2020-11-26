@@ -1,22 +1,28 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { getUser } = require('./middlewares/auth');
-const { dataAuth } = require('./controller/userController');
-// const { setCrush } = require('./middlewares/crushMid');
-//const middleware = require('./middlewares/index);
+
+const { userLog } = require('./controller/userController');
+const { getToken } = require('./middlewares/getToken');
+const { setCrush } = require('./middlewares/setCrush');
+const { createCrush } = require('./controller/crushController');
+const { getCrush } = require('./middlewares/getCrush');
 
 const app = express();
 app.use(bodyParser.json());
 
 // não remova esse endpoint, e para o avaliador funcionar
-// app.get('/', (request, response) => {
-//   response.send('Olá');
-// });
+app.get('/', (request, response) => {
+  response.send('Olá');
+});
 
-app.post('/login', dataAuth, getUser);
+app.post('/login', getToken, userLog);
 
-// app.post('/crush', setCrush);
+app.post('/crush', getToken, setCrush, createCrush);
 
-// app.get('/crush')
+app.get('/crush', getToken, getCrush);
+
+// app.get('/crush/:id', )
+
+// app.put('/crush/:id', )
 
 app.listen(3000, () => console.log('Listening on 3000'));
