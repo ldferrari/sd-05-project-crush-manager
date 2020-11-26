@@ -2,6 +2,7 @@ const express = require('express');
 const crypto = require('crypto');
 const bodyparse = require('body-parser');
 
+const { number } = require('joi');
 const middlewares = require('./middlewares');
 const { readingCrushFile, writingCrushFile } = require('./middlewares/addCrush');
 
@@ -32,6 +33,15 @@ app.get('/crush/:id', tokenVal, async (req, res, _next) => {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
   res.status(200).json(crush);
+});
+
+app.put('/crush/:id', tokenVal, nameVal, ageVal, dateVal, async (req, res, _next) => {
+  const { name, age, date } = req.body;
+  const { id } = req.params;
+  const { data } = await readingCrushFile();
+  const editedCrush = { name, age, id: Number(id), date };
+  await writingCrushFile([...data.filter((crush) => crush.id !== Number(id)), editedCrush]);
+  return res.status(200).json(editedCrush);
 });
 
 app.post('/crush', tokenVal, nameVal, ageVal, dateVal, async (req, res, _next) => {
