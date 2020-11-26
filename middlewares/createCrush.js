@@ -39,10 +39,11 @@ module.exports = async (req, res) => {
 
   const listCrush = JSON.parse(
     await fs.readFile('crush.json', 'UTF8', (err, data) => {
-      if (err) {return console.log('Deu ruim', err)}
+      if (err) {
+        return console.log('Deu ruim', err);
+      }
       return data;
-    }
-    ),
+    }),
   );
 
   const newCrush = {
@@ -57,17 +58,12 @@ module.exports = async (req, res) => {
 
   listCrush.push(newCrush);
 
-  await fs.writeFile(
-    'crush.json',
-    JSON.stringify(listCrush),
-    'UTF8',
-    (err) => {
-      if (err) {
-        return console.log('Deu ruim', err);
-      }
-      return newCrush;
-    },
-  );
+  await fs.writeFile('crush.json', JSON.stringify(listCrush), 'UTF8', (err) => {
+    if (err) {
+      return console.log('Deu ruim', err);
+    }
+    return newCrush;
+  });
 
   res.status(201).json(newCrush);
 };
