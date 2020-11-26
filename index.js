@@ -29,10 +29,10 @@ app.get('/crush/search', tokenVal, async (req, res, _next) => {
   const { q } = req.query;
   console.log(typeof q);
   const regexName = new RegExp(q, 'i');
-  const crush = data.find((person) => regexName.test(person.name));
-  /* if (crush === undefined) {
+  const crush = data.filter((person) => regexName.test(person.name));
+  if (crush === undefined) {
     return res.status(404).json({ message: 'Crush não encontrado' });
-  } */
+  }
   res.status(200).json(crush);
 });
 
