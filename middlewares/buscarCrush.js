@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
   }));
   const crushCerto = listCrush.find((e) => e.id === crushBuscado);
   if (!crushCerto) {
-    res.status(404).json({ message: 'Crush não encontrado'});
+    res.status(404).json({ message: 'Crush não encontrado' });
   }
   res.status(200).json(crushCerto);
 };

@@ -2,7 +2,7 @@ const fs = require('fs').promises;
 
 module.exports = async (req, res) => {
   const { name, age, date } = req.body;
-  const { datedAt, rate } = date ? date : '';
+  const { datedAt, rate } = req.body.date ? date : '';
   const verificaData = /^(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/](19|20)\d\d$/g;
 
   if (!name) {
@@ -38,8 +38,10 @@ module.exports = async (req, res) => {
   }
 
   const listCrush = JSON.parse(
-    await fs.readFile('crush.json', 'UTF8', (err, data) =>
-      err ? console.log('Deu ruim', err) : data,
+    await fs.readFile('crush.json', 'UTF8', (err, data) => {
+      if (err) {return console.log('Deu ruim', err)}
+      return data;
+    }
     ),
   );
 
@@ -55,7 +57,7 @@ module.exports = async (req, res) => {
 
   listCrush.push(newCrush);
 
-  const newListCrush = await fs.writeFile(
+  await fs.writeFile(
     'crush.json',
     JSON.stringify(listCrush),
     'UTF8',
