@@ -8,20 +8,10 @@ app.use(bodyParser.json());
 const createCrush = async (req, res, next) => {
   const { name, age, date } = req.body;
   const dataForm = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
-  const { authorization } = req.headers;
   // esse regex acima valida a data com dois numeros de 1 a 9, dois numeros de
   // 1 a 9 e 4 numeros de 1 a 9
   // fonte: https://www.guj.com.br/t/resolvido-como-validar-data-com-java-script/276656/2
   const rateForm = /^[1-5]{1}$/;
-
-  if (authorization === undefined) {
-    res.status(401).json({ message: 'Token não encontrado' });
-  }
-
-  if (authorization.length !== 16) {
-    res.status(401).json({ message: 'Token inválido' });
-  }
-
   if (name === '' || name === undefined) {
     res.status(400).send({ message: 'O campo "name" é obrigatório' });
   }
