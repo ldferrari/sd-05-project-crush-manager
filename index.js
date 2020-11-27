@@ -25,10 +25,17 @@ app.get('/crush', middleWareToken, async (_req, res, _next) => {
   res.status(200).json(returnData);
 });
 
-app.post('/crush', middleWareToken, middleWareName, middleWareAge, middleWareDate, async (req, res, _next) => {
-  const crushObj = await usingFiles.writeFile(req.body);
-  res.status(201).json(crushObj);
-});
+app.post(
+  '/crush',
+  middleWareToken,
+  middleWareName,
+  middleWareAge,
+  middleWareDate,
+  async (req, res, _next) => {
+    const crushObj = await usingFiles.writeFile(req.body);
+    res.status(201).json(crushObj);
+  }
+);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
