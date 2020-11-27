@@ -1,9 +1,10 @@
 {
   "name": "sd-0x-crush-manager",
   "version": "1.0.0",
-  "description": "",
+  "description": "Ao iniciar este projeto, você concorda com as diretrizes do Código de Ética e Conduta e do Manual da Pessoa Estudante da Trybe.",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index.js",
     "test": "jest",
     "debug": "nodemon -w --exec node index.js",
     "start": "node index.js",
@@ -15,7 +16,8 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "express-rescue": "^1.1.30"
+    "express-rescue": "^1.1.30",
+    "rand-token": "^1.0.1"
   },
   "devDependencies": {
     "jest": "^26.6.1",
@@ -24,5 +26,16 @@
     "eslint": "^7.3.1",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.0"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tryber/sd-05-project-crush-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tryber/sd-05-project-crush-manager/issues"
+  },
+  "homepage": "https://github.com/tryber/sd-05-project-crush-manager#readme"
 }
