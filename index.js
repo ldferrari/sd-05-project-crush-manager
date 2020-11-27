@@ -24,6 +24,14 @@ app.post('/login', checkLogin, (_req, res) => {
   res.status(200).send(token);
 });
 
+app.get('/crush/search', checkToken, async (req, res) => {
+  const { q } = req.query;
+  const myCrushes = JSON.parse(await readFile('./crush.json'));
+  const findMyCrushes = myCrushes.filter((crush) => crush.name.includes(q));
+
+  return !q || q === '' ? res.status(200).json(myCrushes) : res.status(200).json(findMyCrushes);
+});
+
 app.get('/crush/:id', checkToken, getCrushById, async (req, res) => {
   const myCrushes = JSON.parse(await readFile('./crush.json'));
   const { id } = req.params;
@@ -31,14 +39,6 @@ app.get('/crush/:id', checkToken, getCrushById, async (req, res) => {
   const findMyCrush = myCrushes.find((crush) => crush.id === crushId);
 
   return res.status(200).json(findMyCrush);
-});
-
-app.get('/crush/search', checkToken, async (req, res) => {
-  const { q } = req.query;
-  const myCrushes = JSON.parse(await readFile('./crush.json'));
-  const findMyCrushes = myCrushes.filter((crush) => crush.name.includes(q));
-
-  return !q || q === '' ? res.status(200).json(myCrushes) : res.status(200).json(findMyCrushes);
 });
 
 app.get('/crush', checkToken, async (_req, res) => {
