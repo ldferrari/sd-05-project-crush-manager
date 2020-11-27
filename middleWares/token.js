@@ -1,5 +1,5 @@
 const middleWareToken = (req, res, next) => {
-  const token  = req.headers.authorization;
+  const token = req.headers.authorization;
 
   if (token === undefined || token === '') {
     return res.status(401).json({ message: 'Token não encontrado' });

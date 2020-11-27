@@ -10,7 +10,7 @@ const PORT = 3000;
 app.post('/login', middleWareLogin.login, (_req, res, _next) =>
   res.status(200).json({
     token: crypto.randomBytes(8).toString('hex'),
-  })
+  }),
 );
 
 app.get('/crush', middleWareToken, async (_req, res, _next) => {
