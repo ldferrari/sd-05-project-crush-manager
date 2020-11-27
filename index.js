@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { email, password, error, auth } = require('./middlewares');
+const { email, password, error } = require('./middlewares');
 
 const app = express();
 const PORT = 3000;
@@ -19,4 +19,4 @@ app.post('/login', email, password, (_req, _res, next) => {
   next();
 });
 
-app.post('/auth', auth);
+app.use(error);
