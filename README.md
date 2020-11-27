@@ -34,7 +34,7 @@ Você vai desenvolver uma API de um CRUD (**C**reate, **R**ead, **U**pdate e **D
 
 #### Data de Entrega
 
-O projeto tem até a seguinte data: `dd/mm/yyyy - 14:00h`. Para ser entregue a avaliação final.
+O projeto tem até a seguinte data: `26/11/2020 - 14:00h`. Para ser entregue a avaliação final.
 
 ---
 
@@ -44,7 +44,7 @@ O projeto tem até a seguinte data: `dd/mm/yyyy - 14:00h`. Para ser entregue a a
 
 1. Clone o repositório
 
-- `git clone https://github.com/betrybe/sd-05-project-crush-manager.git`.
+- `git clone https://github.com/tryber/sd-05-project-crush-manager.git`.
 - Entre na pasta do repositório que você acabou de clonar:
   - `cd sd-05-project-crush-manager`
 
@@ -183,7 +183,7 @@ O avaliador automático não necessariamente avalia seu projeto na ordem em que 
 
     ```js
     {
-      "message": "O \"password\" ter pelo menos 6 caracteres"
+      "message": "A \"senha\" deve ter pelo menos 6 caracteres"
     }
     ```
 
