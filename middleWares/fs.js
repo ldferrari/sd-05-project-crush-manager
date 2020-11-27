@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 
-const fsMiddleware = async () => {
+const readFile = async () => {
   const datas = await fs.readFile('./crush.json', 'utf-8', (err, data) => {
     if (err) throw err;
     return data || [];
@@ -8,14 +8,15 @@ const fsMiddleware = async () => {
   return JSON.parse(datas);
 };
 
-/* const fsMiddleware = async (_req, res, _next) => {
-  await fs.readFile('./crush.json', 'utf-8', (err, data) => {
+const writeFile = async (newCrush) => {
+  const crushes = await readFile();
+  const crushObj = { ...newCrush, id: crushes.length + 1 };
+  crushes.push(crushObj);
+  await fs.writeFile('./crush', JSON.stringify(crushes), 'utf-8', (err) => {
     if (err) throw err;
-    if (!data) return res.status(200).json([]);
-    res.status(200).json({
-      data,
-    });
+    return newCrush;
   });
-}; */
+  return crushObj;
+};
 
-module.exports = fsMiddleware;
+module.exports = { readFile, writeFile };
