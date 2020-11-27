@@ -15,24 +15,37 @@ const crush = {
   smallName: {
     message: 'O "name" deve ter pelo menos 3 caracteres',
   },
-  nullAge: {
+  noAge: {
     message: 'O campo "age" é obrigatório',
   },
-  noAge: {
+  nullAge: {
     message: 'O crush deve ser maior de idade',
   },
 };
 
-const date = {
-  isInvalid: {
+const crushDate = {
+  isDatedAtInvalid: {
     message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"',
   },
-  invalidRate: {
+  isNull: {
+    message:
+      'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',
+  },
+  isRateInvalid: {
     message: 'O campo "rate" deve ser um inteiro de 1 à 5',
   },
-  isNull: {
-    message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',
+};
+const token = {
+  notFound: {
+    message: 'Token não encontrado',
+  },
+  isInvalid: {
+    message: 'Token inválido',
   },
 };
 
-module.exports = { password, email, crush, date };
+const encoding = {
+  utf8: 'utf-8',
+};
+
+module.exports = { password, email, crush, crushDate, token, encoding };
