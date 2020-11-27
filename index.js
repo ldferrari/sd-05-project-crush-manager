@@ -66,6 +66,17 @@ app.put(
   },
 );
 
+app.post('/crush', checkToken, getCrushByName, getCrushByAge, getCrushByRate, async (req, res) => {
+  const myCrushes = JSON.parse(await readFile('./crush.json'));
+  const myCrush = req.body;
+  myCrush.id = myCrushes.length + 1;
+  myCrushes.push(myCrush);
+
+  await writeFile('./crush.json', myCrushes);
+
+  return res.status(201).json(myCrush);
+});
+
 app.listen(3000, () => {
   console.log('Listening to port 3000');
 });
