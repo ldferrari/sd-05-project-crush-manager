@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
-const createCrush = async (req, res, next) => {
+const createCrush = (req, res, next) => {
   const { name, age, date } = req.body;
   const dataForm = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
   // esse regex acima valida a data com dois numeros de 1 a 9, dois numeros de

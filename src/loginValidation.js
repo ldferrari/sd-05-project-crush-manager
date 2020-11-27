@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-const authValidation = async (req, res, next) => {
+const authValidation = (req, res, next) => {
   const { authorization } = req.headers;
   if (authorization === undefined) {
     res.status(401).json({ message: 'Token não encontrado' });
