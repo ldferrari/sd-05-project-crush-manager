@@ -8,7 +8,10 @@ const {
   checkCrushAge,
   checkToken,
   createCrush,
+  readCrush,
 } = require('./middlewares');
+
+const { crush: crushEnums } = require('./enums');
 
 const PORT = 3000;
 
@@ -23,6 +26,19 @@ app.use(express.json());
 
 app.get('/', (request, response) => {
   response.send();
+});
+
+app.get('/crush', checkToken, async (_req, res, _next) => {
+  const { data } = await readCrush();
+  res.status(200).send(data || []);
+});
+
+app.get('/crush/:id', checkToken, async (req, res, _next) => {
+  const data = await readCrush(req.params.id);
+  if (!data) {
+    return res.status(404).send(crushEnums.notFound);
+  }
+  res.status(200).send(data || []);
 });
 
 app.post('/login', checkEmail, checkPassword, (_req, res, next) => {

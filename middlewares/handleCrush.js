@@ -3,10 +3,14 @@ const { encoding } = require('../enums');
 
 const crushFile = './crush.json';
 
-const readCrush = async () => {
+const readCrush = async (crushId = null) => {
   const rawData = await fs.readFile(crushFile, encoding.utf8);
   const data = await JSON.parse(rawData);
   const lastId = data.map(({ id }) => id).sort()[data.length - 1];
+  if (crushId && data) {
+    const result = data.find((crush) => parseInt(crush.id, 10) === parseInt(crushId, 10));
+    return result;
+  }
   return { data, lastId };
 };
 

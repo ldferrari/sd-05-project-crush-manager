@@ -21,6 +21,9 @@ const crush = {
   nullAge: {
     message: 'O crush deve ser maior de idade',
   },
+  notFound: {
+    message: 'Crush não encontrado',
+  },
 };
 
 const crushDate = {
