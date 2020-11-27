@@ -1,5 +1,4 @@
 const rescue = require('express-rescue');
-const crushes = require('../crush.json');
 
 module.exports = rescue(async (req, res, next) => {
   const { name, age, date } = req.body;
