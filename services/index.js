@@ -1,3 +1,4 @@
 const createToken = require('./createToken');
+const readFile = require('./readFile');
 
-module.exports = { createToken };
+module.exports = { createToken, readFile };
