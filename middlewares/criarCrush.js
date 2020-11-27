@@ -1,13 +1,14 @@
 const fs = require('fs').promises;
-const { writeFile } = require('fs');
-const dataRegex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+// const { writeFile } = require('fs');
+
+const dataRegex = /^(0?[1-9]|[12][0-9]|3[01])[\\](0?[1-9]|1[012])[\\]\d{4}$/;
 
 module.exports = async (req, res) => {
-  const { 
-    name, 
-    age, 
+  const {
+    name,
+    age,
     date,
-  } = req.body;  
+  } = req.body;
 
   if (!name) {
     return res.status(400).json({ message: 'O campo "name" é obrigatório' });
@@ -38,28 +39,26 @@ module.exports = async (req, res) => {
   }
 
   const crushes = JSON.parse(await fs.readFile('./crush.json', 'utf-8', (error, response) => {
-    if(error) {
-      return console.log("Conteúdo não encontrado", error);
+    if (error) {
+      return console.log('Conteúdo não encontrado', error);
     }
     return response;
   }));
 
   const newCrush = {
-    id: crushes.length+1, 
-    name, 
-    age, 
+    id: crushes.length + 1,
+    name,
+    age,
     date,
   };
 
   crushes.push(newCrush);
 
   await fs.writeFile('crush.json', crushes, 'utf-8', (error, response) => {
-    if(error) {
-      return console.log("O crush não foi adicionado", error);
+    if (error) {
+      return console.log('O crush não foi adicionado', error);
     }
     return response;
   });
-
   res.status(201).json(newCrush);
-
 };
