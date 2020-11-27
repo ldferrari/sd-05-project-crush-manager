@@ -1,8 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { createToken, readFile } = require('./services');
-const { checkLogin, checkToken, getCrushById } = require('./middlewares');
+const { createToken, readFile, writeFile } = require('./services');
+const {
+  checkLogin,
+  checkToken,
+  getCrushById,
+  getCrushByAge,
+  getCrushByName,
+  getCrushByRate,
+} = require('./middlewares');
 
 const app = express();
 app.use(bodyParser.json());
@@ -38,6 +45,26 @@ app.get('/crush', checkToken, async (_req, res) => {
   const myCrushes = JSON.parse(await readFile('./crush.json'));
   return res.status(200).json(myCrushes);
 });
+
+app.put(
+  '/crush/:id',
+  checkToken,
+  getCrushById,
+  getCrushByRate,
+  getCrushByAge,
+  getCrushByName,
+  async (req, res) => {
+    const { name, age, date } = req.body;
+    const id = parseInt(req.params.id, 10);
+    const myCrushes = JSON.parse(await readFile('./crush.json'));
+    const findMyCrush = myCrushes.findIndex((crush) => crush.id === id);
+    myCrushes[findMyCrush] = { name, age, date, id };
+
+    await writeFile('./crush.json', myCrushes);
+
+    return res.status(200).json(myCrushes[findMyCrush]);
+  },
+);
 
 app.listen(3000, () => {
   console.log('Listening to port 3000');
