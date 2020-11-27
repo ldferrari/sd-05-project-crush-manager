@@ -77,6 +77,16 @@ app.post('/crush', checkToken, getCrushByName, getCrushByAge, getCrushByRate, as
   return res.status(201).json(myCrush);
 });
 
+app.delete('/crush/:id', checkToken, async (req, res) => {
+  const myCrushes = JSON.parse(await readFile('./crush.json'));
+  const { id } = req.params;
+  const deleteCrush = myCrushes.filter((crush) => crush.id !== parseInt(id, 10));
+
+  await writeFile('./crush.json', deleteCrush);
+
+  return res.status(200).json({ message: 'Crush deletado com sucesso' });
+});
+
 app.listen(3000, () => {
   console.log('Listening to port 3000');
 });
