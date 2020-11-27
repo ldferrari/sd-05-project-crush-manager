@@ -3,9 +3,7 @@ const crushes = require('../crush.json');
 
 module.exports = rescue(async (req, res, next) => {
   const { name, age, date } = req.body;
-  const id = crushes.length + 1;
   const re = /\d{2}\/\d{2}\/\d{4}/ig;
-
   // [HONESTIDADE ACADEMICA]  entre varios maneiras de validar um formato de data com REGEX
   // , eu optei por fazer parecido com o PR do lizzard, por parecer mais simples
 
@@ -32,8 +30,8 @@ module.exports = rescue(async (req, res, next) => {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
   }
 
-  req.body.id = id;
-  crushes.push({ id, name, age, date });
+  // req.body.id = id;
+  // crushes.push({ id, name, age, date });
   // console.log("crush:", crushes);
 
   next();
