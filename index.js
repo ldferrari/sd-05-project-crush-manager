@@ -12,7 +12,7 @@ const PORT = 3000;
 app.post('/login', middleWareLogin.login, (_req, res, _next) =>
   res.status(200).json({
     token: crypto.randomBytes(8).toString('hex'),
-  })
+  }),
 );
 
 app.listen(PORT, () => console.log(`Looking at port ${PORT}`));
