@@ -1,4 +1,4 @@
-/*
+/* REQUISITO 1
 - O endpoint deve ser capaz de retornar um token aleatório de 16 caracteres
 que deverá ser utilizado nas demais requisições.
 - O corpo da requisição deverá ter o seguinte formato:
@@ -6,16 +6,17 @@ que deverá ser utilizado nas demais requisições.
 - 4 possibilidades de erro (status 400): e-mail nulo, e-mail inválido,
 senha vazia, senha inválida;
 */
+
 const crypto = require('crypto');
 
 const loginMid = (req, res) => {
   const token = crypto.randomBytes(8).toString('hex');
-  /* https://stackoverflow.com/questions/8855687/secure-random-token-in-node-js */
+  // https://stackoverflow.com/questions/8855687/secure-random-token-in-node-js
 
   const { email, password } = req.body;
 
   const regex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
-  /* fonte do regex: grepper e https://regular-expressions.info/ */
+  // fonte do regex: grepper e https://regular-expressions.info/
 
   const validateEmail = (userEmail) =>
     regex.test(String(userEmail).toLowerCase());
