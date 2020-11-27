@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 
-module.exports = async (req, res) => {  
+module.exports = async (req, res) => {
   const crushes = JSON.parse(await fs.readFile('./crush.json', 'utf-8', (error, response) => {
     if (error) {
       return console.log('Não foi possível acessar a lista de crushes');
