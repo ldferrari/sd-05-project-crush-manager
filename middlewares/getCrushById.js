@@ -9,7 +9,7 @@ module.exports = rescue(async (req, res, next) => {
   const array = JSON.parse(readFromFile);
   const loockupID = array.find((obj) => obj.id === id);
   if (!loockupID) {
-    return res.status(404).json({ message: "Crush não encontrado" });
+    return res.status(404).json({ message: 'Crush não encontrado' });
   }
   next();
 });
