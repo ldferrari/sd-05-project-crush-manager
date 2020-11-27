@@ -21,12 +21,16 @@ app.post('/login', middlewares.login, rescue(async (req, res) => {
   res.status(200).json({ token });
 }));
 
-// app.get('/crush/:id', middlewares.tokenValidation, async (_req, res) => {
-//   const readFromFile = await fs.readFile('crush.json');
-//   const array = JSON.parse(readFromFile);
-//   const loockupID = array.find((obj) => obj.id === id);
-//   res.status(200).json(array);
-// });
+app.get('/crush/:id', middlewares.tokenValidation, middlewares.getCrushById, async (req, res) => {
+  const { id: stringID } = req.params;
+  const id = parseInt(stringID, 10);
+
+  const readFromFile = await fs.readFile('crush.json');
+  const array = JSON.parse(readFromFile);
+  const loockupID = array.find((obj) => obj.id === id);
+  // console.log(loockupID);
+  res.status(200).json(loockupID);
+});
 
 app.get('/crush', middlewares.tokenValidation, async (_req, res) => {
   const readFromFile = await fs.readFile('crush.json');
