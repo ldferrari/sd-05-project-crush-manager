@@ -20,6 +20,8 @@ app.get('/crush', middlewares.auth, middlewares.readCrushes);
 
 app.post('/crush', middlewares.auth, middlewares.criarCrush);
 
+app.get('/crush/:id', middlewares.auth, middlewares.searchCrushById);
+
 const PORT = 3000;
 
 app.listen(PORT, () => {
