@@ -9,6 +9,7 @@ const {
   checkToken,
   createCrush,
   readCrush,
+  editCrush,
 } = require('./middlewares');
 
 const { crush: crushEnums } = require('./enums');
@@ -29,7 +30,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/crush', checkToken, async (_req, res, _next) => {
-  const { data } = await readCrush();
+  const data = await readCrush();
   res.status(200).send(data || []);
 });
 
@@ -56,9 +57,26 @@ app.post(
     const { name, age, date } = req.body;
     const newCrush = await createCrush({ name, age, date });
     if (!newCrush) {
-      return res.status(400).json({ message: 'Não foi possível criar novo crush!' });
+      return res
+        .status(400)
+        .json({ message: 'Não foi possível criar novo crush!' });
     }
     res.status(201).json(newCrush);
+    next();
+  },
+);
+
+app.put(
+  '/crush/:id',
+  checkToken,
+  checkCrushName,
+  checkCrushAge,
+  checkCrushDate,
+  async (req, res, next) => {
+    const { id } = req.params;
+    const editedCrush = { id: parseInt(id, 10), ...req.body };
+    const data = await editCrush(editedCrush);
+    res.status(200).send(data);
     next();
   },
 );

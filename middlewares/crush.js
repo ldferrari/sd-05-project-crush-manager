@@ -26,10 +26,10 @@ const checkCrushAge = (req, res, next) => {
 
 const checkCrushDate = (req, res, next) => {
   const { date: reqDate } = req.body;
-  if (!reqDate || !reqDate.rate || !reqDate.datedAt) {
+  if (!reqDate || !reqDate.datedAt || !reqDate.rate) {
+    console.log('oi', reqDate);
     return res.status(400).json(crushDate.isNull);
   }
-
   if (!dataPattern.test(reqDate.datedAt)) {
     return res.status(400).json(crushDate.isDatedAtInvalid);
   }
