@@ -1,16 +1,18 @@
 const express = require('express');
 const randToken = require('rand-token'); // indicação do Felipe Vieira
-const { checkEmail, checkPassword } = require('./middlewares');
+const {
+  checkEmail,
+  checkPassword,
+  checkCrushName,
+  checkCrushDate,
+  checkCrushAge,
+  checkToken,
+  createCrush,
+} = require('./middlewares');
 
 const PORT = 3000;
 
-
 const app = express();
-
-const logMiddleware = (req, res, next) => {
-  console.log(`${req.method}, ${req.path}`);
-  next();
-};
 
 const genRandomToken = () => {
   const token = randToken.generate(16);
@@ -18,19 +20,31 @@ const genRandomToken = () => {
 };
 
 app.use(express.json());
-app.use(logMiddleware);
-
-app.post('/login', checkEmail, checkPassword, (req, res) => {
-  console.log(req.body);
-  res.status(200).json(genRandomToken());
-});
-
-app.post('/crush', checkEmail, (req, res) => {
-});
 
 app.get('/', (request, response) => {
   response.send();
 });
 
+app.post('/login', checkEmail, checkPassword, (_req, res, next) => {
+  res.status(200).send(genRandomToken());
+  next();
+});
 
-app.listen(PORT, () => console.log('Olha mãe, no na 3000'));
+app.post(
+  '/crush',
+  checkToken,
+  checkCrushName,
+  checkCrushAge,
+  checkCrushDate,
+  async (req, res, next) => {
+    const { name, age, date } = req.body;
+    const newCrush = await createCrush({ name, age, date });
+    if (!newCrush) {
+      return res.status(400).json({ message: 'Não foi possível criar novo crush!' });
+    }
+    res.status(201).json(newCrush);
+    next();
+  },
+);
+
+app.listen(PORT, () => console.log(`You shall pass on ${PORT}`));
