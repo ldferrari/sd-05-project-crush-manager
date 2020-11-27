@@ -7,7 +7,7 @@ const middleWareToken = (req, res, next) => {
   if (token.length < 16) {
     return res.status(401).json({ message: 'Token inválido' });
   }
-  if (token == {}) {
+  if (token === {}) {
     return res.status(200).json([]);
   }
   next();

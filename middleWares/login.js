@@ -1,5 +1,5 @@
 const middleWareEmail = (req, res, next) => {
-  const email = req.body.email;
+  const { email } = req.body;
   const emailValid = RegExp('^.+@.+.(.{3}|.{2})$');
 
   if (email === undefined) {
@@ -12,7 +12,7 @@ const middleWareEmail = (req, res, next) => {
 };
 
 const middleWarePassword = (req, res, next) => {
-  const password = req.body.password;
+  const { password } = req.body;
 
   if (password === undefined) {
     return res.status(400).json({ message: 'O campo "password" é obrigatório' });
