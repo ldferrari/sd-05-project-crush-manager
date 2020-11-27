@@ -33,7 +33,8 @@ app.post(
   async (req, res, _next) => {
     const crushObj = await usingFiles.writeFile(req.body);
     res.status(201).json(crushObj);
-  });
+  }
+),
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
