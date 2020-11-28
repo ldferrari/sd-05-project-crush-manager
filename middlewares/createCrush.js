@@ -19,14 +19,14 @@ module.exports = rescue(async (req, res, next) => {
   if (!age) {
     return res.status(400).json({ message: 'O campo "age" é obrigatório' });
   }
-  if (!date || date === null || !(date.datedAt && date.rate)) {
+  if (!date || (!date.datedAt || date.rate === undefined)) {
     return res.status(400).json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
   }
-  if (!(date.datedAt.match(re))) {
+  if (!date.datedAt.match(re)) {
     return res.status(400).json({ message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"',
     });
   }
-  if (typeof date.rate !== 'number' || date.rate < 1 || date.rate > 5) {
+  if (date.rate < 1 || date.rate > 5) {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
   }
 

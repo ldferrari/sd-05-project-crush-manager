@@ -7,7 +7,7 @@ const express = require('express');
 const PORT = 3000;
 const app = express();
 const bodyParser = require('body-parser');
-const middlewares = require('./middlewares');
+const { login, createCrush, tokenValidation, getCrushById, updateCrush } = require('./middlewares');
 
 app.use(bodyParser.json());
 
@@ -19,39 +19,48 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/login', middlewares.login, rescue(async (req, res) => {
-  const token = crypto.randomBytes(8).toString('hex');
-  res.status(200).json({ token });
+app.post('/login', login, rescue(async (_req, res) => {
+  // const token = { token: crypto.randomBytes(8).toString('hex') };
+  res.status(200)
+    .json({ token: crypto.randomBytes(8).toString('hex') });
 }));
 
-app.put('/crush/:id', middlewares.tokenValidation, middlewares.getCrushById, middlewares.createCrush, middlewares.searchCrush);
+app.put('/crush/:id', tokenValidation, getCrushById, createCrush, updateCrush);
 
-app.get('/crush/:id', middlewares.tokenValidation, middlewares.getCrushById, async (req, res) => {
-  const { id: stringID } = req.params;
-  const id = parseInt(stringID, 10);
-  const readFromFile = await fs.readFile('crush.json');
-  const array = JSON.parse(readFromFile);
-  const loockupID = array.find((obj) => obj.id === id);
+app.get('/crush/:id', tokenValidation, getCrushById, async (req, res) => {
+  const id = Number(req.params.id);
+  const array = await fs.readFile('crush.json', 'utf8', ((err, data) => {
+    if (err) return err;
+    return data;
+  }));
+  const readFromFile = JSON.parse(array);
+
+  const loockupID = readFromFile.find((obj) => obj.id === id);
   res.status(200).json(loockupID);
 });
 
-app.get('/crush', middlewares.tokenValidation, async (_req, res) => {
-  const readFromFile = await fs.readFile('crush.json');
-  const array = JSON.parse(readFromFile);
-  res.status(200).json(array);
+app.get('/crush', tokenValidation, async (_req, res) => {
+  const array = await fs.readFile('crush.json', 'utf8', ((err, data) => {
+    if (err) return err;
+    return data;
+  }));
+  const readFromFile = JSON.parse(array);
+
+  res.status(200).json(readFromFile);
 });
 
-app.post('/crush', middlewares.tokenValidation, middlewares.createCrush, rescue(async (req, res) => {
-  const readFromFile = await fs.readFile('crush.json');
-  const array = JSON.parse(readFromFile);
-
+app.post('/crush', tokenValidation, createCrush, rescue(async (req, res) => {
   const { name, age, date } = req.body;
-  const id = array.length + 1;
+  const array = await fs.readFile('crush.json', 'utf8', ((err, data) => {
+    if (err) return err;
+    return data;
+  }));
+  const readFromFile = JSON.parse(array);
+
+  const id = readFromFile.length + 1;
   const newCrush = { id, name, age, date };
-
-  array.push(newCrush);
-
-  await fs.writeFile('crush.json', JSON.stringify(array));
+  readFromFile.push(newCrush);
+  await fs.writeFile('crush.json', JSON.stringify(readFromFile));
 
   return res.status(201).json(newCrush);
 }));

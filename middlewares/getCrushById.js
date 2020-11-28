@@ -1,14 +1,15 @@
-const rescue = require('express-rescue');
 const fs = require('fs').promises;
+const rescue = require('express-rescue');
 
 module.exports = rescue(async (req, res, next) => {
-  const { id: stringID } = req.params;
-  const id = parseInt(stringID, 10);
-
-  const readFromFile = await fs.readFile('crush.json');
-  const array = JSON.parse(readFromFile);
-  const loockupID = await array.find((obj) => obj.id === id);
-  if (loockupID === undefined) {
+  const id = Number(req.params.id);
+  const array = await fs.readFile('crush.json', 'utf8', ((err, data) => {
+    if (err) return err;
+    return data;
+  }));
+  const readFromFile = JSON.parse(array);
+  const loockupID = readFromFile.find((obj) => obj.id === id);
+  if (!loockupID) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
   next();
