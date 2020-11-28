@@ -31,7 +31,7 @@ app.get('/crush', middlewares.auth, async (_req, res) => {
 app.get('/crush/:id', middlewares.auth, middlewares.getCrushById);
 
 // REQUISITO 5 - Crie o endpoint PUT /crush/:id
-app.put('/crush/:id', middlewares.auth, middlewares.validateCrush, middlewares.updateCrush);
+app.put('/crush/:id', middlewares.auth, middlewares.validCrush, middlewares.updateCrush);
 
 // ouvindo na porta 3000
 app.listen(3000, () => console.log('A mãe tá on na porta 3000!'));
