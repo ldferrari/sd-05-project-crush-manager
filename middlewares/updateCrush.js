@@ -15,7 +15,7 @@ module.exports = rescue(async (req, res) => {
   if (!foundObject) {
     return res.status(400).json({ err: { message: 'Crush não encontrado' } });
   }
-  readFromFile[index] = { name, age, date: { datedAt, rate } };
+  readFromFile[index] = { id, name, age, date: { datedAt, rate } };
   await fs.writeFile('crush.json', JSON.stringify(readFromFile));
   res.status(200).json(readFromFile[index]);
 });
