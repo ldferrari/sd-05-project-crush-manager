@@ -10,10 +10,10 @@ const { readCrush } = require('./services/crud');
 
 app.use(bodyParser.json());
 
-// REQUISITO 1 - Crie o endpoint POST /login
+// REQUISITO 1 - crie o endpoint POST /login
 app.post('/login', middlewares.login);
 
-// REQUISITO 2 - Crie o endpoint POST /crush
+// REQUISITO 2 - crie o endpoint POST /crush
 app.post(
   '/crush',
   middlewares.auth,
@@ -21,19 +21,23 @@ app.post(
   middlewares.createCrush,
 );
 
-// REQUISITO 3 - Crie o endpoint GET /crush.
+// REQUISITO 3 - crie o endpoint GET /crush
 app.get('/crush', middlewares.auth, async (_req, res) => {
   const allCrushes = await readCrush();
   res.status(200).json(allCrushes);
 });
 
-// REQUISITO 4 - Crie o endpoint GET /crush/:id
+// REQUISITO 7 - crie o endpoint GET /crush/search?q=searchTerm
+// rota: esse endpoint precisa ficar antes do caminho /crush/:id
+app.get('/crush/search', middlewares.auth, middlewares.searchCrush);
+
+// REQUISITO 4 - crie o endpoint GET /crush/:id
 app.get('/crush/:id', middlewares.auth, middlewares.getCrushById);
 
-// REQUISITO 5 - Crie o endpoint PUT /crush/:id
+// REQUISITO 5 - crie o endpoint PUT /crush/:id
 app.put('/crush/:id', middlewares.auth, middlewares.validCrush, middlewares.updateCrush);
 
-// REQUISITO 6 - Crie o endpoint DELETE /crush/:id
+// REQUISITO 6 - crie o endpoint DELETE /crush/:id
 app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
 
 // ouvindo na porta 3000
