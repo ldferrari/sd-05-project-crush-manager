@@ -19,6 +19,25 @@ app.get('/', (request, response) => {
   response.send();
 });
 
+// app.get(`/crush/search?q=searchTerm`, tokenValidation, ()
+
+// )
+
+app.delete('/crush/:id', tokenValidation, rescue(async (req, res) => {
+  const id = Number(req.params.id);
+  const array = await fs.readFile('crush.json', 'utf8', ((err, data) => {
+    if (err) return err;
+    return data;
+  }));
+  const readFromFile = JSON.parse(array);
+
+  const crushes = readFromFile.filter((obj) => obj.id !== id);
+  const crushDeleted = crushes.find((obj) => obj.id === id);
+  if (!crushDeleted) {
+    return res.status(200).json({ message: 'Crush deletado com sucesso' });
+  }
+}));
+
 app.post('/login', login, rescue(async (_req, res) => {
   // const token = { token: crypto.randomBytes(8).toString('hex') };
   res.status(200)
