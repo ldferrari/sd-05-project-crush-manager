@@ -1,10 +1,8 @@
 module.exports = (req, res, next) => {
   const { date } = req.body;
   const rgxDate = new RegExp(/([0][1-9]|[1-2][0-9]|[3][0-1])\/([0][1-9]|[1][0-2])\/(\d\d\d\d)/);
-  console.log(req.body);
 
   if (date === undefined) {
-    console.log(req.body);
     return res.status(400).json({
       message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',
     });

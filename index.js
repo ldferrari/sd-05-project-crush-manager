@@ -3,11 +3,12 @@ const crypto = require('crypto');
 const bodyparse = require('body-parser');
 const {
   middleWareAge,
-  usingFiles,
+  middleWareDate,
+  middleWareId,
   middleWareLogin,
   middleWareName,
   middleWareToken,
-  middleWareDate,
+  usingFiles,
 } = require('./middleWares');
 
 const app = express();
@@ -17,12 +18,60 @@ const PORT = 3000;
 app.post('/login', middleWareLogin.login, (_req, res, _next) =>
   res.status(200).json({
     token: crypto.randomBytes(8).toString('hex'),
-  }));
+  })
+);
 
 app.get('/crush', middleWareToken, async (_req, res, _next) => {
   const returnData = await usingFiles.readFile();
   res.status(200).json(returnData);
 });
+
+app.get('/crush/:id', middleWareToken, middleWareId, async (req, res, _next) => {
+  const { id } = req.params;
+  const crushArr = await usingFiles.readFile();
+  const crushFound = crushArr.find((crush) => {
+    return crush.id === Number(id);
+  });
+  if (crushFound === undefined) {
+    res.status(404).json({ message: 'Crush não encontrado' });
+  }
+  res.status(200).json(crushFound);
+});
+
+app.put(
+  '/crush/:id',
+  middleWareId,
+  middleWareAge,
+  middleWareDate,
+  middleWareLogin.login,
+  middleWareName,
+  async (req, res, _next) => {
+    const { id } = req.params;
+    const crushArr = await usingFiles.readFile();
+    const crushFound = crushArr.find((crush) => {
+      return crush.id === Number(id);
+    });
+    if (crushFound === undefined) {
+      res.status(404).json({ message: 'Crush não encontrado' });
+    }
+    await usingFiles.writeFile();
+    return res.status(200).json(crushFound);
+  }
+);
+
+app.delete('/crush/:id', middleWareId, middleWareToken, async (req, res, _next) => {
+  const { id } = req.params;
+    const crushArr = await usingFiles.readFile();
+/*     const crushFound = crushArr.find((crush) => {
+      return crush.id === Number(id);
+    }); */
+    const crushLeftOvers = crushArr.filter((crush) => {
+      return crush.id !== Number(id);
+    })
+    await usingFiles.updateFile(crushLeftOvers);
+    return res.status(200).json({ "message": "Crush deletado com sucesso" });
+  }
+);
 
 app.post(
   '/crush',
@@ -33,7 +82,7 @@ app.post(
   async (req, res, _next) => {
     const crushObj = await usingFiles.writeFile(req.body);
     res.status(201).json(crushObj);
-  },
+  }
 );
 
 // não remova esse endpoint, e para o avaliador funcionar

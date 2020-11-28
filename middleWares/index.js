@@ -1,15 +1,17 @@
 const middleWareAge = require('./age');
 const middleWareDate = require('./date');
+const middleWareId = require('./id')
 const middleWareLogin = require('./login');
+const middleWareName = require('./name');
 const middleWareToken = require('./token');
 const usingFiles = require('./fs');
-const middleWareName = require('./name');
 
 module.exports = {
   middleWareAge,
   middleWareDate,
-  usingFiles,
+  middleWareId,
   middleWareLogin,
   middleWareName,
   middleWareToken,
+  usingFiles
 };

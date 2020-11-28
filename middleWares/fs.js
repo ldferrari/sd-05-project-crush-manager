@@ -12,11 +12,19 @@ const writeFile = async (newCrush) => {
   const crushes = await readFile();
   const crushObj = { ...newCrush, id: crushes.length + 1 };
   crushes.push(crushObj);
-  await fs.writeFile('./crush', JSON.stringify(crushes), 'utf-8', (err) => {
+  await fs.writeFile('./crush.json', JSON.stringify(crushes), 'utf-8', (err) => {
     if (err) throw err;
     return newCrush;
   });
   return crushObj;
 };
 
-module.exports = { readFile, writeFile };
+const updateFile = async (crushes) => {
+  await fs.writeFile('./crush.json', JSON.stringify(crushes), 'utf-8', (err) => {
+    if (err) throw err;
+    return crushes;
+  });
+  return crushes;
+}
+
+module.exports = { readFile, writeFile, updateFile };
