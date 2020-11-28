@@ -34,13 +34,13 @@ const createCrush = async (newCrush) => {
   return newCrushToCreate;
 };
 
-const deleteCrush = async (crushId) => {
-  const data = await readCrush();
-  const idxToRemove = data.indexOf(data.find((crush) => crush.id === crushId));
-  data.splice(idxToRemove, 1);
-  await writeCrushFile(data);
-  return true;
-};
+// const deleteCrush = async (crushId) => {
+//   const data = await readCrush();
+//   const idxToRemove = data.indexOf(data.find((crush) => crush.id === crushId));
+//   data.splice(idxToRemove, 1);
+//   await writeCrushFile(data);
+//   return true;
+// };
 
 const editCrush = async (crushToEdit) => {
   const data = await readCrush();
