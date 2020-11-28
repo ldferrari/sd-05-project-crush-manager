@@ -72,12 +72,11 @@ app.put(
   checkCrushName,
   checkCrushAge,
   checkCrushDate,
-  async (req, res, next) => {
+  async (req, res, _next) => {
     const { id } = req.params;
-    const editedCrush = { id: parseInt(id, 10), ...req.body };
+    const editedCrush = { id: Number(id), ...req.body };
     const data = await editCrush(editedCrush);
     res.status(200).send(data);
-    next();
   },
 );
 
