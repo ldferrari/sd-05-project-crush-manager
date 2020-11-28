@@ -19,9 +19,21 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-// app.get(`/crush/search?q=searchTerm`, tokenValidation, ()
-
-// )
+app.get('/crush/search', tokenValidation, rescue(async (req, res) => {
+  const searchTerm = req.query.name;
+  const array = await fs.readFile('crush.json', 'utf8', ((err, data) => {
+    if (err) return err;
+    return data;
+  }));
+  const readFromFile = JSON.parse(array);
+  
+  const crushes = readFromFile.filter(({ name }) => name.includes(searchTerm));
+  console.log(crushes);
+  if (crushes.length) return res.status(200).json(crushes);
+  if (!searchTerm) return res.status(200).json(readFromFile);
+  if (searchTerm && !crushes) return res.status(200).json([]);
+  return res.end();
+}));
 
 app.delete('/crush/:id', tokenValidation, rescue(async (req, res) => {
   const id = Number(req.params.id);
@@ -81,7 +93,7 @@ app.post('/crush', tokenValidation, createCrush, rescue(async (req, res) => {
   readFromFile.push(newCrush);
   await fs.writeFile('crush.json', JSON.stringify(readFromFile));
 
-  return res.status(201).json(newCrush);
+  return res.status(201).json(/${newCrush}/ig);
 }));
 
 app.use((err, _req, res, _next) => {
