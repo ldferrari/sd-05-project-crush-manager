@@ -40,8 +40,8 @@ app.put(
   middleWareId,
   middleWareAge,
   middleWareDate,
-  middleWareLogin.login,
   middleWareName,
+  middleWareToken,
   async (req, res, _next) => {
     const { id } = req.params;
     const crushArr = await usingFiles.readFile();
