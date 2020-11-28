@@ -24,6 +24,8 @@ const crush = {
   notFound: {
     message: 'Crush não encontrado',
   },
+  crushRemoved: { message: 'Crush deletado com sucesso' },
+
 };
 
 const crushDate = {

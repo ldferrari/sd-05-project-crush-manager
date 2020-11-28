@@ -10,6 +10,7 @@ const {
   createCrush,
   readCrush,
   editCrush,
+  deleteCrush,
 } = require('./middlewares');
 
 const { crush: crushEnums } = require('./enums');
@@ -79,5 +80,13 @@ app.put(
     res.status(200).send(data);
   },
 );
+
+app.delete('/crush/:id', checkToken, async (req, res, _next) => {
+  const { id } = req.params;
+  const isRemoved = await deleteCrush(id);
+  if (isRemoved) {
+    return res.status(200).send(crushEnums.crushRemoved);
+  }
+});
 
 app.listen(PORT, () => console.log(`You shall pass on ${PORT}`));
