@@ -7,8 +7,8 @@ module.exports = rescue(async (req, res, next) => {
 
   const readFromFile = await fs.readFile('crush.json');
   const array = JSON.parse(readFromFile);
-  const loockupID = array.find((obj) => obj.id === id);
-  if (!loockupID) {
+  const loockupID = await array.find((obj) => obj.id === id);
+  if (loockupID === undefined) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
   next();

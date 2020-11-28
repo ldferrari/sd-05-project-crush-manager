@@ -1,34 +1,37 @@
-const crypto = require('crypto');
 const fs = require('fs').promises;
-const express = require('express');
-const bodyParser = require('body-parser');
-const rescue = require('express-rescue');
 
+const rescue = require('express-rescue');
+const crypto = require('crypto');
+const express = require('express');
+
+const PORT = 3000;
+const app = express();
+const bodyParser = require('body-parser');
 const middlewares = require('./middlewares');
 
-const app = express();
 app.use(bodyParser.json());
+
+// [HONESTIDADE ACADEMICA] Obtive ajuda no plantao do projeto para sanar
+// duvidas em relacao ao uso de bibliotecas e funcoes assincronas
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
 });
 
-// [HONESTIDADE ACADEMICA] Obtive ajuda no plantao do projeto para sanar
-// duvidas em relacao ao uso de bibliotecas e funcoes assincronas
 app.post('/login', middlewares.login, rescue(async (req, res) => {
   const token = crypto.randomBytes(8).toString('hex');
   res.status(200).json({ token });
 }));
 
+app.put('/crush/:id', middlewares.tokenValidation, middlewares.getCrushById, middlewares.createCrush, middlewares.searchCrush);
+
 app.get('/crush/:id', middlewares.tokenValidation, middlewares.getCrushById, async (req, res) => {
   const { id: stringID } = req.params;
   const id = parseInt(stringID, 10);
-
   const readFromFile = await fs.readFile('crush.json');
   const array = JSON.parse(readFromFile);
   const loockupID = array.find((obj) => obj.id === id);
-  // console.log(loockupID);
   res.status(200).json(loockupID);
 });
 
@@ -60,4 +63,4 @@ app.use((err, _req, res, _next) => {
   // return res.status(500).json({ status: 500, message: 'erro interno do servidor' });
 });
 
-app.listen(3000, () => console.log('ouvindo na porta 3000'));
+app.listen(PORT, () => console.log(`watching on port: ${PORT}`));
