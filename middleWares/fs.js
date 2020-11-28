@@ -25,6 +25,6 @@ const updateFile = async (crushes) => {
     return crushes;
   });
   return crushes;
-}
+};
 
 module.exports = { readFile, writeFile, updateFile };
