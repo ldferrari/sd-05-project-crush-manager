@@ -12,8 +12,8 @@ const readCrush = async () => {
   return JSON.parse(arrayOfCrushes);
 };
 
-const updateCrush = async (newCrushArray) => {
-  fs.writeFile('./crush.json', JSON.stringify(newCrushArray));
+const updateCrush = async (newArray) => {
+  fs.writeFile('./crush.json', JSON.stringify(newArray));
 };
 
 module.exports = { readCrush, createCrush, updateCrush };
