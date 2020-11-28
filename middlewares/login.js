@@ -1,4 +1,4 @@
-/* REQUISITO 1
+/* Realiza as seguintes verificações:
 - O endpoint deve ser capaz de retornar um token aleatório de 16 caracteres
 que deverá ser utilizado nas demais requisições.
 - O corpo da requisição deverá ter o seguinte formato:

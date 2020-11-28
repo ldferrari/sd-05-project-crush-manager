@@ -1,4 +1,4 @@
-/* arquivo para todas as funções CRUD com fs */
+/* Todas as funções CRUD com fs */
 
 const fs = require('fs').promises;
 

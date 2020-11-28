@@ -1,6 +1,4 @@
-/* REQUISITO 2
-- A requisição deve ter o token de autenticação nos headers.
-*/
+/* Verifica se a requisição possui o token de autenticação nos headers. */
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
