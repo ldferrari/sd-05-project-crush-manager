@@ -23,8 +23,8 @@ app.get('/crush', middlewares.auth, async (_req, res) => {
 app.post(
   '/crush',
   middlewares.auth,
-  middlewares.checkCrush,
-  middlewares.newCrush,
+  middlewares.validCrush,
+  middlewares.createCrush,
 );
 
 // ouvindo na porta 3000

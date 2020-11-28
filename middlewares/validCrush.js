@@ -52,5 +52,5 @@ module.exports = async (req, res, next) => {
       .json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
   }
 
-  next();
+  return next();
 };
