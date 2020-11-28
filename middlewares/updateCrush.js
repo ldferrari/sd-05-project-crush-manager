@@ -7,7 +7,9 @@ module.exports = async (req, res) => {
   // até aqui é um getCrushById, para localizar o crush que será modificado
   const { name, age, date } = req.body;
   const crushToUpdate = arrayOfCrushes.indexOf(crushById);
-  arrayOfCrushes[crushToUpdate] = { name, age, idNumber, date };
+  arrayOfCrushes[crushToUpdate] = { name, age, date };
+  // id não precisa ser desestruturado aqui porque vêm da URL
   await updateCrush(arrayOfCrushes);
-  return res.status(200).json(arrayOfCrushes[crushToUpdate]);
+  return res.status(200).json({ name, age, date, id: idNumber });
+  // id é recebido como tipo primitivo string e transformado em tipo primitivo number
 };
