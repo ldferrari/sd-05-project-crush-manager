@@ -26,7 +26,7 @@ app.get('/crush/search', tokenValidation, rescue(async (req, res) => {
     return data;
   }));
   const readFromFile = JSON.parse(array);
-  
+
   const crushes = readFromFile.filter(({ name }) => name.includes(searchTerm));
   console.log(crushes);
   if (crushes.length) return res.status(200).json(crushes);
@@ -93,7 +93,7 @@ app.post('/crush', tokenValidation, createCrush, rescue(async (req, res) => {
   readFromFile.push(newCrush);
   await fs.writeFile('crush.json', JSON.stringify(readFromFile));
 
-  return res.status(201).json(/${newCrush}/ig);
+  return res.status(201).json(newCrush);
 }));
 
 app.use((err, _req, res, _next) => {
