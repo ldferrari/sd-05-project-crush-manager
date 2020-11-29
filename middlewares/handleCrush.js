@@ -54,4 +54,11 @@ const editCrush = async (crushToEdit) => {
   return crushToEdit;
 };
 
-module.exports = { readCrush, createCrush, editCrush, deleteCrush };
+const findCrush = async (crushParam) => {
+  const data = await readCrush();
+  const term = new RegExp(`${crushParam}`);
+  const searchData = data.filter((crush) => term.test(crush.name));
+  return searchData || [];
+};
+
+module.exports = { readCrush, createCrush, editCrush, deleteCrush, findCrush };

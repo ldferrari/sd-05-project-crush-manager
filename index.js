@@ -11,6 +11,7 @@ const {
   readCrush,
   editCrush,
   deleteCrush,
+  findCrush,
 } = require('./middlewares');
 
 const { crush: crushEnums } = require('./enums');
@@ -33,6 +34,16 @@ app.get('/', (request, response) => {
 app.get('/crush', checkToken, async (_req, res, _next) => {
   const data = await readCrush();
   res.status(200).send(data || []);
+});
+
+app.get('/crush/search', checkToken, async (req, res, _next) => {
+  const { q: term = null } = await findCrush(req.query.q);
+  if (!term) {
+    const allCrushes = await readCrush();
+    return res.status(200).send(allCrushes);
+  }
+  const result = await findCrush(term);
+  res.status(200).send(result);
 });
 
 app.get('/crush/:id', checkToken, async (req, res, _next) => {
