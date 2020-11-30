@@ -101,7 +101,7 @@ app.put(
       const list = await fs.readFile('./crush.json', 'utf8');
       const crushs = JSON.parse(list);
       const i = crushs.findIndex(((item) => item.id === id));
-      crushs[i] = {name, age, date: { datedAt, rate }, id};
+      crushs[i] = { name, age, date: { datedAt, rate }, id };
       const newCrush = JSON.stringify(crushs);
       await fs.writeFile('./crush.json', newCrush);
       res.status(200).json(crushs[i]);
