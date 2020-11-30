@@ -1,13 +1,14 @@
 const express = require('express');
-const fs = require('fs').promises;
 
 const bodyParser = require('body-parser');
 
 const crypto = require('crypto');
+const fs = require('fs').promises;
 const loginMid = require('./src/loginMidWares.js');
 const createCrush = require('./src/createCrush');
 const crushId = require('./src/crushByIdMid');
 const lv = require('./src/loginValidation');
+const vl = require('./src/validations');
 
 const app = express();
 app.use(bodyParser.json());
@@ -29,6 +30,7 @@ app.post('/login', loginMid.validateLoginMidware, async (_req, res, _) => {
 app.post(
   '/crush',
   lv.authValidation,
+  vl.validation,
   createCrush.createCrush,
   async (req, res, _) => {
     try {
@@ -49,10 +51,11 @@ app.post(
 app.get('/crush', lv.authValidation, async (_req, res, _) => {
   try {
     const crushs = await fs.readFile('./crush.json', 'utf8');
+    const allCrushs = JSON.parse(crushs);
     if (crushs === '') {
       res.status(200).send([]);
     } else {
-      res.status(200).json(JSON.parse(crushs));
+      res.status(200).json(allCrushs);
     }
   } catch (err) {
     console.log(err);
@@ -85,6 +88,7 @@ app.get('/crush/:id', lv.authValidation, crushId.byId, async (req, res, _) => {
 app.put(
   '/crush/:id',
   lv.authValidation,
+  vl.validation,
   createCrush.createCrush,
   async (req, res, _) => {
     try {
@@ -96,14 +100,11 @@ app.put(
       const id = parseInt(req.params.id, 10);
       const list = await fs.readFile('./crush.json', 'utf8');
       const crushs = JSON.parse(list);
-      const crushEdit = crushs.find(((item) => item.id === id));
-      crushEdit.name = name;
-      crushEdit.age = age;
-      crushEdit.date = { datedAt, rate };
-      crushEdit.id = id;
+      const i = crushs.findIndex(((item) => item.id === id));
+      crushs[i] = {name, age, date: { datedAt, rate }, id};
       const newCrush = JSON.stringify(crushs);
-      fs.writeFile('./crush.json', newCrush);
-      res.status(200).json(crushs[id - 1]);
+      await fs.writeFile('./crush.json', newCrush);
+      res.status(200).json(crushs[i]);
     } catch (er) {
       console.log(er);
     }
