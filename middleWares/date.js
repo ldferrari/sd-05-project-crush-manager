@@ -18,17 +18,14 @@ module.exports = (req, res, next) => {
     });
   }
   if (!rgxDate.test(date.datedAt)) {
-    console.log(req.body);
     return res.status(400).json({
       message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"',
     });
   }
   if (date.rate < 1) {
-    console.log(req.body);
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
   }
   if (date.rate > 5) {
-    console.log(req.body);
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
   }
   next();
