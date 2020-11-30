@@ -45,7 +45,7 @@ app.put(
   async (req, res, _next) => {
     const { id } = req.params;
     const crushArr = await usingFiles.readFile();
-    const crushFound = crushArr.find(crush => crush.id == id);
+    const crushFound = crushArr.find(crush => (crush.id === id));
 
     if (crushFound === undefined) {
       res.status(404).json({ message: 'Crush não encontrado' });
@@ -56,7 +56,7 @@ app.put(
     crushFound.date.datedAt = req.body.date.datedAt;
     crushFound.date.rate = req.body.date.rate;
 
-    const remainCrushs = crushArr.filter(crush => !crush.id == id)
+    const remainCrushs = crushArr.filter(crush => !crush.id === id);
     /* const remainCrushs = crushArr.filter((crush) => {
       if (crush.id !== id) return crush;
     }) */
