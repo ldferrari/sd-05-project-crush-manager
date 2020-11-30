@@ -45,28 +45,25 @@ app.put(
   async (req, res, _next) => {
     const { id } = req.params;
     const crushArr = await usingFiles.readFile();
-
-    const crushFound = crushArr.find((crush) => {
-      if(crush.id === Number(id)) {
-        crush.name = req.body.name
-        crush.age = req.body.age
-        crush.date.datedAt = req.body.date.datedAt
-        crush.date.rate = req.body.date.rate
-        return crush
-      }
-    });
+    const crushFound = crushArr.find(crush => crush.id == id);
 
     if (crushFound === undefined) {
       res.status(404).json({ message: 'Crush não encontrado' });
     }
 
-    const remainCrushs = crushArr.filter((crush) => {
-      if(crush.id != id) return crush
-    })
+    crushFound.name = req.body.name;
+    crushFound.age = req.body.age;
+    crushFound.date.datedAt = req.body.date.datedAt;
+    crushFound.date.rate = req.body.date.rate;
 
-    remainCrushs.push(crushFound)
+    const remainCrushs = crushArr.filter(crush => !crush.id == id)
+    /* const remainCrushs = crushArr.filter((crush) => {
+      if (crush.id !== id) return crush;
+    }) */
 
-    await usingFiles.updateFile(remainCrushs)
+    remainCrushs.push(crushFound);
+
+    await usingFiles.updateFile(remainCrushs);
     return res.status(200).json(crushFound);
   },
 );
