@@ -12,9 +12,7 @@ const getToken = async (req, res, next) => {
   if (authorization.length !== 16) {
     res.status(401).json({ message: 'Token inválido' });
   }
-
-  res.status(200).json({ token });
-
+  
   next();
 };
 

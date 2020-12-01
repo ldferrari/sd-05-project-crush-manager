@@ -6,15 +6,18 @@ const setCrush = (req, res, next) => {
   const ageWorks = ageIsValid(age);
   const dateWorks = dateIsValid(date);
   console.log(name);
+  console.log(nameWorks);
+  console.log("Essa linha do ageworks", ageWorks);
+  
 
   if (nameWorks.message) {
-    return res.status(400).json(nameWorks.message);
+    return res.status(400).json({ message: nameWorks.message });
   }
-  if (!ageWorks) {
-    return res.status(400).json(ageWorks.message);
+  if (ageWorks.message) {
+    return res.status(400).json({ message: ageWorks.message });
   }
-  if (!dateWorks) {
-    return res.status(400).json(dateWorks.message);
+  if (dateWorks.message) {
+    return res.status(400).json({ message: dateWorks.message });
   }
   return next();
 };
