@@ -12,14 +12,14 @@ app.use(bodyParser.json());
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
-  response.send('Olá');
+  response.send();
 });
 
-app.post('/login', getToken, userLog);
+app.post('/login', userLog);
 
 app.post('/crush', getToken, setCrush, createCrush);
 
-app.get('/crush', getToken, getCrush);
+// app.get('/crush', getToken, getCrush);
 
 // app.get('/crush/:id', )
 

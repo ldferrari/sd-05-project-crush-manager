@@ -9,6 +9,7 @@ const nameIsValid = (name) => {
       message: 'O "name" deve ter pelo menos 3 caracteres',
     };
   }
+  return true;
 };
 
 const ageIsValid = (age) => {
@@ -22,6 +23,7 @@ const ageIsValid = (age) => {
       message: 'O crush deve ser maior de idade',
     };
   }
+  return true;
 };
 
 const dateIsValid = (date) => {
@@ -41,6 +43,7 @@ const dateIsValid = (date) => {
       message: 'O campo "date" é obrigatório e "dateAt" e "rate" não podem ser vazios',
     };
   }
+  return true;
 };
 
 module.exports = { nameIsValid, ageIsValid, dateIsValid };

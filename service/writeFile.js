@@ -1,9 +1,9 @@
-const { promisify } = require('util');
-const { writeFile } = require('fs');
+const fs = require('fs');
+const util = require('util');
 
 // promissifica a função writeFile
-const writeFilePromised = promisify(writeFile);
+const writeFile = util.promisify(fs.writeFile);
 
-const writeCrushFile = async (crush) => writeFilePromised('crush.json', JSON.parse(crush));
+const writeCrushFile = async (crushFile) => writeFile('crush.json', JSON.parse(crushFile));
 
 module.exports = { writeCrushFile };

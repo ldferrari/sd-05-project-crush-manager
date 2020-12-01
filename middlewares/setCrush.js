@@ -1,4 +1,4 @@
-const { nameIsValid, ageIsValid, dateIsValid } = require('../models/crushValidation')
+const { nameIsValid, ageIsValid, dateIsValid } = require('../models/crushModel');
 
 const setCrush = (req, res, next) => {
   const { name, age, date } = req.body;
@@ -6,16 +6,16 @@ const setCrush = (req, res, next) => {
   const ageWorks = ageIsValid(age);
   const dateWorks = dateIsValid(date);
 
-  if (nameWorks.message) {
-    return res.status(400).json(nameWorks);
+  if (!nameWorks) {
+    return res.status(400).json(nameWorks.message);
   }
-  if (ageWorks.message) {
-    return res.status(400).json(ageWorks);
+  if (!ageWorks) {
+    return res.status(400).json(ageWorks.message);
   }
-  if (dateWorks.message) {
-    return res.status(400).json(dateWorks);
+  if (!dateWorks) {
+    return res.status(400).json(dateWorks.message);
   }
-  return next(console.log());
+  return next();
 };
 
 module.exports = { setCrush };
