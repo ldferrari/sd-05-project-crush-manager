@@ -10,7 +10,6 @@ const {
   middleWareToken,
   usingFiles,
 } = require('./middleWares');
-const { restart } = require('nodemon');
 
 const app = express();
 app.use(bodyparse.json());
