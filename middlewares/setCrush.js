@@ -5,8 +5,9 @@ const setCrush = (req, res, next) => {
   const nameWorks = nameIsValid(name);
   const ageWorks = ageIsValid(age);
   const dateWorks = dateIsValid(date);
+  console.log(name);
 
-  if (!nameWorks) {
+  if (nameWorks.message) {
     return res.status(400).json(nameWorks.message);
   }
   if (!ageWorks) {
