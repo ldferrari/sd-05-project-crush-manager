@@ -1,11 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { userLog } = require('./controller/userController');
+const { userLog } = require('./middlewares/userValidation');
 const { getToken } = require('./middlewares/getToken');
-const { setCrush } = require('./middlewares/setCrush');
-const { createCrush } = require('./controller/crushController');
-const { getCrush } = require('./middlewares/getCrush');
+const { crushValidation } = require('./middlewares/crushValidation');
+const { createCrush } = require('./controller/createCrush');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,9 +16,9 @@ app.get('/', (request, response) => {
 
 app.post('/login', userLog);
 
-app.post('/crush', getToken, setCrush, createCrush);
+app.post('/crush', getToken, crushValidation, createCrush);
 
-// app.get('/crush', getToken, getCrush);
+// app.get('/crush', getToken, );
 
 // app.get('/crush/:id', )
 

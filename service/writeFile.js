@@ -1,9 +1,11 @@
-const fs = require('fs');
-const util = require('util');
+const fs = require('fs').promises;
 
-// promissifica a função writeFile
-const writeFile = util.promisify(fs.writeFile);
-
-const writeCrushFile = async (crushFile) => writeFile('crush.json', JSON.parse(crushFile));
+const writeCrushFile = async (crushs) => {
+  try {
+    await fs.writeFile('crush.json', JSON.stringify(crushs));
+  } catch (err) {
+    console.log('erro: ', err);
+  }
+};
 
 module.exports = { writeCrushFile };

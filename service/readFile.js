@@ -1,12 +1,14 @@
-const fs = require('fs');
-const util = require ('util');
+const fs = require('fs').promises;
 
+const readFileCrush = async () => {
+  const crushFile = await fs.readFile('./crush.json', 'utf-8', (err, file) => {
+    if (err) {
+      throw err;
+    }
+    return file;
+  });
 
-const readFile = util.promisify(fs.readFile);
+  return JSON.parse(crushFile);
+};
 
-const readCrushFile = async () => {
-  const crushFile = await readFile('crush.json', 'utf-8');
-
-  return JSON.parse(crushFile)
-}
-module.exports = { readCrushFile };
+module.exports = { readFileCrush };
