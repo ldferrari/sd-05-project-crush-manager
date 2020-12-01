@@ -10,6 +10,7 @@ const {
   middleWareToken,
   usingFiles,
 } = require('./middleWares');
+const { restart } = require('nodemon');
 
 const app = express();
 app.use(bodyparse.json());
@@ -23,6 +24,14 @@ app.post('/login', middleWareLogin.login, (_req, res, _next) =>
 app.get('/crush', middleWareToken, async (_req, res, _next) => {
   const returnData = await usingFiles.readFile();
   res.status(200).json(returnData);
+});
+
+app.get('/crush/search', middleWareToken, async (req, res, _next) => {
+  const datas = await usingFiles.readFile();
+  const found = await datas.filter((data) => data.name.includes(req.query.q));
+  console.log(datas);
+  console.log(req.query);
+  res.status(200).json(found);
 });
 
 app.get('/crush/:id', middleWareToken, middleWareId, async (req, res, _next) => {
