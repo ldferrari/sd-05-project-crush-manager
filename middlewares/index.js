@@ -1,11 +1,21 @@
-const email = require('./checkEmail');
+const auth = require('./auth');
 const error = require('./error');
+const email = require('./checkEmail');
 const password = require('./checkPassword');
-const auth = require('../utilities/auth');
+const name = require('./checkName');
+const age = require('./checkAge');
+const date = require('./checkDate');
+const getCrush = require('./getCrush');
+const createCrush = require('./createCrush');
 
 module.exports = {
-  email,
-  error,
-  password,
   auth,
+  error,
+  email,
+  password,
+  name,
+  age,
+  date,
+  getCrush,
+  createCrush,
 };

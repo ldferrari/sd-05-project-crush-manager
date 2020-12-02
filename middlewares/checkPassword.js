@@ -1,4 +1,4 @@
-const token = require('../utilities/token');
+const token = require('../utilities/createToken');
 
 module.exports = (req, res) => {
   const { password } = req.body;
