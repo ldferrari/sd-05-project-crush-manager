@@ -4,7 +4,7 @@
   "description": "Ao iniciar este projeto, você concorda com as diretrizes do Código de Ética e Conduta e do Manual da Pessoa Estudante da Trybe.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --runInBand",
     "debug": "nodemon -w --exec node index.js",
     "start": "node index.js",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
