@@ -7,6 +7,7 @@ const age = require('./checkAge');
 const date = require('./checkDate');
 const getCrush = require('./getCrush');
 const createCrush = require('./createCrush');
+const getById = require('./getById');
 
 module.exports = {
   auth,
@@ -18,4 +19,5 @@ module.exports = {
   date,
   getCrush,
   createCrush,
+  getById,
 };
