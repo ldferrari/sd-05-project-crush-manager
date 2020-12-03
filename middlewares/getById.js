@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
 
   const findCrushById = crushFiles.find((crush) => parseInt(id, 10) === crush.id);
 
-  if (!findCrushById) res.status(404).json({ message: 'Crush não encontrado' });
+  if (!findCrushById) return res.status(404).json({ message: 'Crush não encontrado' });
 
   return res.status(200).json(findCrushById);
 };

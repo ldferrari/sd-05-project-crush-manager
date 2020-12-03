@@ -1,6 +1,8 @@
 const bodyParser = require('body-parser');
 const express = require('express');
-const { auth, error, email, password, name, age, date, getCrush, createCrush, getById } = require('./middlewares');
+const rescue = require('express-rescue');
+
+const { auth, error, email, password, name, age, date, getCrush, createCrush, getById, updateCrush } = require('./middlewares');
 
 const app = express();
 const PORT = 3000;
@@ -11,16 +13,18 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.post('/login', email, password, (_req, _res, next) => next());
+app.post('/login', email, password);
 
-app.post('/crush', auth, name, age, date, createCrush, (_req, _res, next) => next());
+app.post('/crush', auth, name, age, date, rescue(createCrush));
 
-app.get('/crush', auth, getCrush, (_req, _res, next) => next());
+app.get('/crush', auth, rescue(getCrush));
 
-app.get('/crush/:id', auth, getById, (_req, _res, next) => next());
+app.put('/crush/:id', auth, name, age, date, rescue(updateCrush));
+
+app.get('/crush/:id', auth, rescue(getById));
+
+app.use(error);
 
 app.listen(PORT, () => {
   console.log(`hi lorena ${PORT}`);
 });
-
-app.use(error);

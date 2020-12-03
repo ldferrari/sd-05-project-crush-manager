@@ -8,6 +8,7 @@ const date = require('./checkDate');
 const getCrush = require('./getCrush');
 const createCrush = require('./createCrush');
 const getById = require('./getById');
+const updateCrush = require('./updateCrush');
 
 module.exports = {
   auth,
@@ -20,4 +21,5 @@ module.exports = {
   getCrush,
   createCrush,
   getById,
+  updateCrush,
 };
