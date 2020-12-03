@@ -345,7 +345,7 @@ describe('2 - Crie o endpoint POST /crush', () => {
             request: {
               headers: {
                 Authorization: result.token,
-                'Content-Type': 'alication/json',
+                'Content-Type': 'application/json',
               },
             },
           })
