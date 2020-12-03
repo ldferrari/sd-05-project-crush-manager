@@ -26,9 +26,10 @@ app.get('/', (request, response) => {
 // ---------------------------------------------------------------------------------------------
 
 // escutando porta PORT 3000
-app.listen(PORT, function () {
-  console.log('server is listeing on port 3000....XABLAU');
-});
+// app.listen(PORT, function () {
+//   console.log('server is listeing on port 3000....XABLAU');
+// });
+app.listen(PORT, () => console.log(`Server is listening on port ${PORT}....XABLAU`));
 
 // como usar httpie
 // bash> http "método-HTTP" :"número da porta"/endpoint requisições
