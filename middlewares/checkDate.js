@@ -3,7 +3,7 @@ const regex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i;
 module.exports = (req, res, next) => {
   const { date } = req.body;
   console.log(date);
-  if (!date || !date.rate || date.datedAt == undefined) {
+  if (!date || !date.rate || date.datedAt === undefined) {
     res.status(400)
       .json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
   }

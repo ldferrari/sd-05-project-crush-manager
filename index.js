@@ -17,7 +17,6 @@ app.post('/crush', auth, name, age, date, createCrush, (_req, _res, next) => nex
 
 app.get('/crush', auth, getCrush, (_req, _res, next) => next());
 
-
 app.listen(PORT, () => {
   console.log(`hi lorena ${PORT}`);
 });
