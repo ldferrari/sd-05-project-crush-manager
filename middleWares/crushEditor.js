@@ -1,9 +1,7 @@
 const fs = require('fs').promises;
 
 const readCrushs = async () => {
-  const crushs = await fs.readFile('crush.json', 'utf-8', (err) => {
-    if (err) throw console.log('deu ruim');
-  });
+  const crushs = await fs.readFile('crush.json', 'utf-8');
   return JSON.parse(crushs);
 };
 
@@ -38,14 +36,14 @@ module.exports = async (req, res) => {
   }
 
   const results = await readCrushs();
-  const filteredCrush = results.find((crush) => crush.id === Number(findCrush));
-  results[results.indexOf(filteredCrush)].name = name;
-  results[results.indexOf(filteredCrush)].age = age;
-  results[results.indexOf(filteredCrush)].date.datedAt = datedAt;
-  results[results.indexOf(filteredCrush)].date.rate = rate;
-  await fs.writeFile('crush.json', JSON.stringify(results), 'utf-8', (err) => {
-    if (err) throw console.log('chega desse projeto :c ');
-    return results;
-  });
-  res.status(200).json(results[results.indexOf(filteredCrush)]);
+  const indexedCrush = results.findIndex((crush) => crush.id === Number(findCrush));
+  if (!results[indexedCrush]) {
+    return res.status(404).json({ message: `crush ${indexedCrush} não existe` });
+  }
+  results[indexedCrush].name = name;
+  results[indexedCrush].age = age;
+  results[indexedCrush].date.datedAt = datedAt;
+  results[indexedCrush].date.rate = rate;
+  await fs.writeFile('crush.json', JSON.stringify(results), 'utf-8');
+  res.status(200).json(results[indexedCrush]);
 };

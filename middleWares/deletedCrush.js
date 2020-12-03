@@ -1,5 +1,4 @@
 const fs = require('fs').promises;
-const path = require('path');
 
 const readCrushs = async () => {
   const crushs = await fs.readFile('crush.json', 'utf-8', (err) => {
@@ -9,7 +8,7 @@ const readCrushs = async () => {
 };
 
 const writeCrushs = async (crush) => {
-  fs.writeFile(path.resolve(__dirname, '.', 'crush.json'), JSON.stringify(crush), (err) => {
+  fs.writeFile('crush.json', JSON.stringify(crush), (err) => {
     if (err) throw console.log(`Deleta se não eu choro ${err}`);
   });
 };

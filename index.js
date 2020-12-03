@@ -22,5 +22,9 @@ app.get('/crush', tokenVerifier, allCrushes);
 app.get('/crush/:id', tokenVerifier, crushFinder);
 app.put('/crush/:id', tokenVerifier, crushEditor);
 app.delete('/crush/:id', tokenVerifier, crushDeleter);
+app.use((err, req, res, next) => {
+  next(console.error(err));
+  res.status(500).json({ message: 'internal server error' });
+});
 
 app.listen(3000, () => console.log('Navi: Hey, Listen!'));
