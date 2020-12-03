@@ -6,6 +6,7 @@ const tokenVerifier = require('./middleWares/tokenVerifier');
 const allCrushes = require('./middleWares/allCrushes');
 const crushFinder = require('./middleWares/findCrush');
 const crushEditor = require('./middleWares/crushEditor');
+const crushDeleter = require('./middleWares/deletedCrush');
 
 const app = express();
 app.use(bodyParser.json());
@@ -20,5 +21,6 @@ app.post('/crush', tokenVerifier, crushCreator);
 app.get('/crush', tokenVerifier, allCrushes);
 app.get('/crush/:id', tokenVerifier, crushFinder);
 app.put('/crush/:id', tokenVerifier, crushEditor);
+app.delete('/crush/:id', tokenVerifier, crushDeleter);
 
 app.listen(3000, () => console.log('Navi: Hey, Listen!'));
