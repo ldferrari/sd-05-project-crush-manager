@@ -2,7 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const rescue = require('express-rescue');
 
-const { auth, error, email, password, name, age, date, getCrush, createCrush, getById, updateCrush } = require('./middlewares');
+const { auth, error, email, password, name, age, date, getCrush, createCrush, getById, updateCrush, deleteCrush } = require('./middlewares');
 
 const app = express();
 const PORT = 3000;
@@ -22,6 +22,8 @@ app.get('/crush', auth, rescue(getCrush));
 app.put('/crush/:id', auth, name, age, date, rescue(updateCrush));
 
 app.get('/crush/:id', auth, rescue(getById));
+
+app.delete('/crush/:id', auth, rescue(deleteCrush));
 
 app.use(error);
 
