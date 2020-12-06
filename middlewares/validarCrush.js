@@ -1,6 +1,12 @@
 module.exports = (req, res, next) => {
-  const { name, age, date } = req.body;
-  const { datedAt, rate } = date;
+  let { name, age, date } = req.body;
+  if (date === undefined || !date) {
+    date = {
+      "rate": '',
+      "datedAt": ''
+    }
+  }
+  let { datedAt, rate } = date;
   const regex = new RegExp(/([0][1-9]|[1-2][0-9]|[3][0-1])\/([0][1-9]|[1][0-2])\/(\d\d\d\d)/);
 
   if (name === undefined || name === '') {
