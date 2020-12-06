@@ -6,10 +6,10 @@ const lerCrush = () => {
 };
 
 const gravarCrush = (novoCrush) => {
-  fs.writeFileSync('./crush.json', novoCrush,'utf-8');
-}
+  fs.writeFileSync('./crush.json', novoCrush, 'utf-8');
+};
 
 module.exports = {
   lerCrush,
   gravarCrush,
-}
+};

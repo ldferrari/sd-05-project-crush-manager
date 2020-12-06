@@ -5,6 +5,7 @@ const bodyparse = require('body-parser');
 const middlewares = require('./middlewares');
 
 const { lerCrush, gravarCrush } = require('./services/crushManager');
+
 const app = express();
 
 const PORT = 3000;
@@ -12,13 +13,14 @@ const PORT = 3000;
 app.use(bodyparse.json());
 
 // 1 - Crie o endpoint POST /login
-app.post('/login', middlewares.loginValidator,middlewares.gerarToken);
+app.post('/login', middlewares.loginValidator, middlewares.gerarToken);
 
 // 2 - Crie o endpoint POST /crush
 app.post('/crush', middlewares.auth, middlewares.validarCrush, (req, res, _next) => {
   const { name, age, date } = req.body;
   const data = lerCrush();
-  const id = parseInt(data.length + 1);
+  const id = 1 + data.reduce((max, actual) =>
+    (actual.id > max ? actual.id : max), 0);
   const newCrush = { name, age, id, date };
   data.push(newCrush);
   gravarCrush(JSON.stringify(data));
