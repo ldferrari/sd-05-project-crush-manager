@@ -37,11 +37,23 @@ app.get('/crush', middlewares.auth, (_req, res, _next) => {
 app.get('/crush/:id', middlewares.auth, (req, res, _next) => {
   const conteudoAtual = lerCrush();
   const { id } = req.params;
-  const index = conteudoAtual.findIndex(result => result.id === parseInt(id, 10) );
+  const index = conteudoAtual.findIndex((result) => result.id === parseInt(id, 10));
   if (!conteudoAtual[index]) {
     return res.status(404).send({ message: 'Crush não encontrado' });
   }
   return res.status(200).send(conteudoAtual[index]);
+});
+
+// 5 - Crie o endpoint PUT /crush/:id
+app.put('/crush/:id', middlewares.auth, middlewares.validarCrush, (req, res) => {
+  const { name, age, date } = req.body;
+  const id = parseInt(req.params.id, 10);
+  const data = lerCrush();
+  const crushEncontrado = data.find((crush) => crush.id === id);
+  const index = data.indexOf(crushEncontrado);
+  data[index] = { id, name, age, date };
+  gravarCrush(JSON.stringify(data));
+  return res.status(200).json({ id, name, age, date });
 });
 
 // não remova esse endpoint, e para o avaliador funcionar
