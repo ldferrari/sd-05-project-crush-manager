@@ -27,6 +27,12 @@ app.post('/crush', middlewares.auth, middlewares.validarCrush, (req, res, _next)
   return res.status(201).json(newCrush);
 });
 
+// 3 - Crie o endpoint GET /crush
+app.get('/crush', middlewares.auth, (_req, res, _next) => {
+  const data = lerCrush();
+  res.status(200).json(data);
+});
+
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
