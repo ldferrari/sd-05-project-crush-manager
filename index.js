@@ -65,6 +65,17 @@ app.delete('/crush/:id', middlewares.auth, (req, res) => {
   return res.status(200).json({ message: 'Crush deletado com sucesso' });
 });
 
+// 7 - Crie o endpoint GET /crush/search?q=searchTerm
+app.get('/crush/search', middlewares.auth, (req, res) => {
+  const { q } = req.query;
+  const data = lerCrush();
+  const searchTerm = data.filter((crush) => crush.name.includes(q));
+  if (searchTerm.length === 0) {
+    return res.status(404).json({ message: 'nome não encontrado' });
+  }
+  return res.status(200).json(searchTerm);
+});
+
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
