@@ -33,6 +33,17 @@ app.get('/crush', middlewares.auth, (_req, res, _next) => {
   res.status(200).json(data);
 });
 
+// 4 - Crie o endpoint GET /crush/:id
+app.get('/crush/:id', middlewares.auth, (req, res, _next) => {
+  const conteudoAtual = lerCrush();
+  const { id } = req.params;
+  const index = conteudoAtual.findIndex(result => result.id === parseInt(id, 10) );
+  if (!conteudoAtual[index]) {
+    return res.status(404).send({ message: 'Crush não encontrado' });
+  }
+  return res.status(200).send(conteudoAtual[index]);
+});
+
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
