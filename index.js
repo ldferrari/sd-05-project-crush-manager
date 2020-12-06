@@ -56,6 +56,15 @@ app.put('/crush/:id', middlewares.auth, middlewares.validarCrush, (req, res) => 
   return res.status(200).json({ id, name, age, date });
 });
 
+// 6 - Crie o endpoint DELETE /crush/:id
+app.delete('/crush/:id', middlewares.auth, (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const conteudoAtual = lerCrush();
+  const listaNova = conteudoAtual.filter((crush) => crush.id !== id);
+  gravarCrush(JSON.stringify(listaNova));
+  return res.status(200).json({ message: 'Crush deletado com sucesso' });
+});
+
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
