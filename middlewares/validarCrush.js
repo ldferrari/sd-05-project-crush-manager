@@ -3,8 +3,8 @@ module.exports = (req, res, next) => {
   let { date } = req.body;
   if (date === undefined || !date) {
     date = {
-      'rate': '',
-      'datedAt': '',
+      rate: '',
+      datedAt: '',
     };
   }
   const { datedAt, rate } = date;
