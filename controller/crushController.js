@@ -3,8 +3,8 @@ const {
   getAllCrushs,
   removeCrush,
   findByName,
-  updateCrushM,
 } = require('../models/crushModel');
+const { writeCrushFile } = require('../models/writeFile');
 
 const getCrushs = async (_req, res) => {
   const crushs = await getAllCrushs();
@@ -26,15 +26,16 @@ const getCrushById = async (req, res) => {
 
 const updateCrush = async (req, res) => {
   const { name, age, date } = req.body;
-  const { id } = req.params;
+  const { id: paramId } = req.params;
   const crushs = await getAllCrushs();
   if (!crushs) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
+  const id = parseInt(paramId, 10);
   const filteredCrush = crushs.filter((el) => el.id !== id);
   const newCrush = { name, age, id, date };
   const newArrCrush = [...filteredCrush, newCrush];
-  await updateCrushM(newArrCrush);
+  await writeCrushFile(newArrCrush);
   const alteredCrush = await getCrush(id);
   if (!alteredCrush) {
     return res.status(404).json({ message: 'Nada alterado' });
@@ -50,6 +51,7 @@ const updateCrush = async (req, res) => {
 const deleteCrush = async (req, res) => {
   const { id } = req.params;
   const crush = await removeCrush(id);
+  console.log(crush);
   if (!crush) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }

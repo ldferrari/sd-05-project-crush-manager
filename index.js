@@ -35,7 +35,7 @@ app.get('/crush/:id', getToken, getCrushById);
 app.put('/crush/:id', getToken, crushValidation, updateCrush);
 
 // requisito 6
-app.delete('crush/:id', getToken, deleteCrush);
+app.delete('/crush/:id', getToken, deleteCrush);
 
 // requisito7
 app.get('/crush/search?q=searchTerm', getToken, searchCrush);
