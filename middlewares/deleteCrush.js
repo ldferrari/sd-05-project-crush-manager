@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 
 const readCrushes = async () => {
-  const crushes = await fs.readFile('crush.json', 'utf-8', (error, data) => {
+  const crushes = await fs.readFile('crush.json', 'utf-8', (error) => {
     if (error) throw console.log('Algo deu errado');
   });
   return JSON.parse(crushes);
