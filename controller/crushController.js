@@ -1,9 +1,4 @@
-const {
-  getCrush,
-  getAllCrushs,
-  removeCrush,
-  findByName,
-} = require('../models/crushModel');
+const { getCrush, getAllCrushs, removeCrush, findByName } = require('../models/crushModel');
 const { writeCrushFile } = require('../models/writeFile');
 
 const getCrushs = async (_req, res) => {
