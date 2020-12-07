@@ -34,5 +34,4 @@ app.delete('crush/:id', getToken, deleteCrush);
 // requisito7
 app.get('/crush/search?q=searchTerm');
 
-
 app.listen(3000, () => console.log('Listening on 3000'));

@@ -26,7 +26,7 @@ const crushValidation = (req, res, next) => {
   if (!regDate.test(datedAt)) {
     return res.status(400).json({ message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"' });
   }
-  next()
+  next();
 };
 
 module.exports = { crushValidation };

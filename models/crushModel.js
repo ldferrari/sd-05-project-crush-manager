@@ -9,11 +9,11 @@ const getCrush = (id) =>
 const editCrush = (id) =>
   writeCrushFile().then((crushes) => crushes.find((crush) => crush.id === parseInt(id, 10)));
 
-const removeCrush = (id) => 
+const removeCrush = (id) =>
   readFileCrush().then((crushes) => crushes.delete((crush) => crush.id === parseInt(id, 10)));
-  // .where('id = :id') -> posso usar
+// .where('id = :id') -> posso usar
 
-const findByName = (name) => 
+const findByName = (name) =>
   readFileCrush().then((crushes) => crushes.filter((crush) => crush.includes(name)));
 
 module.exports = { getCrush, getAllCrushs, editCrush, removeCrush, findByName };
