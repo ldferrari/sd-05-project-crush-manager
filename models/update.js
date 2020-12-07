@@ -12,7 +12,7 @@ const editEntryFromFile = (file, newEntry, idToEdit) => {
 };
 
 module.exports = (crushIdToEdit, newCrushObject) => {
-  getCrushFile((crushFile) => {
+  getCrushFile().then((crushFile) => {
     const newCrushFile = editEntryFromFile(crushFile, newCrushObject, crushIdToEdit);
     saveCrushFile(newCrushFile);
   });

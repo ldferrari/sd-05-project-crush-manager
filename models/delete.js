@@ -10,7 +10,7 @@ const removeEntryFromFile = (file, idToRemove) => {
 };
 
 module.exports = (crushIdToRemove) => {
-  getCrushFile((crushFile) => {
+  getCrushFile().then((crushFile) => {
     const newCrushFile = removeEntryFromFile(crushFile, crushIdToRemove);
     saveCrushFile(newCrushFile);
   });

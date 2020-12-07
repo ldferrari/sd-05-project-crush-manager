@@ -1,8 +1,5 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 
-module.exports = (callback) => {
-  fs.readFile('../../crush.json', (error, data) => {
-    if (error) throw new Error(error);
-    callback(data);
-  });
-};
+module.exports = () => fs.readFile('../../crush.json', (error) => {
+  if (error) throw new Error(error);
+});

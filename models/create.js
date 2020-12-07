@@ -10,7 +10,7 @@ const addNewEntryToFile = (file, newEntrie) => {
 };
 
 module.exports = (crushToBeCreated) => {
-  getCrushFile((crushFile) => {
+  getCrushFile().then((crushFile) => {
     const newCrushFile = addNewEntryToFile(crushFile, crushToBeCreated);
     saveCrushFile(newCrushFile);
   });
