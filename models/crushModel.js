@@ -4,16 +4,14 @@ const { writeCrushFile } = require('./writeFile');
 const getAllCrushs = () => readFileCrush();
 
 const getCrush = (id) =>
-  readFileCrush().then((crushes) => crushes.find((crush) => crush.id === parseInt(id, 10)));
+  readFileCrush().then((crushes) => crushes.filter((crush) => crush.id === parseInt(id, 10)));
 
-const editCrush = (id) =>
-  writeCrushFile().then((crushes) => crushes.find((crush) => crush.id === parseInt(id, 10)));
+const updateCrush = (arr) => writeCrushFile(arr);
 
 const removeCrush = (id) =>
-  readFileCrush().then((crushes) => crushes.delete((crush) => crush.id === parseInt(id, 10)));
-// .where('id = :id') -> posso usar
+  readFileCrush().then((crushes) => crushes.filter((crush) => crush.id !== parseInt(id, 10)));
 
 const findByName = (name) =>
-  readFileCrush().then((crushes) => crushes.filter((crush) => crush.includes(name)));
+  readFileCrush().then((crushes) => crushes.filter((crush) => crush.name === name));
 
-module.exports = { getCrush, getAllCrushs, editCrush, removeCrush, findByName };
+module.exports = { getCrush, getAllCrushs, updateCrush, removeCrush, findByName };

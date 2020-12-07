@@ -5,7 +5,13 @@ const { userLog } = require('./middlewares/userValidation');
 const { getToken } = require('./middlewares/getToken');
 const { crushValidation } = require('./middlewares/crushValidation');
 const { createCrush } = require('./controller/createCrush');
-const { getCrushById, getCrushs, deleteCrush } = require('./controller/crushController');
+const {
+  getCrushById,
+  getCrushs,
+  deleteCrush,
+  updateCrush,
+  searchCrush,
+} = require('./controller/crushController');
 
 const app = express();
 app.use(bodyParser.json());
@@ -26,12 +32,12 @@ app.get('/crush', getToken, getCrushs);
 app.get('/crush/:id', getToken, getCrushById);
 
 // requisito 5
-app.put('/crush/:id', getToken, crushValidation);
+app.put('/crush/:id', getToken, crushValidation, updateCrush);
 
 // requisito 6
 app.delete('crush/:id', getToken, deleteCrush);
 
 // requisito7
-app.get('/crush/search?q=searchTerm');
+app.get('/crush/search?q=searchTerm', getToken, searchCrush);
 
 app.listen(3000, () => console.log('Listening on 3000'));
