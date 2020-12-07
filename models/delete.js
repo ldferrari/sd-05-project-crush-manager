@@ -9,9 +9,7 @@ const removeEntryFromFile = (file, idToRemove) => {
   return filteredFile;
 };
 
-module.exports = (crushIdToRemove) => {
-  getCrushFile().then((crushFile) => {
-    const newCrushFile = removeEntryFromFile(crushFile, crushIdToRemove);
-    saveCrushFile(newCrushFile);
-  });
-};
+module.exports = (crushIdToRemove) => getCrushFile().then((crushFile) => {
+  const newCrushFile = removeEntryFromFile(crushFile, crushIdToRemove);
+  saveCrushFile(newCrushFile);
+});

@@ -9,9 +9,7 @@ const addNewEntryToFile = (file, newEntrie) => {
   return parsedFile;
 };
 
-module.exports = (crushToBeCreated) => {
-  getCrushFile().then((crushFile) => {
-    const newCrushFile = addNewEntryToFile(crushFile, crushToBeCreated);
-    saveCrushFile(newCrushFile);
-  });
-};
+module.exports = (crushToBeCreated) => getCrushFile().then((crushFile) => {
+  const newCrushFile = addNewEntryToFile(crushFile, crushToBeCreated);
+  saveCrushFile(newCrushFile);
+});
