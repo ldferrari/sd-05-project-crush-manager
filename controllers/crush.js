@@ -45,7 +45,15 @@ crushRouter.post('/', authMiddleware, async (request, response) => {
   return response.status(201).json(newCrush);
 });
 
-crushRouter.put('/:id');
+crushRouter.put('/:id', authMiddleware, async (request, response) => {
+  const { id } = request.params;
+
+  const crush = validateCrush(request.body);
+  if (!crush.isValid) return response.status(400).json({ message: crush.message });
+
+  await crud.update(id, request.body);
+  return response.status(200).json({ id: Number(id), ...request.body });
+});
 
 crushRouter.delete('/:id', authMiddleware, async (request, response) => {
   const { id } = request.params;

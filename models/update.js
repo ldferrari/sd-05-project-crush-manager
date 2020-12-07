@@ -2,13 +2,19 @@ const getCrushFile = require('./file/get');
 const saveCrushFile = require('./file/save');
 
 const editEntryFromFile = (file, newEntry, idToEdit) => {
+  const { name, age, date } = newEntry;
   const parsedFile = JSON.parse(file);
 
-  const filteredFile = parsedFile.filter((entry) => entry.id !== idToEdit);
+  const indexToEdit = parsedFile.indexOf((entry) => Number(entry.id) === Number(idToEdit));
 
-  const editedFile = filteredFile.push({ id: idToEdit, ...newEntry });
+  parsedFile[indexToEdit] = {
+    name,
+    age,
+    date,
+    id: Number(idToEdit),
+  };
 
-  return editedFile;
+  return parsedFile;
 };
 
 module.exports = (crushIdToEdit, newCrushObject) => getCrushFile().then((crushFile) => {
