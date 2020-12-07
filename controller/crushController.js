@@ -1,9 +1,9 @@
-const { getCrush, getAllCrushs, removeCrush, findByName } = require('../models/crushModel');
+const { getCrush, removeCrush, findByName } = require('../models/crushModel');
+const { readFileCrush } = require('../models/readFile');
 const { writeCrushFile } = require('../models/writeFile');
 
-const getCrushs = async (_req, res) => {
-  const crushs = await getAllCrushs();
-
+const getAllCrushs = async (_req, res) => {
+  const crushs = await readFileCrush();
   if (!crushs) {
     return res.status(400).json({ message: 'Não está vindo nenhum crush' });
   }
@@ -13,6 +13,7 @@ const getCrushs = async (_req, res) => {
 const getCrushById = async (req, res) => {
   const { id } = req.params;
   const crush = await getCrush(id);
+  console.log(crush);
   if (!crush) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
@@ -22,7 +23,7 @@ const getCrushById = async (req, res) => {
 const updateCrush = async (req, res) => {
   const { name, age, date } = req.body;
   const { id: paramId } = req.params;
-  const crushs = await getAllCrushs();
+  const crushs = await readFileCrush();
   if (!crushs) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
@@ -37,6 +38,7 @@ const updateCrush = async (req, res) => {
   }
 
   return res.status(200).json({
+    id: alteredCrush.id,
     name: alteredCrush.name,
     age: alteredCrush.age,
     date: alteredCrush.date,
@@ -62,4 +64,4 @@ const searchCrush = async (req, res) => {
   return res.status(200).json(data);
 };
 
-module.exports = { getCrushById, getCrushs, deleteCrush, updateCrush, searchCrush };
+module.exports = { getCrushById, getAllCrushs, deleteCrush, updateCrush, searchCrush };

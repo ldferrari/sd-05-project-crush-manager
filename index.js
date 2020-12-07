@@ -7,7 +7,7 @@ const { crushValidation } = require('./middlewares/crushValidation');
 const { createCrush } = require('./controller/createCrush');
 const {
   getCrushById,
-  getCrushs,
+  getAllCrushs,
   deleteCrush,
   updateCrush,
   searchCrush,
@@ -26,7 +26,7 @@ app.post('/login', userLog);
 app.post('/crush', getToken, crushValidation, createCrush);
 
 // requisito 3
-app.get('/crush', getToken, getCrushs);
+app.get('/crush', getToken, getAllCrushs);
 
 // requisito 4
 app.get('/crush/:id', getToken, getCrushById);
