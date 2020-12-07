@@ -1,12 +1,12 @@
-module.exports = (req, res, next) => {
-  const token = req.headers.authorization;
+module.exports = (request, response, next) => {
+  const token = request.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({ message: 'Token não encontrado' });
+    return response.status(401).json({ message: 'Token não encontrado' });
   }
 
   if (token.length !== 16) {
-    return res.status(401).json({ message: 'Token inválido' });
+    return response.status(401).json({ message: 'Token inválido' });
   }
 
   next();
