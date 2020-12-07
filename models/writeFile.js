@@ -6,6 +6,7 @@ const writeCrushFile = async (crushs) => {
   } catch (err) {
     console.log('erro: ', err);
   }
+  return [];
 };
 
 module.exports = { writeCrushFile };
