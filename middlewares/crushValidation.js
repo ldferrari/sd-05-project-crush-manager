@@ -15,9 +15,6 @@ const crushValidation = (req, res, next) => {
     if (age < 18) {
       return res.status(400).json({ message: 'O crush deve ser maior de idade' });
     }
-    if (date === undefined || !date) {
-      date = { rate: '', rate: '' };
-    }
     if (!date || !date.datedAt || (!date.rate && date.rate !== 0)) {
       return res.status(400).json({
         message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios',

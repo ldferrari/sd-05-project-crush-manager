@@ -7,7 +7,7 @@ const readFileCrush = async () => {
   } catch (err) {
     console.log(err);
   }
-  return;
+  return [];
 };
 
 module.exports = { readFileCrush };
