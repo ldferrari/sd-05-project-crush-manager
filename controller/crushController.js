@@ -29,7 +29,7 @@ const updateCrush = async (req, res) => {
   }
   const id = parseInt(paramId, 10);
   const filteredCrush = crushs.filter((el) => el.id !== id);
-  const newCrush = { name, age, id, date }; 
+  const newCrush = { name, age, id, date };
   const newArrCrush = [...filteredCrush, newCrush];
   await writeCrushFile(newArrCrush);
   const alteredCrush = await getCrush(id);
@@ -46,7 +46,7 @@ const updateCrush = async (req, res) => {
 };
 
 const deleteCrush = async (req, res) => {
-  const { id } = (req.params);
+  const { id } = req.params;
   console.log(id);
   const crushs = await readFileCrush();
   console.log(crushs);
