@@ -29,7 +29,7 @@ const updateCrush = async (req, res) => {
   }
   const id = parseInt(paramId, 10);
   const filteredCrush = crushs.filter((el) => el.id !== id);
-  const newCrush = { name, age, id, date };
+  const newCrush = { name, age, id, date }; 
   const newArrCrush = [...filteredCrush, newCrush];
   await writeCrushFile(newArrCrush);
   const alteredCrush = await getCrush(id);
@@ -46,17 +46,20 @@ const updateCrush = async (req, res) => {
 };
 
 const deleteCrush = async (req, res) => {
-  const { id } = parseInt(req.params, 10);
-  const crush = await removeCrush(id);
-  console.log(crush);
-  if (!crush) {
+  const { id } = (req.params);
+  console.log(id);
+  const crushs = await readFileCrush();
+  console.log(crushs);
+  const newFileCrush = removeCrush(crushs);
+  if (!newFileCrush) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
-  return res.status(200).json(crush);
+  return res.status(200).json({ message: 'Crush deletado com sucesso' });
 };
 
 const searchCrush = async (req, res) => {
   const { q } = req.query;
+  console.log(q);
   const data = await findByName(q);
   if (!data) {
     res.status(404).json({ message: 'Crush não encontrado' });

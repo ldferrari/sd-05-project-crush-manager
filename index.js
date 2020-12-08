@@ -28,6 +28,9 @@ app.post('/crush', getToken, crushValidation, createCrush);
 // requisito 3
 app.get('/crush', getToken, getAllCrushs);
 
+// requisito7
+app.get('/crush/search?q=searchTerm', getToken, searchCrush);
+
 // requisito 4
 app.get('/crush/:id', getToken, getCrushById);
 
@@ -36,8 +39,5 @@ app.put('/crush/:id', getToken, crushValidation, updateCrush);
 
 // requisito 6
 app.delete('/crush/:id', getToken, deleteCrush);
-
-// requisito7
-app.get('/crush/search?q=searchTerm', getToken, searchCrush);
 
 app.listen(3000, () => console.log('Listening on 3000'));
