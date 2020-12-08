@@ -6,7 +6,4 @@ const getCrush = (id) =>
 const removeCrush = (id) =>
   readFileCrush().then((crushes) => crushes.filter((crush) => crush.id !== parseInt(id, 10)));
 
-const findByName = (name) =>
-  readFileCrush().then((crushes) => crushes.filter((crush) => crush.name.includes(name)));
-
-module.exports = { getCrush, removeCrush, findByName };
+module.exports = { getCrush, removeCrush };

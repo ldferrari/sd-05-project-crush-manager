@@ -29,7 +29,7 @@ app.post('/crush', getToken, crushValidation, createCrush);
 app.get('/crush', getToken, getAllCrushs);
 
 // requisito7
-app.get('/crush/search?q=searchTerm', getToken, searchCrush);
+app.get('/crush/search', getToken, searchCrush);
 
 // requisito 4
 app.get('/crush/:id', getToken, getCrushById);

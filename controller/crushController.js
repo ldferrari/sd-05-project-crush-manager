@@ -1,4 +1,4 @@
-const { getCrush, removeCrush, findByName } = require('../models/crushModel');
+const { getCrush, removeCrush } = require('../models/crushModel');
 const { readFileCrush } = require('../models/readFile');
 const { writeCrushFile } = require('../models/writeFile');
 
@@ -13,7 +13,6 @@ const getAllCrushs = async (_req, res) => {
 const getCrushById = async (req, res) => {
   const { id } = req.params;
   const crush = await getCrush(id);
-  console.log(crush);
   if (!crush) {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
@@ -59,8 +58,8 @@ const deleteCrush = async (req, res) => {
 
 const searchCrush = async (req, res) => {
   const { q } = req.query;
-  console.log(q);
-  const data = await findByName(q);
+  const crushs = await readFileCrush();
+  const data = crushs.filter((crush) => crush.name.includes(q));
   if (!data) {
     res.status(404).json({ message: 'Crush não encontrado' });
   }
