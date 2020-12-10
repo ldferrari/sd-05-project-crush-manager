@@ -7,6 +7,7 @@ const allCrushes = require('./middleWares/allCrushes');
 const crushFinder = require('./middleWares/findCrush');
 const crushEditor = require('./middleWares/crushEditor');
 const crushDeleter = require('./middleWares/deletedCrush');
+const crushSearcher = require('./middleWares/crushSearcher');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,6 +20,7 @@ app.get('/', (request, response) => {
 app.post('/login', loginRoute);
 app.post('/crush', tokenVerifier, crushCreator);
 app.get('/crush', tokenVerifier, allCrushes);
+app.get('/crush/search', tokenVerifier, crushSearcher); // unico jeito de passar foi jogando ele antes do crush finder..
 app.get('/crush/:id', tokenVerifier, crushFinder);
 app.put('/crush/:id', tokenVerifier, crushEditor);
 app.delete('/crush/:id', tokenVerifier, crushDeleter);
