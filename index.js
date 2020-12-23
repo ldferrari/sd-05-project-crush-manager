@@ -4,6 +4,8 @@ const app = express(); // criando uma instancia do express (criando o servidor)
 
 const bodyParse = require('body-parser'); // transforma a requisição em JSON
 
+const fs = require('fs').promises;
+
 app.use(bodyParse.json());
 const crypto = require('crypto');
 
@@ -22,7 +24,9 @@ const loginMiddleware = (req, res, next) => {
     });
   }
 
-  const regexEmail = RegExp(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{3})*$/);
+  const regexEmail = RegExp(
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{3})*$/,
+  );
 
   if (!regexEmail.test(email)) {
     return res.status(400).json({
@@ -50,6 +54,31 @@ app.post('/login', loginMiddleware, (req, res) => {
   const token = crypto.randomBytes(8).toString('hex'); // 1 byte = 0000 0101
   res.status(200).json({ token });
 });
+
+const authTokenMiddleware = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({
+      message: 'Token não encontrado',
+    });
+  }
+
+  if (token.length !== 16) {
+    return res.status(401).json({
+      message: 'Token inválido',
+    });
+  }
+
+  next();
+};
+
+app.get('/crush', authTokenMiddleware, async (req, res) => {
+  const readCrush = await fs.readFile('./crush.json', 'utf-8');
+  const arrayCrush = await JSON.parse(readCrush);
+  res.status(200).json(arrayCrush);
+});
+
+// app.post('/crush', (req, res) => {})
 
 // app.use() -> faz com que a função funcione para toda aplicação
 
