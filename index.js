@@ -1,6 +1,9 @@
 const express = require('express'); // importando o express (npm i express | para instalar)
+
 const app = express(); // criando uma instancia do express (criando o servidor)
+
 const bodyParse = require('body-parser'); // transforma a requisição em JSON
+
 app.use(bodyParse.json());
 const crypto = require('crypto');
 
@@ -12,45 +15,44 @@ app.get('/', (_request, response) => {
 });
 // ------------------------------------
 const loginMiddleware = (req, res, next) => {
-  console.log(req.body)
   const { email, password } = req.body;
   if (email === undefined) {
     return res.status(400).json({
-      "message": "O campo \"email\" é obrigatório"
+      message: `O campo "email" é obrigatório${''}`,
     });
   }
 
-  const regexEmail = RegExp(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{3})*$/)
+  const regexEmail = RegExp(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{3})*$/);
 
   if (!regexEmail.test(email)) {
     return res.status(400).json({
-      "message": "O \"email\" deve ter o formato \"email@email.com\""
-    })
+      message: `O "email" deve ter o formato "email@email.com"${''}`,
+    });
   }
 
   if (password === undefined) {
     return res.status(400).json({
-      "message": "O campo \"password\" é obrigatório"
-    })
+      message: `O campo "password" é obrigatório${''}`,
+    });
   }
 
   if (password.length < 6) {
     return res.status(400).json({
-      "message": "A \"senha\" deve ter pelo menos 6 caracteres"
+      message: `A "senha" deve ter pelo menos 6 caracteres${''}`,
     });
   }
 
-  next()
-}
+  next();
+};
 
 app.post('/login', loginMiddleware, (req, res) => {
-  console.log('Ja estou aqui')
-  const token = crypto.randomBytes(8).toString('hex'); // 1 byte = 0000 0101 
-  res.status(200).json({ token })
+  console.log('Ja estou aqui');
+  const token = crypto.randomBytes(8).toString('hex'); // 1 byte = 0000 0101
+  res.status(200).json({ token });
 });
 
 // app.use() -> faz com que a função funcione para toda aplicação
 
 // conectando com o servidor
-app.listen(3000, () => console.log(`Cochilando na porta 3000!!`));
+app.listen(3000, () => console.log('Cochilando na porta 3000!!'));
 // npm run start: aciona o nodemon que inicia meu servidor
