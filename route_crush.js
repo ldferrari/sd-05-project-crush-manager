@@ -82,4 +82,15 @@ router.post('/', async (req, res) => {
   res.status(201).json(newArrayOfCrush[id - 1]); // atribuindo a posicao exata do index
 });
 
+router.get('/:id', async (req, res) => {
+  const crush = await readCrushFile();
+
+  const searchCrush = crush.find((obj) => obj.id === Number(req.params.id));
+
+  if (searchCrush === undefined) {
+    return res.status(404).json({ message: 'Crush não encontrado' });
+  }
+  res.status(200).json(searchCrush);
+});
+
 module.exports = router;
