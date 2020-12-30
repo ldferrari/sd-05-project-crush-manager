@@ -3,7 +3,11 @@ const express = require('express'); // Primeiro passo é a importação do expre
 const app = express(); // Segundo passo: atribuir a função express na variavel app
 
 // 3 arquivos para organizar as rotas
-const root_signup = require('./root_signup'); // importando o arquivo do POST /login
+const rootSignup = require('./root_signup'); // importando o arquivo do POST /login
+
+const tokenMiddleware = require('./token_middleware'); // importando middleware do token
+
+const routeCrush = require('./route_crush'); // importando o arquivo do POST /crush
 
 app.use(express.json()); // Para retornar em formato json
 
@@ -15,10 +19,13 @@ app.get('/', (_request, response) => {
 });
 // ------------------------------------
 
-app.use('/login', root_signup); // Puxando o arquivo onde o post foi criado.
+app.use('/login', rootSignup); // Puxando o arquivo onde o post foi criado.
+
+app.use('/crush', tokenMiddleware, routeCrush); // Puxando o arquivo onde o post foi criado.
 
 const PORT = 3000; // Porta para conectar
 
-app.listen(PORT, () => { // app.listen serve para escutar a porta (aparece no terminal)
-  console.log('Hugao mestre')
+app.listen(PORT, () => {
+  // app.listen serve para escutar a porta (aparece no terminal)
+  console.log('Hugao mestre');
 });
