@@ -80,4 +80,22 @@ router.put('/:id', checkCrushFields, async (req, res) => {
   res.status(200).json({ ...req.body, id: Number(req.params.id) });
 });
 
+router.delete('/:id', async (req, res) => {
+  const crush = await readCrushFile();
+  // checando se o id existe com o find()
+  const searchCrush = crush.find((obj) => obj.id === Number(req.params.id));
+
+  if (searchCrush === undefined) {
+    return res.status(404).json({ message: 'Crush não encontrado' });
+  }
+  const newCrush = crush.filter((person) => {
+    if (person.id === Number(req.params.id)) {
+      return false;
+    }
+    return person;
+  });
+  await writeCrushFile(newCrush);
+  res.status(200).json({ message: 'Crush deletado com sucesso' });
+});
+
 module.exports = router;
