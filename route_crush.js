@@ -6,10 +6,10 @@ const express = require('express');
 // Segundo passo: chamar o router serve para construção das rotas
 const router = express.Router();
 
-const moment = require('moment'); // importando a função que transforma em data
-
 const fs = require('fs').promises; // importando o file-system. Deve ser importado como promisse
 const path = require('path');
+
+const checkCrushFields = require('./read_crush');
 
 // function para ler o arquivo
 const readCrushFile = async () => {
@@ -29,39 +29,8 @@ router.get('/', async (_req, res) => {
   res.status(200).json(crush);
 }); // nao eh necessario colocar as condições de erro pois esta no arquivo token_middleware
 
-router.post('/', async (req, res) => {
+router.post('/', checkCrushFields, async (req, res) => {
   const { name, age, date } = req.body;
-
-  if (!name) {
-    res.status(400).json({ message: 'O campo "name" é obrigatório' });
-  }
-
-  if (name.length < 3) {
-    res.status(400).json({ message: 'O "name" deve ter pelo menos 3 caracteres' });
-  }
-
-  if (!age) {
-    res.status(400).json({ message: 'O campo "age" é obrigatório' });
-  }
-
-  if (Number(age) < 18) {
-    res.status(400).json({ message: 'O crush deve ser maior de idade' });
-  }
-
-  if (!date || !date.datedAt || !date.rate) {
-    res
-      .status(400)
-      .json({ message: 'O campo "date" é obrigatório e "datedAt" e "rate" não podem ser vazios' });
-  }
-
-  if (!moment(date.datedAt, 'DD/MM/AAAA').isValid()) {
-    // função padrão para transformar em formato de data
-    res.status(400).json({ message: 'O campo "datedAt" deve ter o formato "dd/mm/aaaa"' });
-  }
-
-  if (Number(date.rate) < 1 || Number(date.rate) > 5) {
-    res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
-  }
 
   const oldCrush = await readCrushFile();
   const id = oldCrush.length + 1; // atribuindo ao id um numero = a posicao + 1
@@ -91,6 +60,24 @@ router.get('/:id', async (req, res) => {
     return res.status(404).json({ message: 'Crush não encontrado' });
   }
   res.status(200).json(searchCrush);
+});
+
+router.put('/:id', checkCrushFields, async (req, res) => {
+  const crush = await readCrushFile();
+  // checando se o id existe com o find()
+  const searchCrush = crush.find((obj) => obj.id === Number(req.params.id));
+
+  if (searchCrush === undefined) {
+    return res.status(404).json({ message: 'Crush não encontrado' });
+  }
+  const newCrush = crush.map((person) => {
+    if (person.id === Number(req.params.id)) {
+      return { ...req.body, id: Number(req.params.id) };
+    }
+    return person;
+  });
+  await writeCrushFile(newCrush);
+  res.status(200).json({ ...req.body, id: Number(req.params.id) });
 });
 
 module.exports = router;
