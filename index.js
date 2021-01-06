@@ -1,15 +1,12 @@
 const express = require('express');
 
+const app = express();
+
 // bodyParser como boas praticas contra vunerabilidade e segurança
 const bodyParser = require('body-parser');
 
-const app = express();
-
 // use bodyParser
 app.use(bodyParser.json());
-
-// Port para escutar na porta 3000
-const PORT = 3000;
 
 // require da pasta de middlewares
 const middlewares = require('./middlewares');
@@ -24,6 +21,9 @@ app.get('/', (request, response) => {
   response.send();
 });
 // ---------------------------------------------------------------------------------------------
+
+// Port para escutar na porta 3000
+const PORT = 3000;
 
 // escutando porta PORT 3000
 // app.listen(PORT, function () {
