@@ -1,19 +1,14 @@
 const express = require('express');
 
 const app = express();
-
 // bodyParser como boas praticas contra vunerabilidade e segurança
 const bodyParser = require('body-parser');
-
-// use bodyParser
-app.use(bodyParser.json());
 
 // require da pasta de middlewares
 const middlewares = require('./middlewares');
 
-// REQUISITO 1
-// POST (cria) um login
-app.post('/login', middlewares.login);
+// use bodyParser
+app.use(bodyParser.json());
 
 // ---------------------------------------------------------------------------------------------
 // não remova esse endpoint, e para o avaliador funcionar
@@ -21,6 +16,10 @@ app.get('/', (request, response) => {
   response.send();
 });
 // ---------------------------------------------------------------------------------------------
+
+// REQUISITO 1
+// POST (cria) um login
+app.post('/login', middlewares.login);
 
 // Port para escutar na porta 3000
 const PORT = 3000;
