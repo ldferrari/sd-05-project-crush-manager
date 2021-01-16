@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 
 module.exports = async (req, res) => {
-    const token = crypto.randomBytes(8).toString('hex');
-    const { email, password } = req.body;
+  const token = crypto.randomBytes(8).toString('hex');
+  const { email, password } = req.body;
     
     // regex https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
     const validateEmail = (email) => {
