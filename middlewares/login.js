@@ -20,13 +20,13 @@ module.exports = async (req, res) => {
   if (!email) {
     return res.status(400).json({ message: 'O campo "email" é obrigatório' });
   }
-  if (!validateEmail(myEmail)) {
+  if (!validateEmail(email)) {
     return res.status(400).json({ message: 'O "email" deve ter o formato "email@email.com"' });
   }
   if (!password) {
     return res.status(400).json({ message: 'O campo "password" é obrigatório' });
   }
-  if (!validadePassword(myPassword)) {
+  if (!validadePassword(password)) {
     return res.status(400).json({ message: 'A "senha" deve ter pelo menos 6 caracteres' });
   }
   return res.status(200).json({ token });
