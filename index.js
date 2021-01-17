@@ -35,6 +35,10 @@ app.get('/crush', middlewares.auth, middlewares.list);
 // GET /crush/:id
 app.get('/crush/:id', middlewares.auth, middlewares.crushIdFind);
 
+// Requisito 5
+// PUT /crush/:id
+app.put('./crush/:id', middlewares.auth, middlewares.createCrush, middlewares.updateCrush);
+
 // Port para escutar na porta 3000
 const PORT = 3000;
 
