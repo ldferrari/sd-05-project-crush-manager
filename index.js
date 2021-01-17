@@ -10,12 +10,16 @@ app.get('/', (request, response) => {
   response.send();
 });
 
+// requisito 1 - login
 app.post('/login', middlewares.login);
-// app.get('/crush', middlewares.token, middlewares.getCrush);
-// app.post('/crush', middleares.token, middlewares.createCrush);
-// app.get('/crush/:id', middlewares.token, middlewares.searchCrush);
-// app.put('/crush/:id', middlewares.token, middlewares.editCrush);
-// app.delete('/crush/:id', middlewares.token, middlewares.deleteCrush);
+
+// requisito 3 - ler todos os crush
+app.get('/crush', middlewares.auth, middlewares.ler);
+
+//app.post('/crush', middleares.auth, middlewares.createCrush);
+// app.get('/crush/:id', middlewares.auth, middlewares.searchCrush);
+// app.put('/crush/:id', middlewares.auth, middlewares.editCrush);
+// app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
 
 const PORT = 3000;
 app.listen(PORT, console.log(`Toc toc, é o crush? ${PORT}`));
