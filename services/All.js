@@ -7,11 +7,4 @@ const ler = async () => {
   return obj;
 };
 
-ler();
-
 module.exports = { ler };
-
-/* const criar = async () => {
-  const addCrush = await fs.writeFile('./crush.json', 'utf8');
-}
-*/

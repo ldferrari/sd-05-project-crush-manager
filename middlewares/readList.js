@@ -1,12 +1,11 @@
-/* const ler = require('../services/All');
+const { ler } = require('../services/All');
 
-module.exports = (_req, res) => {
-  // const read = [];
-  if (!ler == []) {
-    return res.status(200).json(ler);
-  }
-  if (ler == []) {
+module.exports = async (_, res) => {
+  const lista = await ler();
+  if (!lista) {
     return res.status(200).json([]);
   }
+  if (lista) {
+    return res.status(200).json(lista);
+  }
 };
-*/

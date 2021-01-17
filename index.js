@@ -14,9 +14,9 @@ app.get('/', (request, response) => {
 app.post('/login', middlewares.login);
 
 // requisito 3 - ler todos os crush
-app.get('/crush', middlewares.auth, middlewares.ler);
+app.get('/crush', middlewares.auth, middlewares.readList);
 
-//app.post('/crush', middleares.auth, middlewares.createCrush);
+// app.post('/crush', middleares.auth, middlewares.createCrush);
 // app.get('/crush/:id', middlewares.auth, middlewares.searchCrush);
 // app.put('/crush/:id', middlewares.auth, middlewares.editCrush);
 // app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
