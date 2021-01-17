@@ -1,6 +1,6 @@
 // metodo 'filesystem = fs' promise = assincrono
 const fs = require('fs').promises;
-const newArry =require('../middlewares/updateCrush';)
+// const newArry = require('../middlewares/updateCrush');
 
 // Ler e transforma a './crush.json' em objeto
 const readJSON = async () => {
@@ -19,9 +19,9 @@ const incrementJSON = async (req, res) => {
   return res.status(201).json({ id, name, age, date });
 };
 
-// realiza update no ''./crush.json e transforma em string
-const editJSON = async (newArry => {
-  fs.writeFile('./crush.json', JSON.stringify(newArry));
-};
+// // realiza update no ''./crush.json e transforma em string
+// const editJSON = async (newCrushReadJSON) => {
+//   fs.writeFile('./crush.json', JSON.stringify(newCrushReadJSON));
+// };
 
-module.exports = { readJSON, incrementJSON, editJSON };
+module.exports = { readJSON, incrementJSON };
