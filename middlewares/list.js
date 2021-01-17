@@ -1,5 +1,6 @@
 const { readJSON } = require('../services/allCrush');
 
+// underscore require
 module.exports = async (_, res) => {
   const listarList = await readJSON();
   if (!listarList) return [];
