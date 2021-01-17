@@ -32,7 +32,7 @@ app.post('/crush', middlewares.auth, middlewares.createCrush, middlewares.increm
 app.get('/crush', middlewares.auth, middlewares.list);
 
 // REQUISITO 4
-// GET /crush/:id 
+// GET /crush/:id
 app.get('/crush/:id', middlewares.auth, middlewares.crushIdFind);
 
 // Port para escutar na porta 3000

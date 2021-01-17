@@ -1,5 +1,3 @@
-const { response } = require('express');
-const { crushIdFind } = require('.');
 const { readJSON } = require('../services/allCrush');
 
 // https://expressjs.com/pt-br/guide/using-middleware.html
