@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 
 // require da pasta de middlewares
 const middlewares = require('./middlewares');
+// const { readJSON } =require('./services/allCrush')
 
 // use bodyParser
 app.use(bodyParser.json());
@@ -20,6 +21,19 @@ app.get('/', (request, response) => {
 // REQUISITO 1
 // POST (cria) um login
 app.post('/login', middlewares.login);
+
+// REQUISITO 2
+// POST (cria) um novo crush
+// 2 - Crie o endpoint POST /crush
+// app.post('/crush', middlewares.createCrush, middlewares.incrementCrush);
+
+// REQUISITO 3
+// GET do crush
+// app.get('/crush', middlewares.auth, async (_req, res) => {
+//   const listarList = await readJSON();
+//   res.status(200).json(listarList);
+// });
+app.get('/crush', middlewares.auth, middlewares.list);
 
 // Port para escutar na porta 3000
 const PORT = 3000;
