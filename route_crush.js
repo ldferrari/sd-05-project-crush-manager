@@ -51,6 +51,18 @@ router.post('/', checkCrushFields, async (req, res) => {
   res.status(201).json(newArrayOfCrush[id - 1]); // atribuindo a posicao exata do index
 });
 
+router.get('/search', async (req, res) => {
+  const { q } = req.query;
+
+  const readCrush = await readCrushFile(); // função readCrushFile linha 15
+
+  const search = readCrush.filter((crush) => crush.name.includes(q));
+  if (q === false) {
+    return res.status(200).send(readCrush);
+  }
+  return res.status(200).send(search);
+});
+
 router.get('/:id', async (req, res) => {
   const crush = await readCrushFile();
 
