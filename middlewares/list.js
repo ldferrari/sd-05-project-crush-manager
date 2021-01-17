@@ -1,4 +1,4 @@
-const { readJSON }  = require('../services/allCrush');
+const { readJSON } = require('../services/allCrush');
 
 module.exports = async (_, res) => {
   const listarList = await readJSON();
