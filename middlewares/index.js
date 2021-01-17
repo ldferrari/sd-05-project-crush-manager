@@ -3,8 +3,8 @@ const auth = require('./auth');
 const createCrush = require('./createCrush');
 // const readJSON = require('../services/allCrush');
 const list = require('./list');
-// const readList = require('./readList');
 const { incrementCrush } = require('../services/allCrush');
+const crushIdFind = require('./crushIdFind');
 
 module.exports = {
   login,
@@ -12,5 +12,6 @@ module.exports = {
   createCrush,
   list,
   incrementCrush,
+  crushIdFind,
   // readJSON,
 };

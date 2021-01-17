@@ -29,11 +29,11 @@ app.post('/crush', middlewares.auth, middlewares.createCrush, middlewares.increm
 
 // REQUISITO 3
 // GET do crush
-// app.get('/crush', middlewares.auth, async (_req, res) => {
-//   const listarList = await readJSON();
-//   res.status(200).json(listarList);
-// });
 app.get('/crush', middlewares.auth, middlewares.list);
+
+// REQUISITO 4
+// GET /crush/:id 
+app.get('/crush/:id', middlewares.auth, middlewares.crushIdFind);
 
 // Port para escutar na porta 3000
 const PORT = 3000;
