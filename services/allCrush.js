@@ -19,9 +19,4 @@ const incrementJSON = async (req, res) => {
   return res.status(201).json({ id, name, age, date });
 };
 
-// // realiza update no ''./crush.json e transforma em string
-// const editJSON = async (newCrushReadJSON) => {
-//   fs.writeFile('./crush.json', JSON.stringify(newCrushReadJSON));
-// };
-
 module.exports = { readJSON, incrementJSON };
