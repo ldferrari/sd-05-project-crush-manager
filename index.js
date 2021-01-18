@@ -20,7 +20,8 @@ app.get('/crush', middlewares.auth, middlewares.readList);
 // requisito 2 - criar novo crush
 app.post('/crush', middlewares.auth, middlewares.createCrush, middlewares.novo);
 
-// app.get('/crush/:id', middlewares.auth, middlewares.searchCrush);
+// requisito 4
+app.get('/crush/:id', middlewares.auth, middlewares.searchCrush);
 // app.put('/crush/:id', middlewares.auth, middlewares.editCrush);
 // app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
 
