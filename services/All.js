@@ -7,4 +7,13 @@ const ler = async () => {
   return obj;
 };
 
-module.exports = { ler };
+const novo = async (req, res) => {
+  const { name, age, date } = req.body;
+  const esperaLer = await ler();
+  const id = esperaLer.length + 1;
+  const newCrush = [...esperaLer, { id, name, age, date }];
+  fs.writeFile('./crush.json', JSON.stringify(newCrush));
+  return res.status(201).json({ id, name, age, date });
+};
+
+module.exports = { ler, novo };

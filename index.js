@@ -1,3 +1,4 @@
+// Codando junto com Samuel dia 16/01
 const express = require('express');
 const bodyParser = require('body-parser');
 const middlewares = require('./middlewares');
@@ -16,7 +17,9 @@ app.post('/login', middlewares.login);
 // requisito 3 - ler todos os crush
 app.get('/crush', middlewares.auth, middlewares.readList);
 
-// app.post('/crush', middleares.auth, middlewares.createCrush);
+// requisito 2 - criar novo crush
+app.post('/crush', middlewares.auth, middlewares.createCrush, middlewares.novo);
+
 // app.get('/crush/:id', middlewares.auth, middlewares.searchCrush);
 // app.put('/crush/:id', middlewares.auth, middlewares.editCrush);
 // app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
