@@ -25,7 +25,7 @@ app.post('/login', middlewares.login);
 // REQUISITO 2
 // POST (cria) um novo crush
 // 2 - Crie o endpoint POST /crush
-app.post('/crush', middlewares.auth, middlewares.createCrush, middlewares.incrementCrush);
+app.post('/crush', middlewares.auth, middlewares.createCrush, middlewares.incrementJSON);
 
 // REQUISITO 3
 // GET do crush
