@@ -22,7 +22,9 @@ app.post('/crush', middlewares.auth, middlewares.createCrush, middlewares.novo);
 
 // requisito 4
 app.get('/crush/:id', middlewares.auth, middlewares.searchCrush);
-// app.put('/crush/:id', middlewares.auth, middlewares.editCrush);
+
+// requisito 5
+app.put('/crush/:id', middlewares.auth, middlewares.editCrush);
 // app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
 
 const PORT = 3000;
