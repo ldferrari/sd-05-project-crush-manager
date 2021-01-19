@@ -27,7 +27,7 @@ app.post('/crush', middlewares.auth, middlewares.createCrush, middlewares.novo);
 app.get('/crush/:id', middlewares.auth, middlewares.searchCrush);
 
 // requisito 5
-// app.put('/crush/:id', middlewares.auth, middlewares.editCrush);
+app.put('/crush/:id', middlewares.auth, middlewares.createCrush, middlewares.editCrush);
 
 // requisito 6
 app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);

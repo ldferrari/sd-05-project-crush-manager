@@ -7,6 +7,7 @@ const ler = require('../services/All');
 const searchCrush = require('./searchCrush');
 const deleteCrush = require('./deleteCrush');
 const pesquisar = require('./pesquisar');
+const editCrush = require('./editCrush');
 
 module.exports = {
   login,
@@ -18,4 +19,5 @@ module.exports = {
   searchCrush,
   deleteCrush,
   pesquisar,
+  editCrush,
 };
