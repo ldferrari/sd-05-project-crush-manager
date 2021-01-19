@@ -1,4 +1,4 @@
-// Codando junto com Samuel dia 16/01
+// Codando junto com Samuel dia 16/01 - peguei assinatura do Coruja
 const express = require('express');
 const bodyParser = require('body-parser');
 const middlewares = require('./middlewares');
@@ -24,8 +24,10 @@ app.post('/crush', middlewares.auth, middlewares.createCrush, middlewares.novo);
 app.get('/crush/:id', middlewares.auth, middlewares.searchCrush);
 
 // requisito 5
-app.put('/crush/:id', middlewares.auth, middlewares.editCrush);
-// app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
+// app.put('/crush/:id', middlewares.auth, middlewares.editCrush);
 
-const PORT = 3000;
+// requisito 6
+app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
+
+const PORT = 5000;
 app.listen(PORT, console.log(`Toc toc, é o crush? ${PORT}`));
