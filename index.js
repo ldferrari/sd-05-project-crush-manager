@@ -33,6 +33,10 @@ app.post('/crush', middlewares.auth, middlewares.createCrush, middlewares.increm
 // GET do crush
 app.get('/crush', middlewares.auth, middlewares.list);
 
+// REQUISITO 7
+// GET /crush/search?q=searchTerm
+app.get('/crush/search', middlewares.auth, middlewares.searchTerm);
+
 // REQUISITO 4
 // GET /crush/:id
 app.get('/crush/:id', middlewares.auth, middlewares.crushIdFind);
@@ -44,10 +48,6 @@ app.put('/crush/:id', middlewares.auth, middlewares.createCrush, middlewares.upd
 // REQUISITO 6
 // endpoint DELETE /crush/:id
 app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
-
-// REQUISITO 7
-// GET /crush/search?q=searchTerm
-app.get('/crush/search', middlewares.auth, middlewares.searchTerm);
 
 // Port para escutar na porta 3000
 const PORT = 3000;
