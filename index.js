@@ -1,3 +1,5 @@
+// [ Honestidade acadêmica ] -
+// Projeto realizado Pair programming com a aluna Larissa Palombo #55
 const express = require('express');
 
 const app = express();
@@ -42,6 +44,10 @@ app.put('/crush/:id', middlewares.auth, middlewares.createCrush, middlewares.upd
 // REQUISITO 6
 // endpoint DELETE /crush/:id
 app.delete('/crush/:id', middlewares.auth, middlewares.deleteCrush);
+
+// REQUISITO 7
+// GET /crush/search?q=searchTerm
+app.get('/crush/search', middlewares.auth, middlewares.searchTerm);
 
 // Port para escutar na porta 3000
 const PORT = 3000;

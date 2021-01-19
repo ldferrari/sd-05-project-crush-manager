@@ -7,6 +7,7 @@ const { incrementJSON } = require('../services/allCrush');
 const crushIdFind = require('./crushIdFind');
 const updateCrush = require('./updateCrush');
 const deleteCrush = require('./deleteCrush');
+const searchTerm = require('./searchTerm');
 
 module.exports = {
   login,
@@ -17,5 +18,6 @@ module.exports = {
   crushIdFind,
   updateCrush,
   deleteCrush,
+  searchTerm,
   // readJSON,
 };
