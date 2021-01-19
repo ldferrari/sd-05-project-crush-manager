@@ -6,6 +6,7 @@ const { novo } = require('../services/All');
 const ler = require('../services/All');
 const searchCrush = require('./searchCrush');
 const deleteCrush = require('./deleteCrush');
+const pesquisar = require('./pesquisar');
 
 module.exports = {
   login,
@@ -16,4 +17,5 @@ module.exports = {
   novo,
   searchCrush,
   deleteCrush,
+  pesquisar,
 };
